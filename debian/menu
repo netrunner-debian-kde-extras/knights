@@ -2,5 +2,5 @@
 needs="X11"\
 section="Games/Board"\
 title="Knights"\
-command="/usr/bin/knights"\
+command="/usr/games/knights"\
 icon="/usr/share/pixmaps/knights.xpm"
