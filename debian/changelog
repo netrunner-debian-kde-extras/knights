@@ -9,6 +9,7 @@ knights (2.0.1-1) UNRELEASED; urgency=low
     - Removed: kdelibs4-dev, dpatch
   * Don't install TODO as doc, since this file doesn't exist anymore.
   * Set dephelper compatibility level to 7.
+  * Switch to dpkg source format 3.0 (quilt).
 
  -- José Manuel Santamaría Lema <panfaust@gmail.com>  Thu, 03 Jun 2010 19:06:32 +0200
 
