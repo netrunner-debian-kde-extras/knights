@@ -8,6 +8,9 @@ knights (2.0.1-1) UNRELEASED; urgency=low
     - Added: cdbs, pkg-kde-tools, cmake, kdelibs5-dev, libkdegames-dev
     - Removed: kdelibs4-dev, dpatch, poxml, imagemagick, libx11-dev,
       libxext-dev, libxinerama-dev, libxpm-dev, x-dev
+  * Updated Depends:
+    - Added: ${misc:Depends}
+    - Removed: kdebase-kio-plugins
   * Don't install TODO as doc, since this file doesn't exist anymore.
   * Set dephelper compatibility level to 7.
   * Switch to dpkg source format 3.0 (quilt).

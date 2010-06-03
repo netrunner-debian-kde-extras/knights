@@ -9,7 +9,7 @@ Standards-Version: 3.7.2
 
 Package: knights
 Architecture: any
-Depends: ${shlibs:Depends}, kdebase-kio-plugins
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Suggests: gnuchess | crafty | sjeng, knights-themepack
 Description: A chess interface for the K Desktop Environment
  Knights aims to be the ultimate chess resource on your computer. 
