@@ -15,6 +15,8 @@ knights (2.0.1-1) UNRELEASED; urgency=low
   * Set dephelper compatibility level to 7.
   * Switch to dpkg source format 3.0 (quilt).
   * Updated description and homepage.
+  * Delete debian/watch for now because upstream is not using
+    sourceforge anymore.
 
  -- José Manuel Santamaría Lema <panfaust@gmail.com>  Thu, 03 Jun 2010 19:06:32 +0200
 
