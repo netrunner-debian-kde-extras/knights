@@ -1,3 +1,16 @@
+knights (2.0.1-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+  * Set myself as Uploader and Debian KDE Extras Team as Maintainer.
+    (Closes: #512524)
+  * Switch debian/rules to cdbs.
+  * Updated Build-Depends:
+    - Added: pkg-kde-tools, cmake, kdelibs5-dev, libkdegames-dev
+    - Removed: kdelibs4-dev, dpatch
+  * Don't install TODO as doc, since this file doesn't exist anymore.
+
+ -- José Manuel Santamaría Lema <panfaust@gmail.com>  Thu, 03 Jun 2010 19:06:32 +0200
+
 knights (0.6-8.2) unstable; urgency=low
 
   * Non-maintainer upload.

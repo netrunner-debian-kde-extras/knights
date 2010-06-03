@@ -1,9 +1,11 @@
 Source: knights
 Section: games
 Priority: optional
-Maintainer: Jose Carlos Medeiros <debian@psabs.com.br>
-Uploaders: Ola Lundqvist <opal@debian.org>
-Build-Depends: debhelper (>= 5.0.0), kdelibs4-dev, poxml, dpatch, imagemagick, libx11-dev, libxext-dev, libxinerama-dev, libxpm-dev, x-dev
+Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
+Uploaders: José Manuel Santamaría Lema <panfaust@gmail.com>
+Build-Depends: debhelper (>= 5.0.0), pkg-kde-tools, cmake, kdelibs5-dev,
+ libkdegames-dev,
+ poxml, imagemagick, libx11-dev, libxext-dev, libxinerama-dev, libxpm-dev, x-dev
 Standards-Version: 3.7.2
 
 Package: knights
