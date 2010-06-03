@@ -1,0 +1,33 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 03_noGPLonload.dpatch by Claudio Moratti <maxer@knio.it>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: No description.
+
+@DPATCH@
+diff -urNad knights-0.6~/knights/knights.cpp knights-0.6/knights/knights.cpp
+--- knights-0.6~/knights/knights.cpp	2003-03-02 11:34:04.000000000 +0100
++++ knights-0.6/knights/knights.cpp	2006-04-07 15:52:08.000000000 +0200
+@@ -199,8 +199,8 @@
+ 		Wizard->exec();
+ 		delete Wizard;
+ 		resizeMainFrame();
+-		if( !Resource->Accepted_License )
+-			return FALSE;
++	/*	if( !Resource->Accepted_License )
++			return FALSE;*/
+ 		Resource->Config_Version = CONFIG_VERSION;
+ 	}
+ 
+diff -urNad knights-0.6~/knights/wiz_setup.cpp knights-0.6/knights/wiz_setup.cpp
+--- knights-0.6~/knights/wiz_setup.cpp	2003-01-21 11:50:11.000000000 +0100
++++ knights-0.6/knights/wiz_setup.cpp	2006-04-07 15:51:45.000000000 +0200
+@@ -40,7 +40,7 @@
+ 				Page 5 - Finished
+ 	*/
+ 	initPage1();
+-	initPage6();
++//	initPage6();
+ 	if( myResource->Config_Version < 1 )
+ 	{
+ //		initPage2();

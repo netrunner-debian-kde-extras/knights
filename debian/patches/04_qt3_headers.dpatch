@@ -1,0 +1,43 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 04_qt3_headers.dpatch by  <bdefreese@debian2.bddebian.com>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: No description.
+
+@DPATCH@
+diff -urNad knights-0.6~/knights/io_internet.cpp knights-0.6/knights/io_internet.cpp
+--- knights-0.6~/knights/io_internet.cpp	2003-02-24 08:04:14.000000000 -0500
++++ knights-0.6/knights/io_internet.cpp	2008-02-07 21:16:31.000000000 -0500
+@@ -26,7 +26,7 @@
+ #include <qregexp.h>
+ #include <qdns.h>
+ #include <qsocket.h>
+-#include <qlist.h>
++#include <qptrlist.h>
+ 
+ /* Local */
+ #include "io_internet.moc"
+diff -urNad knights-0.6~/knights/setpageengines.h knights-0.6/knights/setpageengines.h
+--- knights-0.6~/knights/setpageengines.h	2003-01-14 05:42:44.000000000 -0500
++++ knights-0.6/knights/setpageengines.h	2008-02-07 21:15:59.000000000 -0500
+@@ -25,7 +25,7 @@
+ #include <qcheckbox.h>
+ #include <qwidget.h>
+ #include <qgroupbox.h>
+-#include <qlist.h>
++#include <qptrlist.h>
+ #include <qhbox.h>
+ #include <qlayout.h>
+ #include "resource.h"
+diff -urNad knights-0.6~/knights/setpageservers.h knights-0.6/knights/setpageservers.h
+--- knights-0.6~/knights/setpageservers.h	2003-01-14 05:42:44.000000000 -0500
++++ knights-0.6/knights/setpageservers.h	2008-02-07 21:16:16.000000000 -0500
+@@ -32,7 +32,7 @@
+ #include <qpushbutton.h>
+ #include <qcheckbox.h>
+ #include <qspinbox.h>
+-#include <qlist.h>
++#include <qptrlist.h>
+ #include <qlayout.h>
+ #include "resource.h"
+ #include "dlg_server.h"

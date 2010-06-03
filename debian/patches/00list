@@ -1,0 +1,5 @@
+01_gcc-4.0-fix.dpatch
+02_de.po.dpatch
+03_noGPLonload.dpatch
+04_qt3_headers.dpatch
+
