@@ -8,6 +8,7 @@ knights (2.0.1-1) UNRELEASED; urgency=low
     - Added: pkg-kde-tools, cmake, kdelibs5-dev, libkdegames-dev
     - Removed: kdelibs4-dev, dpatch
   * Don't install TODO as doc, since this file doesn't exist anymore.
+  * Set dephelper compatibility level to 7.
 
  -- José Manuel Santamaría Lema <panfaust@gmail.com>  Thu, 03 Jun 2010 19:06:32 +0200
 
