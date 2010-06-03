@@ -4,8 +4,7 @@ Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: José Manuel Santamaría Lema <panfaust@gmail.com>
 Build-Depends: debhelper (>= 7), cdbs, pkg-kde-tools, cmake, kdelibs5-dev,
- libkdegames-dev,
- poxml, imagemagick, libx11-dev, libxext-dev, libxinerama-dev, libxpm-dev, x-dev
+ libkdegames-dev
 Standards-Version: 3.7.2
 
 Package: knights
