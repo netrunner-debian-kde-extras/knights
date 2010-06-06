@@ -17,6 +17,7 @@ knights (2.0.1-1) UNRELEASED; urgency=low
   * Updated description and homepage.
   * Delete debian/watch for now because upstream is not using
     sourceforge anymore.
+  * Updated debian/copyright.
 
  -- José Manuel Santamaría Lema <panfaust@gmail.com>  Thu, 03 Jun 2010 19:06:32 +0200
 
