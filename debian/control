@@ -5,7 +5,7 @@ Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: José Manuel Santamaría Lema <panfaust@gmail.com>
 Build-Depends: debhelper (>= 7), cdbs, pkg-kde-tools, cmake, kdelibs5-dev,
  libkdegames-dev
-Standards-Version: 3.7.2
+Standards-Version: 3.8.4
 Homepage: http://kde-apps.org/content/show.php/Knights?content=122046
 
 Package: knights

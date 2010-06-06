@@ -19,6 +19,7 @@ knights (2.0.1-1) UNRELEASED; urgency=low
     sourceforge anymore.
   * Updated debian/copyright.
   * Updated debian/knights.1 manpage.
+  * Bump Standards-Version to 3.8.4.
 
  -- José Manuel Santamaría Lema <panfaust@gmail.com>  Thu, 03 Jun 2010 19:06:32 +0200
 
