@@ -20,6 +20,11 @@ knights (2.0.1-1) UNRELEASED; urgency=low
   * Updated debian/copyright.
   * Updated debian/knights.1 manpage.
   * Bump Standards-Version to 3.8.4.
+  * Dropped obsolete patches:
+    - 01_gcc-4.0-fix.dpatch
+    - 02_de.po.dpatch
+    - 03_noGPLonload.dpatch
+    - 04_qt3_headers.dpatch
 
  -- José Manuel Santamaría Lema <panfaust@gmail.com>  Thu, 03 Jun 2010 19:06:32 +0200
 
