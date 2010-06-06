@@ -25,6 +25,7 @@ knights (2.0.1-1) UNRELEASED; urgency=low
     - 02_de.po.dpatch
     - 03_noGPLonload.dpatch
     - 04_qt3_headers.dpatch
+  * Added patch 01_add_categories_to_desktop_file.diff
 
  -- José Manuel Santamaría Lema <panfaust@gmail.com>  Thu, 03 Jun 2010 19:06:32 +0200
 

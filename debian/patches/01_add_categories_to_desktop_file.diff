@@ -1,0 +1,15 @@
+# Description: Add categories desktop file in order to see the program in the
+#  right place of the KDE menu.
+# Forwarded: no, patch stolen from upstream, see
+#  http://websvn.kde.org/?view=revision&revision=1129670
+# Author: Miha Čančula <miha.cancula@gmail.com>
+--- trunk.orig/src/knights.desktop
++++ trunk/src/knights.desktop
+@@ -9,6 +9,7 @@
+ Icon=knights
+ Type=Application
+ X-DocPath=knights/index.html
++Categories=Qt;KDE;Game;BoardGame;
+ GenericName=Chess game
+ GenericName[es]=Ajedrez
+ GenericName[pt]=Jogo de xadrez
