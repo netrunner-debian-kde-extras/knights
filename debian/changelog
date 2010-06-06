@@ -11,6 +11,9 @@ knights (2.0.1-1) UNRELEASED; urgency=low
   * Updated Depends:
     - Added: ${misc:Depends}
     - Removed: kdebase-kio-plugins
+  * Updated Suggests and Recommends:
+    - moved gnuchess from Suggests to Recommends
+    - removed crafty, sjeng, knights-themepack
   * Set dephelper compatibility level to 7.
   * Switch to dpkg source format 3.0 (quilt).
   * Updated description and homepage.

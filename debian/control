@@ -11,7 +11,7 @@ Homepage: http://kde-apps.org/content/show.php/Knights?content=122046
 Package: knights
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Suggests: gnuchess | crafty | sjeng, knights-themepack
+Recommends: gnuchess
 Description: A chess interface for the K Desktop Environment
  Knights aims to be the ultimate chess resource on your computer. 
  Written for the K Desktop Environment, it's designed to be both friendly 
