@@ -6,3 +6,7 @@ DEB_DH_INSTALL_ARGS += debian/knights.xpm /usr/share/pixmaps
 
 include /usr/share/pkg-kde-tools/makefiles/1/cdbs/kde.mk
 include /usr/share/cdbs/1/rules/debhelper.mk
+
+debian/knights.xpm: icons/hi32-app-knights.png
+	convert $< $@
+
