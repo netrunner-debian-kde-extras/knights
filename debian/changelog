@@ -1,4 +1,4 @@
-knights (2.0.1-1) UNRELEASED; urgency=low
+knights (2.0.1-1) experimental; urgency=low
 
   * New upstream release.
   * Set myself as Uploader and Debian KDE Extras Team as Maintainer.
@@ -30,7 +30,7 @@ knights (2.0.1-1) UNRELEASED; urgency=low
   * Added patch 01_add_categories_to_desktop_file.diff
   * Removed obsolete and uneccesary files debian/debiandirs debian/docs.
 
- -- José Manuel Santamaría Lema <panfaust@gmail.com>  Thu, 03 Jun 2010 19:06:32 +0200
+ -- José Manuel Santamaría Lema <panfaust@gmail.com>  Sun, 13 Jun 2010 12:21:13 +0200
 
 knights (0.6-8.2) unstable; urgency=low
 
