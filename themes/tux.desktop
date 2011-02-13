@@ -1,0 +1,21 @@
+[KGameTheme]
+Name=Tux
+Name[es]=Tux
+Name[pt]=Tux
+Name[sv]=Tux
+Name[uk]=Тукс
+Name[x-test]=xxTuxxx
+Description=Knights theme featuring Tux.
+Description[es]=Tema de Knights con la aparición de Tux
+Description[pt]=Um tema do Knights com o Tux.
+Description[sv]=Springartema med medverkan av Tux
+Description[uk]=Тема Knights з Туксом.
+Description[x-test]=xxKnights theme featuring Tux.xx
+VersionFormat=1
+Author=basse
+AuthorEmail=basse@kulma.org
+Type=SVG
+FileName=tux.svg
+Preview=tux.png
+
+
