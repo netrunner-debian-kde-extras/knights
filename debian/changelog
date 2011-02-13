@@ -1,6 +1,7 @@
 knights (2.0.1-2) UNRELEASED; urgency=low
 
   * Point debian/control Vcs fields to the new Git repository.
+  * Bump Standards-Version to 3.9.1, no changes needed.
 
  -- José Manuel Santamaría Lema <panfaust@gmail.com>  Sun, 13 Feb 2011 21:59:24 +0100
 
