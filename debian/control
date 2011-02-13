@@ -7,6 +7,8 @@ Build-Depends: debhelper (>= 7), cdbs, pkg-kde-tools, cmake, kdelibs5-dev (>> 4:
  libkdegames-dev (>> 4:4.4)
 Standards-Version: 3.8.4
 Homepage: http://kde-apps.org/content/show.php/Knights?content=122046
+Vcs-Browser: http://git.debian.org/?p=pkg-kde/kde-extras/knights.git
+Vcs-Git: git://git.debian.org/pkg-kde/kde-extras/knights.git
 
 Package: knights
 Architecture: any
