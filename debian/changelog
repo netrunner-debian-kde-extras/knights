@@ -1,6 +1,7 @@
 knights (2.2.0-1) UNRELEASED; urgency=low
 
   * New upstream release.
+  * Remove 01_add_categories_to_desktop_file.diff, no longer needed.
 
  -- José Manuel Santamaría Lema <panfaust@gmail.com>  Thu, 17 Feb 2011 12:29:35 +0100
 
