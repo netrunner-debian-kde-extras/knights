@@ -1,0 +1,40 @@
+[KGameTheme]
+Name=Plain
+Name[da]=Almindeligt
+Name[de]=Einfach
+Name[en_GB]=Plain
+Name[et]=Tavaline
+Name[hu]=Sima
+Name[it]=Semplice
+Name[nds]=Liekut
+Name[nl]=Gewoon
+Name[pt]=Simples
+Name[pt_BR]=Simples
+Name[ru]=Простое
+Name[sv]=Enkel
+Name[uk]=Звичайна
+Name[x-test]=xxPlainxx
+Name[zh_TW]=普通
+Description=A plain and simple theme
+Description[da]=Et almindeligt simpelt tema
+Description[de]=Ein einfaches Design für Knights.
+Description[en_GB]=A plain and simple theme
+Description[et]=Lihtne teema
+Description[hu]=Egy sima és egyszerű téma
+Description[it]=Un semplice tema
+Description[nds]=En liekut un eenfach Muster
+Description[nl]=Een gewoon en eenvoudig thema
+Description[pt]=Um tema simples
+Description[pt_BR]=Um tema simples
+Description[ru]=Простое оформление
+Description[sv]=Ett vanligt enkelt tema
+Description[uk]=Проста тема.
+Description[x-test]=xxA plain and simple themexx
+Description[zh_TW]=普通、簡單的主題
+VersionFormat=1
+Author=Colin M. L. Burnett
+Type=SVG
+FileName=plain.svgz
+Preview=plain.png
+
+

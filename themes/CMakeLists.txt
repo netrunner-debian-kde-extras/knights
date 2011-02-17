@@ -1,2 +1,17 @@
-install(FILES default.desktop knights.svg knights.png DESTINATION ${DATA_INSTALL_DIR}/knights/themes)
-install(FILES tux.desktop tux.svg tux.png DESTINATION ${DATA_INSTALL_DIR}/knights/themes)
+install(FILES
+    knights.desktop
+    knights.svgz
+    knights.png
+    plain.desktop
+    plain.svgz
+    plain.png
+    gray.desktop
+    gray.svgz
+    gray.png
+    xboard2.desktop
+    xboard2.svgz
+    xboard2.png
+    east_west.desktop
+    east_west.svgz
+    east_west.png
+    DESTINATION ${DATA_INSTALL_DIR}/knights/themes)

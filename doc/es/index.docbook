@@ -1,0 +1,255 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!ENTITY knights "<application
+>Knights</application
+>">
+  <!ENTITY kappname "&knights;">
+  <!ENTITY package "playground">
+  <!ENTITY kappversion "2.1.1"
+><!--Applicaion version. Use this variable everywhere it's needed.-->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Spanish "INCLUDE">
+]>
+<book lang="&language;">
+	<bookinfo>
+		<title
+>Manual de &knights;</title>
+
+		<authorgroup>
+			<author
+><firstname
+>Miha</firstname
+> <surname
+>Čančula</surname
+> <affiliation
+> <address
+> <email
+>miha.cancula@gmail.com</email>
+					</address>
+				</affiliation>
+			</author>
+			<othercredit role="translator"
+><firstname
+>Kira</firstname
+><surname
+>J. Fernández</surname
+><affiliation
+><address
+><email
+>kirajfdez@gmail.com</email
+></address
+></affiliation
+><contrib
+>Traductora</contrib
+></othercredit
+> 
+
+		</authorgroup>
+		<copyright>
+			<year
+>2008</year>
+			<holder
+>Miha Čančula</holder>
+		</copyright>
+
+		<legalnotice
+>&FDLNotice;
+		</legalnotice>
+
+		<date
+>2010-09-14</date
+><!-- Date of (re)writing, or update.-->
+		<releaseinfo
+>&kappversion; </releaseinfo
+><!-- Application version number. Use the variable definitions within header to change this value.-->
+
+		<abstract>
+			<para
+>Esta documentación describe el juego de &knights; versión &kappversion; </para>
+		</abstract>
+
+		<keywordset>
+			<keyword
+>KDE</keyword
+><!-- do not change this! -->
+			<keyword
+>kdegames</keyword
+><!-- do not change this! -->
+			<keyword
+>juego</keyword
+><!-- do not change this! -->
+			<keyword
+>tablero</keyword>
+			<keyword
+>ajedrez</keyword>
+			<keyword
+>knights</keyword>
+			<keyword
+>Knights</keyword>
+		</keywordset>
+
+	</bookinfo>
+
+	<chapter id="introduction">
+		<title
+>Introducción</title>
+		<note>
+			<title
+>Tipo de juego:</title>
+			<para
+>Tablero</para>
+		</note>
+		<note>
+			<title
+>Número de posibles jugadores:</title>
+			<para
+>Uno o dos</para>
+		</note>
+
+		<para
+>&knights; es un juego de ajedrez. Como jugador, su objetivo es derrotar a su oponente capturando su rey. </para>
+	</chapter>
+	<chapter id="starting-the-game">
+		<title
+>Iniciar el juego</title>
+		<para
+>Cuando el programa se inicia o el usuario selecciona <menuchoice
+><guimenu
+>Juego</guimenu
+> <guimenuitem
+>Nuevo</guimenuitem
+></menuchoice
+>, se muestra un diálogo. En este diálogo es posible especificar contra quién va a jugar, su color y los límites de tiempo. </para>
+		<mediaobject
+><imageobject
+><imagedata fileref="Knights-newgame-dialog.png"/></imageobject
+></mediaobject>
+		<para
+>Si desea jugar contra un amigo en el mismo equipo, seleccione <guilabel
+>Humano en el mismo equipo</guilabel
+>. Cuando presione <guibutton
+>Aceptar</guibutton
+>, puede empezar a jugar inmediatamente. </para>
+		<para
+>Si desea jugar contra una máquina, seleccione <guilabel
+>Máquina</guilabel
+> y asegúrese de que el programa que especifica está instalado en su equipo y que admite el protocolo XBoard. </para>
+		<para
+>Si desea jugar contra alguien a través de Internet, seleccione <guilabel
+>Humano en un servidor de ajedrez</guilabel
+>. Tendrá que iniciar sesión en el servidor y encontrar un oponente antes de empezar a jugar. El Servidor Libre de Ajedrez de Internet (<ulink url="http://freechess.org"
+>FreeChess.org</ulink
+>) admite invitados, pero tendrá que registrarse para jugar partidas que afecten a su calificación.  </para>
+	</chapter>
+	<chapter id="how-to-play">
+		<title
+>Cómo jugar</title>
+		<para
+>Las piezas se mueven haciendo clic sobre ellas y arrastrándolas hasta el punto deseado. Sólo puede mover una pieza si es suya, es su turno y si mover esa pieza no pone a su rey en peligro inmediato. </para>
+		<para
+>Las reglas completas del ajedrez pueden encontrarse en <ulink url="http://en.wikipedia.org/wiki/Rules_of_chess"
+>Wikipedia</ulink
+>. &knights; sigue estas reglas, así que no puede hacer movimientos ilegales. </para>
+
+	</chapter>
+	<chapter id="markers">
+		<title
+>Marcadores</title>
+		<para
+>Al hacer clic sobre su pieza durante su turno muestra un marcador sobre cada casilla a la que se puede mover esa pieza. </para>
+		<mediaobject
+><imageobject
+><imagedata fileref="Knights-moving-queen.png"/></imageobject
+></mediaobject>
+		<para
+>Cuando su oponente ha hecho un movimiento, su último movimiento se indica por marcadores similares. El color depende del tema. </para>
+		<mediaobject
+><imageobject
+><imagedata fileref="Knights-lastmove.png"/></imageobject
+></mediaobject>
+		<para
+>Si el último movimiento de su oponente ha puesto a su rey en peligro, su rey y todas las piezas atacantes también estarán resaltadas. </para>
+		<mediaobject
+><imageobject
+><imagedata fileref="Knights-danger.png"/></imageobject
+></mediaobject>
+		<note>
+			<title
+>Nota:</title>
+			<para
+>El color de los marcadores puede ser diferente, dependiendo del tema que esté usando. Algunos temas pueden no admitir todos los tipos de marcadores. </para>
+		</note>
+	</chapter>
+	<chapter id="configuration">
+		<title
+>Configuración del juego</title
+><!-- do not change this! -->
+		<para
+>El diálogo de configuración de &knights; le permite cambiar las opciones visuales, además de seleccionar temas para &knights;. </para>
+		<para
+>La sección <guimenu
+>General</guimenu
+> contiene opciones referidas a la apariencia general de &knights;. Aquí es posible habilitar o deshabilitar animaciones y cómo se muestran los tres tipos de marcadores. </para>
+		<para
+>Para seleccionar un nuevo tema, vaya a la sección <guimenu
+>Tema</guimenu
+> y elija el nombre del tema de la lista de selección. También puede descargar temas nuevos de la misma página haciendo clic en <guibutton
+>Obtener temas nuevos</guibutton
+>. </para>
+		<note>
+			<title
+>Nota:</title>
+			<para
+>Para su conveniencia, se mostrará una vista previa de la pantalla a la derecha de la lista de selección tan pronto como seleccione el tema en el que está interesado. </para>
+		</note>
+		<para
+>Una vez esté satisfecho con el tema que ha elegido, puede hacer clic en <guibutton
+>Aplicar</guibutton
+>, o simplemente hacer clic en el botón <guibutton
+>Aceptar</guibutton
+>, localizado en la parte inferior de este diálogo. </para>
+		<para
+>Si sin embargo no está satisfecho con su selección, simplemente haga clic en <guibutton
+>Cancelar</guibutton
+> para descartar los cambios. </para>
+	</chapter>
+
+	<chapter id="credits-and-licenses">
+		<title
+>Créditos y licencias</title>
+
+
+		<para
+>&knights;</para>
+		<itemizedlist>
+			<listitem>
+				<para
+>Miha Čančula <email
+>miha.cancula@gmail.com</email
+> - Autor original </para>
+			</listitem>
+		</itemizedlist>
+		<para
+>Copyright de la documentación 2010, Miha Čančula <email
+>miha.cancula@gmail.com</email
+> </para>
+		
+		<para
+>Traducido por Kira J. Fernández <email
+>kirajfdez@gmail.com</email
+>.</para
+> 
+&underFDL; &underGPL; </chapter>
+
+	<appendix id="installation">
+		<title
+>Instalación</title>
+
+		&install.intro.documentation;
+
+		&install.compile.documentation;
+
+	</appendix>
+
+
+</book>

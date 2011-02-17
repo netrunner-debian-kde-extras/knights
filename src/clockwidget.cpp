@@ -22,115 +22,145 @@
 #include "clockwidget.h"
 
 #include "ui_clockwidget.h"
-#include <QTimer>
 
 #include <KDebug>
-
+#include <QtCore/QTimer>
+#include <QtCore/QTime>
 
 using namespace Knights;
 
+const int timerInterval = 100; // update the time every timerInterval miliseconds
+
 ClockWidget::ClockWidget ( QWidget* parent, Qt::WindowFlags f ) : QWidget ( parent, f )
 {
-  ui = new Ui::ClockWidget;
-  ui->setupUi(this);
-  kDebug() << ui->progressB->invertedAppearance() << ui->progressW->invertedAppearance();
-  m_box[Piece::White] = ui->groupW;
-  m_box[Piece::Black] = ui->groupB;
+    ui = new Ui::ClockWidget;
+    ui->setupUi ( this );
+    m_box[White] = ui->groupW;
+    m_box[Black] = ui->groupB;
+
+    m_timeIncrement[White] = 0;
+    m_timeIncrement[Black] = 0;
 }
 
 ClockWidget::~ClockWidget()
 {
-  delete ui;
+    delete ui;
 }
 
-
-void ClockWidget::setActivePlayer ( Piece::Color color )
+void ClockWidget::setActivePlayer ( Color color )
 {
-  killTimer(m_timerId[Piece::oppositeColor(color)]);
-  m_timerId[color] = startTimer(100);
-  m_activePlayer = color;
+    killTimer ( m_timerId[m_activePlayer] );
+    if ( !m_started [ color ] )
+    {
+        m_started [ color ] = true;
+        return;
+    }
+    incrementTime ( m_activePlayer, m_timeIncrement[m_activePlayer] );
+    m_timerId[color] = startTimer ( timerInterval );
+    m_activePlayer = color;
 }
 
-
-void ClockWidget::setDisplayedPlayer ( Piece::Color color )
+void ClockWidget::setDisplayedPlayer ( Color color )
 {
-  ui->verticalLayout->addWidget(m_box[Piece::oppositeColor(color)]);
-  ui->verticalLayout->addWidget(m_box[color]);
+    ui->verticalLayout->addWidget ( m_box[oppositeColor ( color ) ] );
+    ui->verticalLayout->addWidget ( m_box[color] );
 }
 
-void ClockWidget::setPlayerName ( Piece::Color color, QString name )
+void ClockWidget::setPlayerName ( Color color, const QString& name )
 {
-  switch (color)
-  {
-    case Piece::White:
-      ui->groupW->setTitle(name);
-      break;
-    case Piece::Black:
-      ui->groupB->setTitle(name);
-      break;
-    default:
-      break;
-  }
+    switch ( color )
+    {
+        case White:
+            ui->groupW->setTitle ( name );
+            break;
+        case Black:
+            ui->groupB->setTitle ( name );
+            break;
+        default:
+            break;
+    }
 }
 
-void ClockWidget::setTimeLimit ( Piece::Color color, QTime time )
+void ClockWidget::setCurrentTime ( Color color, const QTime& time )
 {
-  m_timeLimit[color] = time;
-  int seconds = time.hour() * 3600 + time.minute() * 60 + time.second();
-  switch(color)
-  {
-    case Piece::White:
-      ui->timeW->setTime(time);
-      ui->progressW->setMaximum(10 * seconds);
-      ui->progressW->setValue(10 * seconds);
-      kDebug() << ui->progressW->maximum();
-      break;
-    case Piece::Black:
-      ui->timeB->setTime(time);
-      ui->progressB->setMaximum(10 * seconds);
-      ui->progressB->setValue(10 * seconds);
-      kDebug() << ui->progressB->maximum();
-      break;
-    default:
-      break;
-  }
+    m_currentTime[color] = time;
+    
+    const int miliSeconds = time.hour() * 3600 * 1000 + time.minute() * 60 * 1000 + time.second() * 1000 + time.msec();
+    const int units = miliSeconds / timerInterval;
+    QProgressBar* bar = ( color == White ) ? ui->progressW : ui->progressB;
+    if ( units > bar->maximum() )
+    {
+        bar->setMaximum ( units );
+    }
+    bar->setValue ( units );
+    bar->setFormat ( time.toString( QLatin1String("h:mm:ss") ) );
+
+    Clock* clock = ( color == White ) ? ui->clockW : ui->clockB;
+    clock->setTime ( time );
+}
+
+void ClockWidget::setTimeLimit ( Color color, const QTime& time )
+{
+    m_timeLimit[color] = time;
+    int seconds = time.hour() * 3600 + time.minute() * 60 + time.second();
+    switch ( color )
+    {
+        case White:
+            ui->progressW->setMaximum ( seconds * 1000 / timerInterval );
+            break;
+        case Black:
+            ui->progressB->setMaximum ( seconds * 1000 / timerInterval );
+            break;
+        default:
+            break;
+    }
+    setCurrentTime( color, time );
+}
+
+void ClockWidget::setTimeIncrement ( Color color, int seconds )
+{
+    m_timeIncrement[color] = 1000 * seconds;
+}
+
+void ClockWidget::incrementTime ( Color color, int miliseconds )
+{
+    switch ( color )
+    {
+        case White:
+            setCurrentTime ( White, m_currentTime[White].addMSecs ( miliseconds ) );
+            if ( ui->progressW->value() <= 0 )
+            {
+                emit timeOut ( White );
+                emit opponentTimeOut ( Black );
+            }
+            break;
+        case Black:
+            setCurrentTime ( Black, m_currentTime[Black].addMSecs ( miliseconds ) );
+            if ( ui->progressB->value() <= 0 )
+            {
+                emit timeOut ( Black );
+                emit opponentTimeOut ( White );
+            }
+            break;
+        default:
+            break;
+    }
 }
 
 void Knights::ClockWidget::timerEvent ( QTimerEvent* event )
 {
-  Q_UNUSED(event)
-  switch (m_activePlayer)
-  {
-    case Piece::White:
-      ui->progressW->setValue(ui->progressW->value() - 1);
-      ui->timeW->setTime(ui->timeW->time().addMSecs(-100));
-      if (ui->progressW->value() <= 0)
-      {
-        emit timeOut(Piece::White);
-        emit opponentTimeOut(Piece::Black);
-      }
-      break;
-    case Piece::Black:
-      ui->progressB->setValue(ui->progressB->value() - 1);
-      ui->timeB->setTime(ui->timeB->time().addMSecs(-100));
-      if (ui->progressB->value() <= 0)
-      {
-        emit timeOut(Piece::Black);
-        emit opponentTimeOut(Piece::White);
-      }
-      break;
-    default:
-      break;
-  }
+    Q_UNUSED ( event )
+    incrementTime ( m_activePlayer, -timerInterval );
 }
 
 void ClockWidget::pauseClock()
 {
-  killTimer(m_timerId[m_activePlayer]);
+    killTimer ( m_timerId[m_activePlayer] );
 }
 
 void ClockWidget::resumeClock()
 {
-  m_timerId[m_activePlayer] = startTimer(100);
+    m_timerId[m_activePlayer] = startTimer ( timerInterval );
 }
 
+// kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on;  replace-tabs on;  replace-tabs on;

@@ -24,50 +24,57 @@
 
 #include "core/piece.h"
 
-#include <QtCore/QTimer>
 #include <QtGui/QWidget>
-#include <QtCore/QTime>
 
 class QGroupBox;
 class QTimer;
+class QTime;
 
-namespace Ui {class ClockWidget;}
+namespace Ui
+{
+    class ClockWidget;
+}
 
 namespace Knights
 {
+    class ClockWidget : public QWidget
+    {
+            Q_OBJECT
+        public:
+            explicit ClockWidget ( QWidget* parent = 0, Qt::WindowFlags f = 0 );
+            ~ClockWidget ();
 
-class ClockWidget : public QWidget
-{
-  Q_OBJECT
-  public:
-        explicit ClockWidget ( QWidget* parent = 0, Qt::WindowFlags f = 0 );
-        ~ClockWidget ();
+        public Q_SLOTS:
+            void setTimeLimit ( Color color, const QTime& time );
+            void setTimeIncrement ( Color color, int seconds );
+            void incrementTime ( Color color, int miliseconds );
+            void setActivePlayer ( Color color );
+            void setDisplayedPlayer ( Color color );
+            void setPlayerName ( Color color, const QString& name );
+            void setCurrentTime ( Color color, const QTime& time );
 
-  public Q_SLOTS:
-    void setTimeLimit(Piece::Color color, QTime time);
-    void setActivePlayer(Piece::Color color);
-    void setDisplayedPlayer(Piece::Color color);
-    void setPlayerName(Piece::Color color, QString name);
+            void pauseClock();
+            void resumeClock();
 
-    void pauseClock();
-    void resumeClock();
+        Q_SIGNALS:
+            void timeOut ( Color );
+            void opponentTimeOut ( Color );
 
-  Q_SIGNALS:
-    void timeOut(Piece::Color);
-    void opponentTimeOut(Piece::Color);
-    
-  protected:
-        virtual void timerEvent ( QTimerEvent* );
+        protected:
+            virtual void timerEvent ( QTimerEvent* );
 
-  private:
-    Ui::ClockWidget* ui;
-    QMap<Piece::Color, QTimer> m_timer;
-    QMap<Piece::Color, int> m_timerId;
-        Piece::Color m_activePlayer;
-        QMap<Piece::Color, QTime> m_timeLimit;
-        QMap<Piece::Color, QGroupBox*> m_box;
-};
-
+        private:
+            Ui::ClockWidget* ui;
+            QMap<Color, QTimer> m_timer;
+            QMap<Color, int> m_timerId;
+            Color m_activePlayer;
+            QMap<Color, QTime> m_timeLimit;
+            QMap<Color, QTime> m_currentTime;
+            QMap<Color, QGroupBox*> m_box;
+            QMap<Color, int> m_timeIncrement;
+            QMap<Color, bool> m_started;
+    };
 }
 
 #endif // KNIGHTS_CLOCKWIDGET_H
+// kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on;  replace-tabs on;
