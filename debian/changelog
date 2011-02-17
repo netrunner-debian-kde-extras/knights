@@ -1,5 +1,6 @@
-knights (2.0.1-2) UNRELEASED; urgency=low
+knights (2.0.1-2) unstable; urgency=low
 
+  * Upload to unstable. (Closes: #604334, #591562, #528348, #366183)
   * Point debian/control Vcs fields to the new Git repository.
   * Bump Standards-Version to 3.9.1, no changes needed.
   * Move manpage to section 6 since this software is a game.
