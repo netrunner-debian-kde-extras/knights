@@ -1,3 +1,9 @@
+knights (2.2.0-1) UNRELEASED; urgency=low
+
+  * New upstream release.
+
+ -- José Manuel Santamaría Lema <panfaust@gmail.com>  Thu, 17 Feb 2011 12:29:35 +0100
+
 knights (2.0.1-2) unstable; urgency=low
 
   * Upload to unstable. (Closes: #604334, #591562, #528348, #366183)
