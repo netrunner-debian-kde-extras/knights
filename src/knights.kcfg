@@ -4,11 +4,10 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile />
-  <include>QtCore/QDateTime</include>
   <group name="KGameTheme">
         <entry name="Theme" type="String">
 	    <label>Theme file for the board</label>
-	    <default>default</default>
+	    <default>themes/gray.desktop</default>
 	</entry>
   </group>
   <group name="Preferences">
@@ -22,13 +21,46 @@
 	  <label>Moves animation speed</label>
 	  <default>Normal</default>
     </entry>
+    <entry name="animateBoard" type="Bool">
+      <label>whether the Board is animated during rotating and resizing</label>
+      <default>false</default>
+    </entry>
+    <entry name="borderDisplayType" type="Enum">
+      <choices>
+        <choice name="None" />
+        <choice name="Border" />
+        <choice name="Notation" />
+      </choices>
+	  <label>chessboard border type</label>
+	  <default>None</default>
+    </entry>
+    <entry name="showDanger" type="Bool">
+      <label>show check marker</label>
+      <default>true</default>
+    </entry>
+    <entry name="showMarker" type="Bool">
+      <label>show legal moves marker</label>
+      <default>true</default>
+    </entry>
+    <entry name="showMotion" type="Bool">
+      <label>show opponents move marker</label>
+      <default>true</default>
+    </entry>
     <entry name="playerTime" type="DateTime">
-      <label>time limit for the local or white player</label>
-      <default code="true">QDateTime::fromString("01:00", "HH:mm")</default>
+      <label>time limit for the local player</label>
+      <default code="true">QDateTime::fromString(QLatin1String("00:10"), QLatin1String("HH:mm"))</default>
+    </entry>
+     <entry name="playerTimeIncrement" type="DateTime">
+      <label>time increment per move for the local player</label>
+      <default code="true">QDateTime::fromString(QLatin1String("00:00"), QLatin1String("HH:mm"))</default>
     </entry>
     <entry name="opponentTime" type="DateTime">
-      <label>time limit for the computer, remote or black player</label>
-      <default code="true">QDateTime::fromString("01:00", "HH:mm")</default>
+      <label>time limit for the computer or remote player</label>
+      <default code="true">QDateTime::fromString(QLatin1String("00:10"), QLatin1String("HH:mm"))</default>
+    </entry>
+     <entry name="opponentTimeIncrement" type="DateTime">
+      <label>time increment per move for the computer or remote player</label>
+      <default code="true">QDateTime::fromString(QLatin1String("00:00"), QLatin1String("HH:mm"))</default>
     </entry>
     <entry name="sameTime" type="Bool">
       <label>whether both players have the same time limit</label>
@@ -43,16 +75,28 @@
     <entry name="protocol" type="Enum">
       <choices>
         <choice name="XBoard"/>
-        <choice name="GGZ"/>
-        <choice name="ICS" />
+        <choice name="FICS" />
         <choice name="None" />
       </choices>
       <label>protocol to be used for communication to opponent</label>
       <default>XBoard</default>
     </entry>
-    <entry name="program" type="String">
+    <entry name="color" type="Enum">
+      <choices>
+        <choice name="NoColor" />
+        <choice name="White" />
+        <choice name="Black" />
+      </choices>
+      <label>the local human player's color in a game against a computer or over the Internet.</label>
+      <default>NoColor</default>
+    </entry>
+    <entry name="program" type="Path">
       <label>program to run</label>
       <default>gnuchess --xboard</default>
+    </entry>
+    <entry name="ficsUsername" type="String">
+      <label>username for the Free Internet Chess Server</label>
+      <default></default>
     </entry>
   </group>
 </kcfg>

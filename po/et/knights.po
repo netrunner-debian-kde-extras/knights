@@ -1,0 +1,595 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Marek Laane <bald@smail.ee>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2010-12-05 02:23+0100\n"
+"PO-Revision-Date: 2010-12-14 04:48+0200\n"
+"Last-Translator: Marek Laane <bald@smail.ee>\n"
+"Language-Team: Estonian <kde-et@linux.ee>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. i18n: file: gamedialog.ui:144
+#. i18n: ectx: property (displayFormat), widget (QTimeEdit, playerTimeEdit)
+#. i18n: file: gamedialog.ui:161
+#. i18n: ectx: property (displayFormat), widget (QTimeEdit, oppTimeEdit)
+#. i18n: file: gamedialog.ui:171
+#. i18n: ectx: property (displayFormat), widget (QTimeEdit, playerIncTimeEdit)
+#. i18n: file: gamedialog.ui:181
+#. i18n: ectx: property (displayFormat), widget (QTimeEdit, oppIncTimeEdit)
+#: proto/ficsdialog.cpp:63 proto/ficsdialog.cpp:72 rc.cpp:47 rc.cpp:53
+#: rc.cpp:56 rc.cpp:59
+msgid "H:mm:ss"
+msgstr "H:mm:ss"
+
+#: proto/ficsdialog.cpp:88
+#, kde-format
+msgid "Challenge from %1 (%2)"
+msgstr "Kutse mängule: %1 (%2)"
+
+#: proto/ficsprotocol.cpp:219 knights.cpp:188
+msgid "You"
+msgstr "Sina"
+
+#: proto/ficsprotocol.cpp:237
+msgid "Accept"
+msgstr "Nõus"
+
+#: proto/ficsprotocol.cpp:238
+msgid "Decline"
+msgstr "Keeldu"
+
+#: proto/protocol.cpp:55
+msgid "No Error"
+msgstr "Tõrkeid pole"
+
+#: proto/protocol.cpp:58
+msgid "User Canceled"
+msgstr "Kasutaja katkestas"
+
+#: proto/protocol.cpp:61
+msgid "Network Error"
+msgstr "Võrgutõrge"
+
+#: proto/protocol.cpp:64
+msgid "Unknown Error"
+msgstr "Tundmatu tõrge"
+
+#: proto/protocol.cpp:67
+msgid "Program Error"
+msgstr "Programmi tõrge"
+
+#: proto/xboardproto.cpp:83
+#, kde-format
+msgid ""
+"Program <code>%1</code> could not be started, please check that it is "
+"installed."
+msgstr ""
+"Programmi <code>%1</code> ei saa käivitada, palun kontrolli, kas see on ikka "
+"paigaldatud."
+
+#: board.cpp:287
+msgid "Promote"
+msgstr "Muuda viguriks"
+
+#: board.cpp:288
+msgid "Promotion"
+msgstr "Viguriks muutmine"
+
+#. i18n: file: gamedialog.ui:85
+#. i18n: ectx: property (text), widget (QRadioButton, colorWhite)
+#. i18n: file: clockwidget.ui:44
+#. i18n: ectx: property (title), widget (QGroupBox, groupW)
+#: gamedialog.cpp:214 knights.cpp:214 knightsview.cpp:145 rc.cpp:26 rc.cpp:176
+msgid "White"
+msgstr "Valge"
+
+#. i18n: file: gamedialog.ui:92
+#. i18n: ectx: property (text), widget (QRadioButton, colorBlack)
+#. i18n: file: clockwidget.ui:17
+#. i18n: ectx: property (title), widget (QGroupBox, groupB)
+#: gamedialog.cpp:215 knights.cpp:215 knightsview.cpp:147 rc.cpp:29 rc.cpp:173
+msgid "Black"
+msgstr "Must"
+
+#. i18n: file: gamedialog.ui:134
+#. i18n: ectx: property (text), widget (QLabel, playerLabel)
+#. i18n: file: proto/ficsdialog.ui:46
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: gamedialog.cpp:219 rc.cpp:44 rc.cpp:95
+msgid "Player"
+msgstr "Mängija"
+
+#. i18n: file: gamedialog.ui:17
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#. i18n: file: gamedialog.ui:151
+#. i18n: ectx: property (text), widget (QLabel, oppLabel)
+#: gamedialog.cpp:220 knights.cpp:196 rc.cpp:5 rc.cpp:50
+msgid "Opponent"
+msgstr "Vastane"
+
+#: gamedialog.cpp:274
+msgid "Choose &later"
+msgstr "Va&limine hiljem"
+
+#: gamedialog.cpp:278
+msgid "&Random"
+msgstr "&Juhuslik"
+
+#: knights.cpp:93
+msgid "New Game"
+msgstr "Uus mäng"
+
+#: knights.cpp:167
+msgid "Clock"
+msgstr "Kell"
+
+#: knights.cpp:256
+msgid "General"
+msgstr "Üldine"
+
+#: knights.cpp:259
+msgid "Theme"
+msgstr "Teema"
+
+#: knightsview.cpp:92
+msgid "The game ended in a draw"
+msgstr "Mäng lõppes viigiga"
+
+#: knightsview.cpp:97
+#, kde-format
+msgid "The %1 player won."
+msgstr "%1 mängija võitis"
+
+#: knightsview.cpp:100
+msgid "Congratulations!"
+msgstr "Õnnitlused!"
+
+#: knightsview.cpp:112
+msgid "Settings changed"
+msgstr "Seadistused on muudetud"
+
+#: knightsview.cpp:158
+msgid "Pawn"
+msgstr "Ettur"
+
+#. i18n: file: promotiondialog.ui:46
+#. i18n: ectx: property (text), widget (QRadioButton, radioButtonRook)
+#: knightsview.cpp:160 rc.cpp:83
+msgid "Rook"
+msgstr "Vanker"
+
+#. i18n: file: promotiondialog.ui:60
+#. i18n: ectx: property (text), widget (QRadioButton, radioButtonKnight)
+#: knightsview.cpp:162 rc.cpp:89
+msgid "Knight"
+msgstr "Ratsu"
+
+#. i18n: file: promotiondialog.ui:53
+#. i18n: ectx: property (text), widget (QRadioButton, radioButtonBishop)
+#: knightsview.cpp:164 rc.cpp:86
+msgid "Bishop"
+msgstr "Oda"
+
+#. i18n: file: promotiondialog.ui:36
+#. i18n: ectx: property (text), widget (QRadioButton, radioButtonQueen)
+#: knightsview.cpp:166 rc.cpp:80
+msgid "Queen"
+msgstr "Lipp"
+
+#: knightsview.cpp:168
+msgid "King"
+msgstr "Kuningas"
+
+#: main.cpp:30
+msgid "Chess board based on KDE Development Platform 4"
+msgstr "Malelaud KDE arendusplatvormil 4"
+
+#. i18n: file: knightsview_base.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, knightsview_base)
+#: main.cpp:36 rc.cpp:71
+msgid "Knights"
+msgstr "Knights"
+
+#: main.cpp:37
+msgid "(C) 2009-2010 Miha Čančula"
+msgstr "(C) 2009-2010: Miha Čančula"
+
+#: main.cpp:38
+msgid "Miha Čančula"
+msgstr "Miha Čančula"
+
+#: main.cpp:39
+msgid "Troy Corbin"
+msgstr "Troy Corbin"
+
+#: main.cpp:39
+msgid "Original Knights for KDE3 and theme author"
+msgstr "Algne KDE3 Knightsi ja teema autor"
+
+#: main.cpp:40
+msgid "Dave Kaye"
+msgstr "Dave Kaye"
+
+#: main.cpp:40
+msgid "Help with new theme features and rendering without KGameRenderer"
+msgstr "Abi uute teemade omaduste ja renderdamise juures ilma KGameRendererita"
+
+#: main.cpp:41
+msgid "Thomas Kamps"
+msgstr "Thomas Kamps"
+
+#: main.cpp:41
+msgid "Clock displaying the remaining time"
+msgstr "Allesjäänud aega näitav kell"
+
+#: main.cpp:45
+msgid "Document to open"
+msgstr "Avatav dokument"
+
+#: rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Marek Laane"
+
+#: rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "bald@smail.ee"
+
+#. i18n: file: gamedialog.ui:23
+#. i18n: ectx: property (text), widget (QRadioButton, oppHuman)
+#: rc.cpp:8
+msgid "Human at the same computer"
+msgstr "Inimene samas arvutis"
+
+#. i18n: file: gamedialog.ui:32
+#. i18n: ectx: property (text), widget (QRadioButton, oppComp)
+#: rc.cpp:11
+msgid "Computer engine:"
+msgstr "Arvutimootor"
+
+#. i18n: file: gamedialog.ui:43
+#. i18n: ectx: property (text), item, widget (KHistoryComboBox, programComboBox)
+#: rc.cpp:14
+msgid "gnuchess --xboard"
+msgstr "gnuchess --xboard"
+
+#. i18n: file: gamedialog.ui:55
+#. i18n: ectx: property (text), widget (QRadioButton, oppFics)
+#: rc.cpp:17
+msgid "Human at a chess server:"
+msgstr "Inimene maleserveris:"
+
+#. i18n: file: gamedialog.ui:66
+#. i18n: ectx: property (text), item, widget (KHistoryComboBox, serverComboBox)
+#: rc.cpp:20
+msgid "freechess.org"
+msgstr "freechess.org"
+
+#. i18n: file: gamedialog.ui:79
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_3)
+#: rc.cpp:23
+msgid "Your Color"
+msgstr "Sinu värv"
+
+#. i18n: file: gamedialog.ui:99
+#. i18n: ectx: property (text), widget (QRadioButton, colorRandom)
+#: rc.cpp:32
+msgid "Choose randomly"
+msgstr "Juhuslik valik"
+
+#. i18n: file: gamedialog.ui:112
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_2)
+#: rc.cpp:35
+msgid "Time Limit"
+msgstr "Ajapiirang"
+
+#. i18n: file: gamedialog.ui:118
+#. i18n: ectx: property (text), widget (QCheckBox, timeCheckBox)
+#: rc.cpp:38
+msgid "Enable time limits"
+msgstr "Ajapiirangu lubamine"
+
+#. i18n: file: gamedialog.ui:125
+#. i18n: ectx: property (text), widget (QCheckBox, sameTimeCheckBox)
+#: rc.cpp:41
+msgid "Same for both players"
+msgstr "Sama mõlemale mängijale"
+
+#. i18n: file: gamedialog.ui:188
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: rc.cpp:62
+msgid "Increment per move"
+msgstr "Lisamine käigu kohta"
+
+#. i18n: file: gamedialog.ui:195
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: rc.cpp:65
+msgid "Starting time"
+msgstr "Algusaeg"
+
+#. i18n: file: knightsui.rc:4
+#. i18n: ectx: Menu (move)
+#: rc.cpp:68
+msgid "&Move"
+msgstr "&Liikumine"
+
+#. i18n: file: promotiondialog.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, PromotionWidget)
+#: rc.cpp:74
+msgid "Pawn Promotion"
+msgstr "Etturi muutmine"
+
+#. i18n: file: promotiondialog.ui:26
+#. i18n: ectx: property (text), widget (QLabel, labelPawn)
+#: rc.cpp:77
+msgid "Promote pawn to:"
+msgstr "Etturist saab:"
+
+#. i18n: file: proto/ficsdialog.ui:21
+#. i18n: ectx: attribute (title), widget (QWidget, joinTab)
+#: rc.cpp:92
+msgid "&Join a game"
+msgstr "Mänguga ü&hinemine"
+
+#. i18n: file: proto/ficsdialog.ui:51
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:98
+msgid "Rating"
+msgstr "Hinnang"
+
+#. i18n: file: proto/ficsdialog.ui:56
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:101
+msgid "Time"
+msgstr "Aeg"
+
+#. i18n: file: proto/ficsdialog.ui:61
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:104
+msgid "Increment"
+msgstr "Lisa"
+
+#. i18n: file: proto/ficsdialog.ui:66
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:107
+msgid "Rated"
+msgstr "Hinnatud"
+
+#. i18n: file: proto/ficsdialog.ui:71
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:110
+msgid "Variant"
+msgstr "Variant"
+
+#. i18n: file: proto/ficsdialog.ui:76
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:113
+msgid "Your color"
+msgstr "Sinu värv"
+
+#. i18n: file: proto/ficsdialog.ui:84
+#. i18n: ectx: property (text), widget (KPushButton, refreshButton)
+#: rc.cpp:116
+msgid "Refresh"
+msgstr "Värskenda"
+
+#. i18n: file: proto/ficsdialog.ui:92
+#. i18n: ectx: attribute (title), widget (QWidget, seekTab)
+#: rc.cpp:119
+msgid "&Seek opponents"
+msgstr "Va&staste otsimine"
+
+#. i18n: file: proto/ficsdialog.ui:98
+#. i18n: ectx: property (text), widget (KPushButton, seekButton)
+#: rc.cpp:122
+msgid "Seek opponents"
+msgstr "Otsi vastaseid"
+
+#. i18n: file: proto/ficsdialog.ui:108
+#. i18n: ectx: property (text), widget (QLabel, challengeLabel)
+#: rc.cpp:125
+msgid "Waiting for challenges"
+msgstr "Mängukutse ootamine"
+
+#. i18n: file: prefs_base.ui:26
+#. i18n: ectx: property (title), widget (QGroupBox, animationGroup)
+#: rc.cpp:128
+msgid "Animations"
+msgstr "Animatsioonid"
+
+#. i18n: file: prefs_base.ui:32
+#. i18n: ectx: property (text), widget (QLabel, animationSpeedLabel)
+#: rc.cpp:131
+msgid "Animation Speed"
+msgstr "Animatsiooni kiirus"
+
+#. i18n: file: prefs_base.ui:39
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_animateBoard)
+#: rc.cpp:134
+msgid "Animate Board as well"
+msgstr "Ka mängulaua animeerimine"
+
+#. i18n: file: prefs_base.ui:47
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
+#: rc.cpp:137
+msgid "Instant (no animation)"
+msgstr "Kohene (animatsioonita)"
+
+#. i18n: file: prefs_base.ui:52
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
+#: rc.cpp:140
+msgid "Fast"
+msgstr "Kiire"
+
+#. i18n: file: prefs_base.ui:57
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
+#: rc.cpp:143
+msgid "Normal"
+msgstr "Tavaline"
+
+#. i18n: file: prefs_base.ui:62
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
+#: rc.cpp:146
+msgid "Slow"
+msgstr "Aeglane"
+
+#. i18n: file: prefs_base.ui:73
+#. i18n: ectx: property (title), widget (QGroupBox, appearanceGroup)
+#: rc.cpp:149
+msgid "Appearance"
+msgstr "Välimus"
+
+#. i18n: file: prefs_base.ui:79
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_showMarker)
+#: rc.cpp:152
+msgid "Show Legal Moves"
+msgstr "Lubatud käikude näitamine"
+
+#. i18n: file: prefs_base.ui:95
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_showMotion)
+#: rc.cpp:155
+msgid "Show Opponent's Move"
+msgstr "Vastase käikude näitamine"
+
+#. i18n: file: prefs_base.ui:105
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_showDanger)
+#: rc.cpp:158
+msgid "Show Check"
+msgstr "Tule näitamine"
+
+#. i18n: file: prefs_base.ui:116
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_borderDisplayType)
+#: rc.cpp:161
+msgid "No Borders"
+msgstr "Piirded puuduvad"
+
+#. i18n: file: prefs_base.ui:121
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_borderDisplayType)
+#: rc.cpp:164
+msgid "Only Borders"
+msgstr "Ainult piirded"
+
+#. i18n: file: prefs_base.ui:126
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_borderDisplayType)
+#: rc.cpp:167
+msgid "Borders and Notation"
+msgstr "Piirded ja tähistus"
+
+#. i18n: file: prefs_base.ui:134
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: rc.cpp:170
+msgid "Border Display"
+msgstr "Piirete kuvamine"
+
+#. i18n: file: knights.kcfg:9
+#. i18n: ectx: label, entry (Theme), group (KGameTheme)
+#: rc.cpp:179
+msgid "Theme file for the board"
+msgstr "Laua teemafail"
+
+#. i18n: file: knights.kcfg:21
+#. i18n: ectx: label, entry (animationSpeed), group (Preferences)
+#: rc.cpp:182
+msgid "Moves animation speed"
+msgstr "Käikude animatsioonikiirus"
+
+#. i18n: file: knights.kcfg:25
+#. i18n: ectx: label, entry (animateBoard), group (Preferences)
+#: rc.cpp:185
+msgid "whether the Board is animated during rotating and resizing"
+msgstr "Kas animeerida mängulauda pööramisel ja suuruse muutmisel või mitte"
+
+#. i18n: file: knights.kcfg:34
+#. i18n: ectx: label, entry (borderDisplayType), group (Preferences)
+#: rc.cpp:188
+msgid "chessboard border type"
+msgstr "Mängulaua piirde tüüp"
+
+#. i18n: file: knights.kcfg:38
+#. i18n: ectx: label, entry (showDanger), group (Preferences)
+#: rc.cpp:191
+msgid "show check marker"
+msgstr "Tulemarkeri näitamine"
+
+#. i18n: file: knights.kcfg:42
+#. i18n: ectx: label, entry (showMarker), group (Preferences)
+#: rc.cpp:194
+msgid "show legal moves marker"
+msgstr "Lubatud käikude markeri näitamine"
+
+#. i18n: file: knights.kcfg:46
+#. i18n: ectx: label, entry (showMotion), group (Preferences)
+#: rc.cpp:197
+msgid "show opponents move marker"
+msgstr "Vastase käikude markeri näitamine"
+
+#. i18n: file: knights.kcfg:50
+#. i18n: ectx: label, entry (playerTime), group (Preferences)
+#: rc.cpp:200
+msgid "time limit for the local player"
+msgstr "Kohaliku mängija ajapiirang"
+
+#. i18n: file: knights.kcfg:54
+#. i18n: ectx: label, entry (playerTimeIncrement), group (Preferences)
+#: rc.cpp:203
+msgid "time increment per move for the local player"
+msgstr "Kohaliku mängija ajalisa käigu kohta"
+
+#. i18n: file: knights.kcfg:58
+#. i18n: ectx: label, entry (opponentTime), group (Preferences)
+#: rc.cpp:206
+msgid "time limit for the computer or remote player"
+msgstr "Arvuti või võrgumängija ajapiirang"
+
+#. i18n: file: knights.kcfg:62
+#. i18n: ectx: label, entry (opponentTimeIncrement), group (Preferences)
+#: rc.cpp:209
+msgid "time increment per move for the computer or remote player"
+msgstr "Arvuti või võrgumängija ajalisa käigu kohta"
+
+#. i18n: file: knights.kcfg:66
+#. i18n: ectx: label, entry (sameTime), group (Preferences)
+#: rc.cpp:212
+msgid "whether both players have the same time limit"
+msgstr "Kas mõlemal mängijal on sama ajapiirang või mitte"
+
+#. i18n: file: knights.kcfg:70
+#. i18n: ectx: label, entry (timeEnabled), group (Preferences)
+#: rc.cpp:215
+msgid "whether time limits are enabled and displayed"
+msgstr "Kas ajapiirangud on lubatud ja kuvatavad või mitte"
+
+#. i18n: file: knights.kcfg:81
+#. i18n: ectx: label, entry (protocol), group (Protocols)
+#: rc.cpp:218
+msgid "protocol to be used for communication to opponent"
+msgstr "Vastasega suhtlemiseks kasutatav protokoll"
+
+#. i18n: file: knights.kcfg:90
+#. i18n: ectx: label, entry (color), group (Protocols)
+#: rc.cpp:221
+msgid ""
+"the local human player's color in a game against a computer or over the "
+"Internet."
+msgstr "Kohaliku inimmängija värv mängus arvuti vastu või üle interneti"
+
+#. i18n: file: knights.kcfg:94
+#. i18n: ectx: label, entry (program), group (Protocols)
+#: rc.cpp:224
+msgid "program to run"
+msgstr "Käivitatav programm"
+
+#. i18n: file: knights.kcfg:98
+#. i18n: ectx: label, entry (ficsUsername), group (Protocols)
+#: rc.cpp:227
+msgid "username for the Free Internet Chess Server"
+msgstr "Kasutajanimi Free Internet Chess Serveris"

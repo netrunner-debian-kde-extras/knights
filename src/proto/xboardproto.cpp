@@ -24,129 +24,107 @@
 
 #include <KProcess>
 #include <KDebug>
+#include <KLocale>
 
 using namespace Knights;
 
-XBoardProtocol::XBoardProtocol(QObject* parent): Protocol(parent)
+XBoardProtocol::XBoardProtocol ( QObject* parent ) : Protocol ( parent )
 {
 
 }
 
 Protocol::Features XBoardProtocol::supportedFeatures()
 {
-    return NoFeatures;
+    return GameOver;
 }
 
 XBoardProtocol::~XBoardProtocol()
 {
-  if (mProcess && mProcess->isOpen())
-  {
-    QTextStream stream(mProcess);
-    stream << "exit\n";
-    if (!mProcess->waitForFinished(500))
+    if ( mProcess && mProcess->isOpen() )
     {
-      mProcess->kill();
+        mProcess->write ( "exit\n" );
+        if ( !mProcess->waitForFinished ( 500 ) )
+        {
+            mProcess->kill();
+        }
     }
-  }
 }
-
 
 void XBoardProtocol::startGame()
 {
 
 }
 
-void XBoardProtocol::move ( Move m )
+void XBoardProtocol::move ( const Move& m )
 {
-    QString move;
-    move.append(Board::row(m.from().first));
-    move.append(QString::number(m.from().second));
-    if (m.flags() & Move::Take)
-    {
-        move.append('x');
-    }
-    move.append(Board::row(m.to().first));
-    move.append(QString::number(m.to().second));
-    move.append('\n');
-    kDebug() << move;
-    mProcess->write(move.toLatin1());
+    kDebug() << m.string();
+    mProcess->write ( m.string().toLatin1() + '\n' );
 }
 
-void XBoardProtocol::setPlayerColor(Piece::Color color)
+void XBoardProtocol::init ( const QVariantMap& options )
 {
-    mPlayerColor = color;
-}
-
-
-bool XBoardProtocol::init(QVariantMap options)
-{
-    QStringList args = options["program"].toString().split(' ');
+    setAttributes ( options );
+    QStringList args = options[QLatin1String ( "program" ) ].toString().split ( QLatin1Char ( ' ' ) );
     QString program = args.takeFirst();
-    if (program.contains("gnuchess") && !args.contains("--xboard"))
+    if ( program.contains ( QLatin1String ( "gnuchess" ) ) && !args.contains ( QLatin1String ( "--xboard" ) ) )
     {
-        args << "--xboard";
+        args << QLatin1String ( "--xboard" );
     }
-    mProcess = new KProcess;
-    mProcess->setProgram(program, args);
-    mProcess->setNextOpenMode(QIODevice::ReadWrite | QIODevice::Unbuffered | QIODevice::Text);
-    mProcess->setOutputChannelMode(KProcess::SeparateChannels);
-    connect(mProcess, SIGNAL(readyReadStandardOutput()), SLOT(readFromProgram()));
-    connect(mProcess, SIGNAL(readyReadStandardError()), SLOT(readError()));
+    setOpponentName ( program );
+    mProcess = new KProcess ( this );
+    mProcess->setProgram ( program, args );
+    mProcess->setNextOpenMode ( QIODevice::ReadWrite | QIODevice::Unbuffered | QIODevice::Text );
+    mProcess->setOutputChannelMode ( KProcess::SeparateChannels );
+    connect ( mProcess, SIGNAL ( readyReadStandardOutput() ), SLOT ( readFromProgram() ) );
+    connect ( mProcess, SIGNAL ( readyReadStandardError() ), SLOT ( readError() ) );
     mProcess->start();
-    QTextStream stream(mProcess);
-    if (!mProcess->waitForStarted(1000))
+    if ( !mProcess->waitForStarted ( 1000 ) )
     {
-        qCritical() << "Program" << program << "could not be started";
-        return false;
+        emit error ( InstallationError, i18n ( "Program <code>%1</code> could not be started, please check that it is installed.", program ) );
+        return;
     }
-    if (mPlayerColor == Piece::Black)
+    if ( playerColor() == NoColor )
     {
-        stream << "go\n";
+        setPlayerColor ( ( qrand() % 2 == 0 ) ? White : Black );
     }
-    return true;
+
+    if ( playerColor() == Black )
+    {
+        mProcess->write ( "go\n" );
+    }
+    emit initSuccesful();
 }
 
 void XBoardProtocol::readFromProgram()
 {
-    QString moveString = QString(mProcess->readAllStandardOutput());
-    kDebug() << moveString;
-    if (!moveString.contains("..."))
+    QString output = QLatin1String ( mProcess->readAllStandardOutput() );
+    foreach ( const QString& line, output.split ( QLatin1Char ( '\n' ) ) )
     {
-      if (moveString.contains("Illegal move"))
-      {
-        emit illegalMove();
-      }
-      return;
+        if ( line.contains ( QLatin1String ( "Illegal move" ) ) )
+        {
+            emit illegalMove();
+        }
+        else if ( line.contains ( QLatin1String ( "..." ) ) )
+        {
+            QString moveString = line.split ( QLatin1Char ( ' ' ) ).last();
+            kDebug() << moveString;
+            emit pieceMoved ( Move ( moveString ) );
+        }
+        else if ( line.contains ( QLatin1String ( "wins" ) ) )
+        {
+            Color winner;
+            if ( line.split ( QLatin1Char ( ' ' ) ).last().contains ( QLatin1String ( "white" ) ) )
+            {
+                winner = White;
+            }
+            else
+            {
+                winner = Black;
+            }
+            emit gameOver ( winner );
+            return;
+        }
     }
-    if (moveString.contains("wins"))
-    {
-      if (moveString.split(' ').last().contains("white"))
-      {
-        emit gameOver(Piece::White);
-      }
-      else
-      {
-        emit gameOver(Piece::Black);
-      }
-      return;
-    }
-    moveString = moveString.split(' ').last();
-    Move m;
-    m.setFrom(Pos(Board::numFromRow(moveString[0]),moveString.mid(1,1).toInt()));
-    int i = 2;
-    if (moveString.contains('x'))
-    {
-        m.setFlag(Move::Take, true);
-        i++;
-    }
-    else
-    {
-        m.setFlag(Move::Take, false);
-    }
-    m.setTo(Pos(Board::numFromRow(moveString[i]),moveString.mid(i+1,1).toInt()));
-
-    kDebug() << moveString << m.from() << m.to();
-    emit pieceMoved(m);
 }
 
 void XBoardProtocol::readError()
@@ -154,3 +132,4 @@ void XBoardProtocol::readError()
     kError() << mProcess->readAllStandardError();
 }
 
+// kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on;  replace-tabs on;  replace-tabs on;  replace-tabs on;
