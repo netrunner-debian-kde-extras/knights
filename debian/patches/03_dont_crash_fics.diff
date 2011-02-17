@@ -1,0 +1,17 @@
+Author: José Manuel Santamaría Lema <panfaust@gmail.com>
+Description: This patch avoids a crash when you play second game with FICS
+ protocol. The problem is that the FicsProtocol objects triggers its own
+ delete after emitting a signal. Thanks to David Faure for his hint to find out
+ the problem.
+Forwarded: no
+--- a/src/knightsview.cpp
++++ b/src/knightsview.cpp
+@@ -104,7 +104,7 @@
+             KMessageBox::sorry ( this, text );
+         }
+     }
+-    emit gameNew();
++    //emit gameNew();
+ }
+ 
+ void KnightsView::settingsChanged()
