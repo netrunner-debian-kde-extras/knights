@@ -4,6 +4,7 @@ knights (2.2.0-1) UNRELEASED; urgency=low
   * Remove 01_add_categories_to_desktop_file.diff, no longer needed.
   * Add 02_no_hotnewstuff.diff.
   * Add 03_dont_crash_fics.diff.
+  * Add 04_stop_clock_game_over.diff.
 
  -- José Manuel Santamaría Lema <panfaust@gmail.com>  Thu, 17 Feb 2011 12:29:35 +0100
 
