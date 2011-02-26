@@ -1,4 +1,4 @@
-knights (2.2.0-1) UNRELEASED; urgency=low
+knights (2.2.0-1) unstable; urgency=low
 
   * New upstream release.
   * Remove 01_add_categories_to_desktop_file.diff, no longer needed.
@@ -6,7 +6,7 @@ knights (2.2.0-1) UNRELEASED; urgency=low
   * Add 03_dont_crash_fics.diff.
   * Add 04_stop_clock_game_over.diff.
 
- -- José Manuel Santamaría Lema <panfaust@gmail.com>  Thu, 17 Feb 2011 12:29:35 +0100
+ -- José Manuel Santamaría Lema <panfaust@gmail.com>  Fri, 25 Feb 2011 21:37:40 +0100
 
 knights (2.0.1-2) unstable; urgency=low
 
