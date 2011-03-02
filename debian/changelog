@@ -3,6 +3,7 @@ knights (2.2.0-2) UNRELEASED; urgency=low
   * Provide a default.desktop symlink to make knights work even if the
     desktop file for the configured theme doesn't exist (this could easily
     happen if you're upgrading from knights 0.6 among other reasons).
+  * Remove the starting article from short description.
 
  -- José Manuel Santamaría Lema <panfaust@gmail.com>  Wed, 02 Mar 2011 20:56:21 +0100
 
