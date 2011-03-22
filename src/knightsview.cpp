@@ -1,6 +1,6 @@
 /*
     This file is part of Knights, a chess board for KDE SC 4.
-    Copyright 2009-2010  Miha Čančula <miha.cancula@gmail.com>
+    Copyright 2009,2010,2011  Miha Čančula <miha@noughmad.eu>
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License as
@@ -20,6 +20,7 @@
 */
 
 #include "knightsview.h"
+#include "ui_popup.h"
 
 #include "core/pos.h"
 #include "proto/protocol.h"
@@ -33,58 +34,69 @@
 #include <QtGui/QLabel>
 #include <QtCore/QtConcurrentRun>
 #include <QtCore/QEvent>
+#include "gamemanager.h"
+#include "offerwidget.h"
+#include "ui_knightsview_base.h"
+#include <KActionCollection>
 
 using namespace Knights;
 
 KnightsView::KnightsView ( QWidget *parent )
         : QWidget ( parent )
+        , ui ( new Ui::KnightsView )
 {
-    ui.setupUi ( this );
+    ui->setupUi ( this );
+
+    // By default, show only one offer (set showAll to true then toggle it)
+    m_showAllOffers = false;
+    updateOffers();
+    
+    connect ( ui->showAllOffers, SIGNAL(clicked(bool)), SLOT(showAllOffersToggled()) );
+    connect ( Manager::self(), SIGNAL(notification(Offer)), SLOT(showPopup(Offer)) );
+    connect ( Manager::self(), SIGNAL(winnerNotify(Color)), SLOT (gameOver(Color)), Qt::QueuedConnection );
+    connect ( Manager::self(), SIGNAL(activePlayerChanged(Color)), SIGNAL(activePlayerChanged(Color)) );
+    
     m_board = 0;
     settingsChanged();
 }
 
 KnightsView::~KnightsView()
 {
-
+    delete ui;
 }
 
-void KnightsView::setupBoard ( Protocol* protocol )
+void KnightsView::setupBoard()
 {
     m_board = new Board ( this );
-    ui.canvas->setScene ( m_board );
+    ui->canvas->setScene ( m_board );
     resizeScene();
+    connect ( Manager::self(), SIGNAL(pieceMoved(Move)), m_board, SLOT(movePiece(Move)) );
+    connect ( Manager::self(), SIGNAL(activePlayerChanged(Color)), m_board, SLOT(setCurrentColor(Color)) );
+    connect ( m_board, SIGNAL(displayedPlayerChanged(Color)), SIGNAL(displayedPlayerChanged(Color)) );
+    connect ( m_board, SIGNAL(pieceMoved(Move)), Manager::self(), SLOT(moveByBoard(Move)) );
 
-    if ( protocol )
+    Colors playerColors;
+    if ( Protocol::white()->isLocal() )
     {
-        connect ( m_board, SIGNAL ( pieceMoved ( Move ) ), protocol, SLOT ( move ( Move ) ) );
-        connect ( protocol, SIGNAL ( pieceMoved ( Move ) ), m_board, SLOT ( movePiece ( Move ) ) );
-        m_board->setPlayerColors ( QList<Color>() << protocol->playerColor() );
+        playerColors |= White;
     }
-    else
+    if ( Protocol::black()->isLocal() )
     {
-        m_board->setPlayerColors ( QList<Color>() << White << Black );
+        playerColors |= Black;
     }
+    m_board->setPlayerColors(playerColors);
+}
 
-    if ( protocol && protocol->supportedFeatures() & Protocol::GameOver )
-    {
-        connect ( protocol, SIGNAL ( gameOver ( Color ) ), SLOT ( gameOver ( Color ) ) );
-    }
-    else
-    {
-        connect ( m_board, SIGNAL ( gameOver ( Color ) ), SLOT ( gameOver ( Color ) ) );
-    }
-
-    connect ( m_board, SIGNAL ( activePlayerChanged ( Color ) ), SIGNAL ( activePlayerChanged ( Color ) ) );
-    connect ( m_board, SIGNAL ( displayedPlayerChanged ( Color ) ), SIGNAL ( displayedPlayerChanged ( Color ) ) );
-
-    connect ( m_board, SIGNAL ( centerChanged ( QPointF ) ), this, SLOT ( centerView ( QPointF ) ) );
-
+void KnightsView::clearBoard()
+{
+    kDebug();
+    delete m_board;
+    m_board = 0;
 }
 
 void KnightsView::gameOver ( Color winner )
 {
-    kDebug() << "Received gameOver() from " << sender()->metaObject()->className();
+    kDebug() << sender();
     QString text;
     QString caption;
     if ( winner == NoColor )
@@ -95,13 +107,17 @@ void KnightsView::gameOver ( Color winner )
     else
     {
         text = i18n ( "The %1 player won.", colorName ( winner ) );
-        if ( m_board->playerColors().contains ( winner ) )
+        if ( m_board->playerColors() & winner )
         {
             KMessageBox::information ( this, text, i18n ( "Congratulations!" ) );
         }
-        else
+        else if ( m_board->playerColors() )
         {
             KMessageBox::sorry ( this, text );
+        }
+        else
+        {
+            KMessageBox::information ( this, text );
         }
     }
     emit gameNew();
@@ -124,11 +140,11 @@ void KnightsView::resizeEvent ( QResizeEvent* e )
 
 void KnightsView::resizeScene()
 {
-    if ( ui.canvas && m_board )
+    if ( ui->canvas && m_board )
     {
-        m_board->setSceneRect ( ui.canvas->contentsRect() );
+        m_board->setSceneRect ( ui->canvas->contentsRect() );
         m_board->updateGraphics();
-        ui.canvas->setTransform ( QTransform() );
+        ui->canvas->setTransform ( QTransform() );
     }
 }
 
@@ -173,11 +189,76 @@ QString KnightsView::pieceTypeName ( PieceType type )
 
 void KnightsView::centerView ( const QPointF& center )
 {
-    if ( ui.canvas )
+    if ( ui->canvas )
     {
-        ui.canvas->centerOn ( center );
+        ui->canvas->centerOn ( center );
     }
 }
+
+void KnightsView::showPopup(const Offer& offer)
+{
+    OfferWidget* widget = new OfferWidget(offer, ui->notificationWidget);
+    connect ( widget, SIGNAL(close(int,OfferAction)), Manager::self(), SLOT(setOfferResult(int,OfferAction)) );
+    connect ( widget, SIGNAL(close(int,OfferAction)), SLOT(popupHidden(int)));
+    m_offerWidgets << widget;
+    updateOffers();
+}
+
+void KnightsView::showAllOffersToggled()
+{
+    m_showAllOffers = !m_showAllOffers;
+    updateOffers();
+}
+
+void KnightsView::popupHidden(int id)
+{
+    foreach ( OfferWidget* widget, m_offerWidgets )
+    {
+        if ( widget->id() == id )
+        {
+            m_offerWidgets.removeAll(widget);
+        }
+    }
+    updateOffers();
+}
+
+void KnightsView::updateOffers()
+{
+    if ( m_offerWidgets.isEmpty() )
+    {
+        ui->notificationWidget->hide();
+        return;
+    }
+    QGridLayout* layout = qobject_cast<QGridLayout*>(ui->notificationWidget->layout());
+    if ( !layout )
+    {
+        return;
+    }
+    ui->showAllOffers->setIcon ( KIcon(QLatin1String( m_showAllOffers ? "arrow-up-double" : "arrow-down-double" )) );
+    ui->showAllOffers->setVisible ( m_offerWidgets.size() > 1 );
+    foreach ( OfferWidget* widget, m_offerWidgets )
+    {
+        layout->removeWidget ( widget );
+        widget->hide();
+    }
+    if ( m_showAllOffers )
+    {
+        for ( int i = 0; i < m_offerWidgets.size(); ++i )
+        {
+            layout->addWidget ( m_offerWidgets[i], i+1, 0 );
+            m_offerWidgets[i]->show();
+        }
+    }
+    else
+    {
+        layout->addWidget ( m_offerWidgets.last(), 1, 0 );
+        m_offerWidgets.last()->show();
+    }
+    ui->notificationWidget->show();
+}
+
+
+
 
 
 #include "knightsview.moc"

@@ -1,8 +1,40 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
 <kpartgui name="knights" version="1">
-<MenuBar>
-  <Menu name="move"><text>&amp;Move</text>
-    <Action name="switch_action" />
-  </Menu>
-</MenuBar>
+  <Toolbar name="mainToolBar">
+    <text>Main Toolbar</text>
+    <Action name="game_new" />
+    <Action name="game_pause" />
+    <Action name="move_undo" />
+    <Action name="move_redo" />
+    <Action name="propose_draw" />
+    <Action name="adjourn" />
+    <Action name="abort" />
+  </Toolbar>
+  <Toolbar name="dockToolBar" >
+    <text>Widgets Toolbar</text>
+      <Action name="show_clock" />
+      <Action name="show_console_white" />
+      <Action name="show_console_black" />
+      <Action name="show_chat" />
+    </Toolbar>
+  <Menubar>
+    <Menu name="game">
+      <Action name="game_new" />
+      <Action name="game_pause" />
+      <Action name="propose_draw" />
+      <Action name="adjourn" />
+      <Action name="quit" />
+    </Menu>
+    <Menu name="move">
+      <text>Move</text>
+      <Action name="move_undo" />
+      <Action name="move_redo" />
+    </Menu>
+    <Menu name="settings">
+      <Action name="show_clock" />
+      <Action name="show_console_white" />
+      <Action name="show_console_black" />
+      <Action name="show_chat" />
+    </Menu>
+  </Menubar>
 </kpartgui>

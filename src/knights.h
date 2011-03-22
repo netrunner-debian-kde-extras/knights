@@ -1,6 +1,6 @@
 /*
     This file is part of Knights, a chess board for KDE SC 4.
-    Copyright 2009-2010  Miha Čančula <miha.cancula@gmail.com>
+    Copyright 2009,2010,2011  Miha Čančula <miha@noughmad.eu>
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License as
@@ -52,15 +52,24 @@ namespace Knights
         private Q_SLOTS:
             void fileNew();
             void pauseGame ( bool pause );
+            void undo();
+            void redo();
             void optionsPreferences();
 
             void protocolInitSuccesful();
             void protocolError ( Protocol::ErrorCode errorCode, const QString& errorString );
 
+            void setShowClockSetting( bool value );
+            void setShowConsoleSetting( bool value );
+            void setShowChatSetting( bool value );
+
+            void exitKnights();
+
         private:
             void setupActions();
             void showClockWidgets();
-            void hideClockWidgets();
+            void showFicsDialog( Color color = NoColor, bool computer = false);
+            void showFicsSpectateDialog();
 
         private:
             Ui::prefs_base ui_prefs_base ;
@@ -69,13 +78,8 @@ namespace Knights
 
             KToggleAction *m_toolbarAction;
             KToggleAction *m_statusbarAction;
-
-            QPointer<Protocol> m_protocol;
-            bool m_timeLimit;
-            QTime m_playerTime;
-            QTime m_oppTime;
-            int m_playerIncrement;
-            int m_oppIncrement;
+            QList<QAction*> m_protocolActions;
+            QList<QDockWidget*> m_dockWidgets;
     };
 }
 

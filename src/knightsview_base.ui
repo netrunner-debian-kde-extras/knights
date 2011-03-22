@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>knightsview_base</class>
- <widget class="QWidget" name="knightsview_base">
+ <class>KnightsView</class>
+ <widget class="QWidget" name="KnightsView">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>362</width>
-    <height>274</height>
+    <width>489</width>
+    <height>613</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,33 @@
   <property name="autoFillBackground">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QWidget" name="notificationWidget" native="true">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>0</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="showAllOffers">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item>
     <widget class="QGraphicsView" name="canvas">
      <property name="verticalScrollBarPolicy">

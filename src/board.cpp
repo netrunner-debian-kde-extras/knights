@@ -1,6 +1,6 @@
 /*
     This file is part of Knights, a chess board for KDE SC 4.
-    Copyright 2009-2010  Miha Čančula <miha.cancula@gmail.com>
+    Copyright 2009,2010,2011  Miha Čančula <miha@noughmad.eu>
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License as
@@ -24,8 +24,9 @@
 
 #include "core/pos.h"
 #include "core/move.h"
-#include "rules/chessrules.h"
+#include "rules/rules.h"
 #include "ui_promotiondialog.h"
+#include "gamemanager.h"
 
 #include <KGameTheme>
 #include <KDebug>
@@ -71,10 +72,12 @@ Board::Board ( QObject* parent ) : QGraphicsScene ( parent )
 {
     renderer = new Renderer ( Settings::theme() );
     m_background = 0;
-    setRuleSet ( new ChessRules );
+    selectedPiece = 0;
+    Manager::self()->rules()->setGrid ( &m_grid );
     m_currentPlayer = White;
     updateTheme();
     m_paused = false;
+    m_dragActive = false;
 }
 
 Board::~Board()
@@ -85,7 +88,7 @@ Board::~Board()
     delete renderer;
 }
 
-void Board::addPiece ( PieceType type, Color color, const Knights::Pos& pos )
+void Board::addPiece ( PieceType type, Color color, const Pos& pos )
 {
     Piece* t_piece = new Piece ( renderer, type, color, this, pos );
     if ( Settings::animationSpeed() != Settings::EnumAnimationSpeed::Instant )
@@ -96,22 +99,48 @@ void Board::addPiece ( PieceType type, Color color, const Knights::Pos& pos )
     m_grid.insert ( pos, t_piece );
 }
 
-void Board::movePiece ( Move m, bool changePlayer )
+void Board::movePiece ( const Move& move )
 {
-    if ( !m_grid.contains ( m.from() ) || m.to() == m.from() )
+    Move m = move;
+    if ( m.flag ( Move::Illegal ) ||  m.to() == m.from() || !m_grid.contains ( m.from() ) )
     {
-        kWarning() << "Invalid move" << m.from() << m.to();
+        kWarning() << "Invalid move:" << m;
         return;
     }
-    m_rules->checkSpecialFlags ( m );
-    if ( m.flags() & Move::Promote )
+    if ( !m.flag ( Move::Forced ) &&
+        ( m_grid[m.from()]->color() != m_currentPlayer || !Manager::self()->rules()->legalMoves(m.from()).contains(m) ) )
+    {
+        kWarning() << "Move not allowed:" << m;
+        return;
+    }
+    qDeleteAll ( markers );
+    markers.clear();
+    if ( m.flag(Move::Promote) )
     {
         m_grid[m.from() ]->setPieceType ( m.promotedType() ? m.promotedType() : Queen );
     }
+
+    PieceDataMap map = m.removedPieces();
+    PieceDataMap::const_iterator it = map.constBegin();
+    PieceDataMap::const_iterator end = map.constEnd();
+    for ( ; it != end; ++it )
+    {
+        delete m_grid.value ( it.key(), 0 );
+        m_grid.remove ( it.key() );
+    }
+
     centerOnPos ( m_grid.value ( m.from() ), m.to() );
-    delete m_grid.value ( m.to(), 0 ); // It's safe to call 'delete 0'
     m_grid.insert ( m.to(), m_grid.take ( m.from() ) );
-    if ( m_playerColors.contains ( oppositeColor ( m_currentPlayer ) ) )
+
+    map = m.addedPieces();
+    it = map.constBegin();
+    end = map.constEnd();
+    for ( ; it != end; ++it )
+    {
+        addPiece ( it.value().second, it.value().first, it.key() );
+    }
+
+    if ( m_playerColors & oppositeColor ( m_currentPlayer ) )
     {
         // We only display motion and danger markers if the next player is a human
         if ( Settings::showMotion() )
@@ -124,7 +153,7 @@ void Board::movePiece ( Move m, bool changePlayer )
             bool check = false;
             foreach ( Piece* piece, m_grid )
             {
-                if ( piece->color() == m_currentPlayer && m_rules->isAttacking ( piece->boardPos() ) )
+                if ( piece->color() == m_currentPlayer && Manager::self()->rules()->isAttacking ( piece->boardPos() ) )
                 {
                     check = true;
                     addMarker ( piece->boardPos(), Danger );
@@ -142,40 +171,22 @@ void Board::movePiece ( Move m, bool changePlayer )
             }
         }
     }
-    if ( m.flags() & Move::EnPassant )
-    {
-        kDebug() << m.additionalCaptures();
-        foreach ( const Pos& p, m.additionalCaptures() )
-        {
-            delete m_grid.value ( p, 0 );
-            m_grid.remove ( p );
-        }
-    }
+
     if ( m.flags() & Move::Castle )
     {
         foreach ( const Move& additionalMove, m.additionalMoves() )
         {
-            movePiece ( additionalMove, false );
+            movePiece ( additionalMove );
         }
     }
-    m_rules->moveMade ( m );
-    Color winner = m_rules->winner();
-    if ( winner != NoColor || !m_rules->hasLegalMoves ( oppositeColor ( m_currentPlayer ) ) )
-    {
-        kDebug() << "Winner: " << winner;
-        emit gameOver ( winner );
-    }
-    if ( changePlayer )
-    {
-        changeCurrentPlayer();
-    }
+    updateGraphics();
 }
 
 void Board::populate()
 {
-    const BoardState pieces = m_rules->startingPieces();
-    BoardState::const_iterator it = pieces.constBegin();
-    BoardState::const_iterator end = pieces.constEnd();
+    const PieceDataMap pieces = Manager::self()->rules()->startingPieces();
+    PieceDataMap::const_iterator it = pieces.constBegin();
+    PieceDataMap::const_iterator end = pieces.constEnd();
     for ( ; it != end; ++it )
     {
         addPiece ( it.value().second, it.value().first, it.key() );
@@ -202,34 +213,50 @@ void Board::addTiles()
     }
 }
 
-void Board::setRuleSet ( Rules* rules )
-{
-    m_rules = rules;
-    m_rules->setGrid ( &m_grid );
-}
-
 void Board::mousePressEvent ( QGraphicsSceneMouseEvent* e )
 {
-    if ( m_paused || !m_playerColors.contains ( m_currentPlayer ) )
+    if ( m_paused || !(m_playerColors & m_currentPlayer) )
     {
         // It is not the human player's turn
         e->ignore();
         return;
     }
+    
     Piece* d_piece = pieceAt ( e->scenePos() );
     if ( !d_piece || d_piece->color() != m_currentPlayer )
     {
-        // The piece doesn't belong to the player whose turn it is
-        e->ignore();
-        return;
+        // The piece doesn't belong to the player whose turn it is, or there is no piece
+        if ( !selectedPiece )
+        {
+            e->ignore();
+            return;
+        }
+        Pos from = selectedPiece->boardPos();
+        Pos to = mapFromScene ( e->scenePos() );
+        if ( Manager::self()->rules()->legalMoves ( from ).contains ( Move ( from, to ) ) )
+        {
+            Move move ( from, to );
+            move.setFlag ( Move::Take, m_grid.contains ( to ) );
+            
+            if ( m_grid[from]->pieceType() == Pawn && ( to.second == 1 || to.second == 8 ) )
+            {
+                move.setFlag ( Move::Promote, true );
+                move.setPromotedType ( getPromotedType() );
+            }
+            emit pieceMoved(move);
+            selectedPiece = 0;
+        }
     }
     else
     {
         // The active player clicked on his/her own piece
         qDeleteAll ( markers );
         markers.clear();
+        
+        selectedPiece = d_piece;
+        
         Pos t_pos = mapFromScene ( e->scenePos() );
-        QList<Move> t_legalMoves = m_rules->legalMoves ( t_pos );
+        QList<Move> t_legalMoves = Manager::self()->rules()->legalMoves ( t_pos );
         if ( t_legalMoves.isEmpty() )
         {
             e->ignore();
@@ -243,14 +270,27 @@ void Board::mousePressEvent ( QGraphicsSceneMouseEvent* e )
                 addMarker ( t_move.to(), LegalMove );
             }
         }
-        QDrag* drag = new QDrag ( e->widget() );
-        QString posText = QString::number ( t_pos.first ) + QLatin1Char ( '_' ) + QString::number ( t_pos.second );
-        QMimeData* data = new QMimeData;
-        data->setText ( posText );
-        m_draggedItem = d_piece;
+        draggedPiece = d_piece;
+        drag = new QDrag ( e->widget() );
+        drag->setMimeData ( new QMimeData() );
         m_draggedPos = e->scenePos();
-        m_dragStartPos = m_draggedPos;
-        drag->setMimeData ( data );
+    }
+}
+
+void Board::mouseReleaseEvent(QGraphicsSceneMouseEvent* e)
+{
+    Q_UNUSED(e);
+    delete drag;
+    draggedPiece = 0;
+}
+
+
+void Board::mouseMoveEvent ( QGraphicsSceneMouseEvent* e )
+{
+    QPoint delta = e->screenPos() - dragStartPoint;
+    if ( drag && !m_dragActive && (delta.manhattanLength() >= QApplication::startDragDistance()) )
+    {
+        m_dragActive = true;
         drag->exec();
     }
 }
@@ -260,63 +300,27 @@ void Board::dropEvent ( QGraphicsSceneDragDropEvent* e )
     qDeleteAll ( markers );
     markers.clear();
 
-    if ( e->mimeData()->hasText() )
+    if ( draggedPiece )
     {
-        QStringList list = e->mimeData()->text().split ( QLatin1Char ( '_' ) );
-        if ( list.size() < 2 )
-        {
-            e->ignore();
-            return;
-        }
-        Pos from ( list.first().toInt(), list.last().toInt() );
+        m_dragActive = false;
+        Pos from = draggedPiece->boardPos();
         Pos to = mapFromScene ( e->scenePos() );
         Move move ( from, to );
-        if ( !m_rules->legalMoves ( from ).contains ( move ) )
+        if ( !Manager::self()->rules()->legalMoves ( from ).contains ( move ) )
         {
-            centerOnPos ( m_draggedItem );
+            centerOnPos ( draggedPiece );
         }
         else
         {
-            move.setFlag ( Move::Take, m_grid.contains ( to ) );
-
             if ( m_grid[from]->pieceType() == Pawn && ( to.second == 1 || to.second == 8 ) )
             {
                 move.setFlag ( Move::Promote, true );
-                KDialog dialog;
-                dialog.setButtons ( KDialog::Ok );
-                dialog.setButtonText ( KDialog::Ok, i18n ( "Promote" ) );
-                dialog.setCaption ( i18n ( "Promotion" ) );
-                QWidget promotionWidget ( &dialog );
-                Ui::PromotionWidget ui;
-                ui.setupUi ( &promotionWidget );
-                dialog.setMainWidget ( &promotionWidget );
-                PieceType pType = Queen;
-                if ( dialog.exec() == KDialog::Accepted )
-                {
-                    if ( ui.radioButtonQueen->isChecked() )
-                    {
-                        pType = Queen;
-                    }
-                    else if ( ui.radioButtonKnight->isChecked() )
-                    {
-                        pType = Knight;
-                    }
-                    else if ( ui.radioButtonBishop->isChecked() )
-                    {
-                        pType = Bishop;
-                    }
-                    else if ( ui.radioButtonRook->isChecked() )
-                    {
-                        pType = Rook;
-                    }
-                }
-                move.setPromotedType ( pType );
+                move.setPromotedType ( getPromotedType() );
             }
-            emit pieceMoved ( move );
-            movePiece ( move );
+            emit pieceMoved(move);
         }
-        m_draggedItem->setZValue ( pieceZValue );
-        m_draggedItem = 0;
+        draggedPiece->setZValue ( pieceZValue );
+        draggedPiece = 0;
     }
 }
 
@@ -327,7 +331,7 @@ void Board::dragEnterEvent ( QGraphicsSceneDragDropEvent* e )
 
 void Board::dragMoveEvent ( QGraphicsSceneDragDropEvent* e )
 {
-    if ( !m_draggedItem )
+    if ( !draggedPiece )
     {
         e->ignore();
         return;
@@ -336,7 +340,7 @@ void Board::dragMoveEvent ( QGraphicsSceneDragDropEvent* e )
     qreal x = e->scenePos().x() - m_draggedPos.x();
     qreal y = e->scenePos().y() - m_draggedPos.y();
 
-    m_draggedItem->moveBy ( x, y );
+    draggedPiece->moveBy ( x, y );
     m_draggedPos = e->scenePos();
 }
 
@@ -385,31 +389,33 @@ void Board::centerAndResize ( Item* item, QSize size, bool animated )
     item->moveAndResize ( mapToScene ( item->boardPos() ), m_tileSize, size, animated );
 }
 
-bool Board::isInBoard ( const Knights::Pos& pos )
+bool Board::isInBoard ( const Pos& pos )
 {
     return pos.first > 0 && pos.first < 9 && pos.second > 0 && pos.second < 9;
 }
 
-QList< Color > Board::playerColors() const
+Colors Board::playerColors() const
 {
     return m_playerColors;
 }
 
-void Board::setPlayerColors ( const QList< Color >& colors )
+void Board::setPlayerColors ( Colors colors )
 {
-    if ( colors.isEmpty() )
-    {
-        qDebug() << "The 'Two computers one board' feature not yet implemented";
-        return;
-    }
     m_playerColors = colors;
-    if ( m_playerColors.contains ( m_currentPlayer ) )
+    if ( m_playerColors & m_currentPlayer )
     {
         m_displayedPlayer = m_currentPlayer;
     }
     else
     {
-        m_displayedPlayer = m_playerColors.first();
+        if ( m_playerColors == Black )
+        {
+            m_displayedPlayer = Black;
+        }
+        else
+        {
+            m_displayedPlayer = White;
+        }
     }
     changeDisplayedPlayer();
     populate();
@@ -418,7 +424,7 @@ void Board::setPlayerColors ( const QList< Color >& colors )
 void Board::changeCurrentPlayer()
 {
     m_currentPlayer = oppositeColor ( m_currentPlayer );
-    if ( m_playerColors.contains ( m_currentPlayer ) && m_displayedPlayer != m_currentPlayer )
+    if ( ( m_playerColors & m_currentPlayer ) && m_displayedPlayer != m_currentPlayer )
     {
         m_displayedPlayer = m_currentPlayer;
         changeDisplayedPlayer();
@@ -428,14 +434,17 @@ void Board::changeCurrentPlayer()
 
 void Board::setCurrentColor ( Color color )
 {
-    if ( m_currentPlayer != color )
+    m_currentPlayer = color;
+    if ( m_playerColors & color )
     {
-        m_currentPlayer = color;
+        m_displayedPlayer = color;
+        changeDisplayedPlayer();
     }
+    emit activePlayerChanged ( m_currentPlayer );
 }
 
 
-void Board::addMarker ( const Knights::Pos& pos, MarkerType type )
+void Board::addMarker ( const Pos& pos, MarkerType type )
 {
     QString key;
     switch ( type )
@@ -453,7 +462,7 @@ void Board::addMarker ( const Knights::Pos& pos, MarkerType type )
     addMarker ( pos, key );
 }
 
-void Board::addMarker ( const Knights::Pos& pos, QString spriteKey )
+void Board::addMarker ( const Pos& pos, const QString& spriteKey )
 {
     if ( markers.contains ( pos ) )
     {
@@ -515,12 +524,10 @@ void Board::updateTheme()
         m_borders << new Item ( renderer, tbBorderKey, this, Pos() );
 
         Item *tItem = new Item ( renderer, lrBorderKey, this, Pos() );
-        tItem->setTransformOriginPoint ( tItem->boundingRect().center() );
         tItem->setRotation ( 180 );
         m_borders << tItem;
 
         tItem = new Item ( renderer, tbBorderKey, this, Pos() );
-        tItem->setTransformOriginPoint ( tItem->boundingRect().center() );
         tItem->setRotation ( 180 );
         m_borders << tItem;
 
@@ -577,30 +584,45 @@ void Board::updateGraphics()
         sideMargin = 0.0;
         topMargin = 0.0;
     }
-    boardSize = boardSize + 2 * QSizeF ( sideMargin, topMargin );
+    boardSize = boardSize + 2 * QSize ( sideMargin, topMargin );
     qreal ratio = qMin ( sceneRect().width() / boardSize.width(), sceneRect().height() / boardSize.height() );
     sideMargin *= ratio;
     topMargin *= ratio;
 
     QSizeF tpSize = tileSize * ratio;
-    m_tileSize = floor ( qMin ( tpSize.width(), tpSize.height() ) );
-
-    QSize hBorderSize = ( QSizeF ( 8 * m_tileSize + 2 * sideMargin, topMargin ) ).toSize();
-    QSize vBorderSize = ( QSizeF ( sideMargin, 8 * m_tileSize ) ).toSize();
-    qreal hBorderMargin = topMargin;
-    qreal vBorderMargin = sideMargin;
+    m_tileSize = qFloor ( qMin ( tpSize.width(), tpSize.height() ) );
+    /*
+    if ( m_displayBorders )
+    {
+        if (  m_tileSize % 2 )
+        {
+            m_tileSize -= 1;
+        }
+        sideMargin = m_tileSize / 2;
+        topMargin = m_tileSize / 2;
+    }
+    */
+    
+    QSize hBorderSize = QSize ( 8 * m_tileSize + 2 * qRound ( sideMargin ), qRound ( topMargin ) );
+    QSize vBorderSize = QSize ( qRound ( sideMargin ), 8 * m_tileSize );
+    int hBorderMargin = qRound ( topMargin );
+    int vBorderMargin = qRound ( sideMargin );
+    
 
     sideMargin = qMax ( sideMargin, ( sceneRect().width() - 8 * m_tileSize ) / 2 );
     topMargin = qMax ( topMargin, ( sceneRect().height() - 8 * m_tileSize ) / 2 );
-    m_boardRect = QRectF( sceneRect().topLeft() + QPointF( sideMargin, topMargin ),
-                          QSizeF( m_tileSize, m_tileSize ) * 8);
+    m_boardRect = QRect( sceneRect().topLeft().toPoint() + QPoint( sideMargin, topMargin ),
+                          QSize( m_tileSize, m_tileSize ) * 8);
+    
     QSize tSize = QSizeF ( m_tileSize, m_tileSize ).toSize();
-
-    QPointF bottomBorderPoint = m_boardRect.bottomLeft() - QPointF ( vBorderMargin, 0.0 );
-    QPointF topBorderPoint = m_boardRect.topLeft() - QPointF ( vBorderMargin, hBorderMargin );
-    QPointF leftBorderPoint = m_boardRect.topLeft() - QPointF ( vBorderMargin, 0.0 );
-    QPointF rightBorderPoint = m_boardRect.topRight();
-
+    /*
+     * For historical reasons, QRect's 
+     */
+    QPointF topBorderPoint = m_boardRect.topRight() + QPoint ( vBorderMargin, 0 );
+    QPointF rightBorderPoint = m_boardRect.bottomRight() + QPoint ( vBorderMargin, 0 );
+    QPointF bottomBorderPoint = m_boardRect.bottomLeft() - QPoint ( vBorderMargin, 0 );
+    QPointF leftBorderPoint = m_boardRect.topLeft() - QPoint ( vBorderMargin, 0 );
+    
     foreach ( Piece* p, m_grid )
     {
         centerAndResize ( p, tSize );
@@ -623,8 +645,8 @@ void Board::updateGraphics()
     if ( m_displayNotations )
     {
         m_notations[0]->moveAndResize ( bottomBorderPoint, m_tileSize, hBorderSize, Settings::animateBoard() );
-        m_notations[1]->moveAndResize ( rightBorderPoint, m_tileSize, vBorderSize, Settings::animateBoard() );
-        m_notations[2]->moveAndResize ( topBorderPoint, m_tileSize, hBorderSize, Settings::animateBoard() );
+        m_notations[1]->moveAndResize ( m_boardRect.topRight(), m_tileSize, vBorderSize, Settings::animateBoard() );
+        m_notations[2]->moveAndResize ( m_boardRect.topLeft() - QPointF ( vBorderMargin, hBorderMargin ), m_tileSize, hBorderSize, Settings::animateBoard() );
         m_notations[3]->moveAndResize ( leftBorderPoint, m_tileSize, vBorderSize, Settings::animateBoard() );
     }
 }
@@ -666,6 +688,36 @@ void Board::changeDisplayedPlayer()
     emit displayedPlayerChanged ( m_displayedPlayer );
 }
 
-
+PieceType Board::getPromotedType()
+{
+    KDialog dialog;
+    dialog.setButtons ( KDialog::Ok );
+    dialog.setButtonText ( KDialog::Ok, i18n ( "Promote" ) );
+    dialog.setCaption ( i18n ( "Promotion" ) );
+    QWidget promotionWidget ( &dialog );
+    Ui::PromotionWidget ui;
+    ui.setupUi ( &promotionWidget );
+    dialog.setMainWidget ( &promotionWidget );
+    if ( dialog.exec() == KDialog::Accepted )
+    {
+        if ( ui.radioButtonQueen->isChecked() )
+        {
+            return Queen;
+        }
+        else if ( ui.radioButtonKnight->isChecked() )
+        {
+            return Knight;
+        }
+        else if ( ui.radioButtonBishop->isChecked() )
+        {
+            return Bishop;
+        }
+        else if ( ui.radioButtonRook->isChecked() )
+        {
+            return Rook;
+        }
+    }
+    return NoType;
+}
 #include "board.moc"
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on;  replace-tabs on;  replace-tabs on;

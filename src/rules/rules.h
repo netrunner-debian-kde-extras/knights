@@ -1,22 +1,22 @@
 /*
- This file is part of Knights, a chess board for KDE SC 4.
- Copyright 2009-2010  Miha Čančula <miha.cancula@gmail.com>
+    This file is part of Knights, a chess board for KDE SC 4.
+    Copyright 2009,2010,2011  Miha Čančula <miha@noughmad.eu>
 
- This program is free software; you can redistribute it and/or
- modify it under the terms of the GNU General Public License as
- published by the Free Software Foundation; either version 2 of
- the License or (at your option) version 3 or any later version
- accepted by the membership of KDE e.V. (or its successor approved
- by the membership of KDE e.V.), which shall act as a proxy
- defined in Section 14 of version 3 of the license.
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License as
+    published by the Free Software Foundation; either version 2 of
+    the License or (at your option) version 3 or any later version
+    accepted by the membership of KDE e.V. (or its successor approved
+    by the membership of KDE e.V.), which shall act as a proxy
+    defined in Section 14 of version 3 of the license.
 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #ifndef KCHESS_RULES_H
@@ -25,6 +25,7 @@
 #include "core/piece.h"
 
 #include "board.h"
+#include <KDebug>
 
 template<class Key, class T > class QMap;
 namespace Knights
@@ -66,7 +67,7 @@ namespace Knights
             /**
               * @return The positions and types of the staring pieces of the color @a color
               */
-            virtual BoardState startingPieces () = 0;
+            virtual PieceDataMap startingPieces () = 0;
 
             /**
               * Used to check whether any player has a winning position.
@@ -99,9 +100,10 @@ namespace Knights
               * Adds appropriate flags to the move.
               * Useful when processing moves from a computer engine, as they only specify the start and end pos,
               * and no other information
-              * @param move Pointer to the move with @a from and @a to already set.
+              * @param move a reference to the move with either @a from and @a to or its @a string already set.
+              * @param color the color if the player who made this move
               */
-            virtual void checkSpecialFlags ( Move& move ) = 0;
+            virtual void checkSpecialFlags ( Move* move, Color color ) = 0;
 
             /**
               * Called when a move has been made, either by the player or a computer opponent

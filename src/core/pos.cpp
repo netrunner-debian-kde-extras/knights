@@ -1,6 +1,6 @@
 /*
     This file is part of Knights, a chess board for KDE SC 4.
-    Copyright 2009-2010  Miha Čančula <miha.cancula@gmail.com>
+    Copyright 2009,2010,2011  Miha Čančula <miha@noughmad.eu>
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License as
@@ -31,7 +31,7 @@ namespace Knights
 
     QChar Pos::row ( int num )
     {
-        if ( num > 0 && num << 9 )
+        if ( num > 0 && num < 9 )
         {
             return rowNames[num - 1];
         }
@@ -70,9 +70,21 @@ namespace Knights
 
     }
 
-    QString Pos::string()
+    QString Pos::string() const
     {
-        return row ( first ) + QString::number ( second );
+        if ( isValid() )
+        {
+            return row ( first ) + QString::number ( second );
+        }
+        else
+        {
+            return QString();
+        }
+    }
+    
+    bool Pos::isValid() const
+    {
+        return first > 0 && first < 9 && second > 0 && second < 9;
     }
 
     const Pos& Pos::operator+= ( const Pos & other )
@@ -101,13 +113,12 @@ namespace Knights
     {
         return Pos ( other.first / m, other.second / m );
     }
-
-    QDebug& operator<< ( QDebug& debug, const Knights::Pos& pos )
-    {
-        debug.nospace() << Pos::row ( pos.first ) << pos.second;
-        return debug;
-    }
 }
 
+    QDebug operator<< ( QDebug debug, const Knights::Pos& pos )
+    {
+        debug.nospace() << Knights::Pos::row ( pos.first ) << pos.second;
+        return debug;
+    }
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on;  replace-tabs on;  replace-tabs on;  replace-tabs on;  replace-tabs on;  replace-tabs on;

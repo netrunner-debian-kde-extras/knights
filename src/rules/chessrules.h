@@ -1,6 +1,6 @@
 /*
     This file is part of Knights, a chess board for KDE SC 4.
-    Copyright 2009-2010  Miha Čančula <miha.cancula@gmail.com>
+    Copyright 2009,2010,2011  Miha Čančula <miha@noughmad.eu>
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License as
@@ -32,7 +32,7 @@ namespace Knights
     class Move;
     class Pos;
 
-    class ChessRules : public Knights::Rules
+    class ChessRules : public Rules
     {
         public:
 
@@ -40,7 +40,7 @@ namespace Knights
 
             virtual Color winner();
             virtual bool hasLegalMoves ( Color color );
-            virtual BoardState startingPieces ();
+            virtual PieceDataMap startingPieces ();
             virtual QList<Move> legalMoves ( const Pos& pos );
             virtual void moveMade ( const Move& m );
             virtual Directions legalDirections ( PieceType type );
@@ -49,7 +49,7 @@ namespace Knights
             bool isAttacked ( const Pos& pos, Color color, Grid * grid = 0 );
             virtual bool isAttacking ( const Pos& attackingPos );
 
-            virtual void checkSpecialFlags ( Move& move );
+            virtual void checkSpecialFlags ( Move* move, Color color );
 
         private:
 
@@ -70,7 +70,7 @@ namespace Knights
             QList<Move> movesInDirection ( const Pos& dir, const Pos& pos, int length = 8, bool attackYours = false, Grid* grid = 0 );
             QList<Move> pawnMoves ( const Pos& pos );
             QList<Move> castlingMoves ( const Pos& pos );
-            int length ( const Knights::Move& move );
+            int length ( const Move& move );
             bool isPathClearForCastling ( const Pos& kingPos, const Pos& rookPos );
             QList<Move> legalAttackMoves ( const Pos& pos, Grid* grid = 0 );
             bool isKingAttacked ( Color color , Grid* grid = 0 );

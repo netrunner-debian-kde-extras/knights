@@ -1,6 +1,6 @@
 /*
     This file is part of Knights, a chess board for KDE SC 4.
-    Copyright 2009-2010  Miha Čančula <miha.cancula@gmail.com>
+    Copyright 2009,2010,2011  Miha Čančula <miha@noughmad.eu>
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License as
@@ -80,7 +80,7 @@ bool ChessRules::hasLegalMoves ( Color color )
     return false;
 }
 
-Knights::Color ChessRules::winner()
+Color ChessRules::winner()
 {
     if ( isKingAttacked ( Black ) && !hasLegalMoves ( Black ) )
     {
@@ -93,9 +93,9 @@ Knights::Color ChessRules::winner()
     return NoColor;
 }
 
-BoardState ChessRules::startingPieces ( )
+PieceDataMap ChessRules::startingPieces ( )
 {
-    BoardState pieces;
+    PieceDataMap pieces;
     // First, the white pieces
     int baseLine = 0;
     int pawnLine = 0;
@@ -219,7 +219,7 @@ QList<Move> ChessRules::legalMoves ( const Pos& pos )
     return moves;
 }
 
-QList<Move> ChessRules::legalAttackMoves ( const Knights::Pos& pos, Grid* grid )
+QList<Move> ChessRules::legalAttackMoves ( const Pos& pos, Grid* grid )
 {
     if ( !grid )
     {
@@ -308,7 +308,7 @@ Rules::Directions ChessRules::legalDirections ( PieceType type )
 }
 
 
-bool ChessRules::isAttacked ( const Knights::Pos& pos, Color color, Grid* grid )
+bool ChessRules::isAttacked ( const Pos& pos, Color color, Grid* grid )
 {
     if ( !grid )
     {
@@ -326,7 +326,7 @@ bool ChessRules::isAttacked ( const Knights::Pos& pos, Color color, Grid* grid )
     return false;
 }
 
-bool ChessRules::isAttacking ( const Knights::Pos& attackingPos )
+bool ChessRules::isAttacking ( const Pos& attackingPos )
 {
     const Color pieceColor = m_grid->value ( attackingPos )->color();
     const Color kingColor = oppositeColor ( pieceColor );
@@ -334,7 +334,7 @@ bool ChessRules::isAttacking ( const Knights::Pos& attackingPos )
 }
 
 
-QList<Move> ChessRules::movesInDirection ( const Knights::Pos& dir, const Knights::Pos& pos, int length, bool attackYours, Grid* grid )
+QList<Move> ChessRules::movesInDirection ( const Pos& dir, const Pos& pos, int length, bool attackYours, Grid* grid )
 {
     if ( !grid )
     {
@@ -362,19 +362,110 @@ QList<Move> ChessRules::movesInDirection ( const Knights::Pos& dir, const Knight
     return list;
 }
 
-void ChessRules::checkSpecialFlags ( Move& move )
+void ChessRules::checkSpecialFlags ( Move* move, Color color )
 {
-    Piece* p = m_grid->value ( move.from() );
-    move.setFlags ( 0 );
-    move.setFlag ( Move::Take, m_grid->contains ( move.to() ) );
-    if ( p->pieceType() == King && length ( move ) == 2 )
+    if ( move->notation() == Move::Algebraic )
     {
+        /**
+         * Possible notations:
+         * * e4 == Pe4 == pawn to e4
+         * * Ne4 == Knight to e4
+         * * Rbe1 == Rook from file b to e1
+         * * cd4 == Pawn from file c to d4
+         */
+        QChar c;
+        PieceType type = NoType;
+        int file = -1;
+        bool found = false;
+        bool fileSet = false;
+        bool typeSet = false;
+        QString s = move->string().remove( QLatin1Char('x') ).remove( QLatin1Char(':') );
+        if  ( s.size() < 2 )
+        {
+                kWarning() << "Unknown move notation" << move->string();
+                move->setFlag ( Move::Illegal, true );
+                return;
+        }
+        switch ( s.size() )
+        {
+            case 2: // Only the destination square
+                type = Pawn;
+                typeSet = true;
+                break;
+
+            case 3:
+                //TODO:
+                if ( QByteArray("abcdefgh").contains ( s[0].toLatin1() ) )
+                {
+                    file = Pos::numFromRow ( s[0] );
+                    fileSet = true;
+                }
+                else if ( QByteArray("KQRBNP").contains ( s[0].toLatin1() ) )
+                {
+                    type = Piece::typeFromChar ( s[0] );
+                    typeSet = true;
+                }
+                break;
+                
+            case 4:
+                // Both piece type and starting file
+                type = Piece::typeFromChar ( s[0] );
+                typeSet = true;
+                file = Pos::numFromRow ( s[1] );
+                fileSet = true;
+                break;
+        }
+        move->setTo ( s.right(2) );
+        for ( Grid::const_iterator it = m_grid->constBegin(); it != m_grid->constEnd(); ++it )
+        {
+            if ( it.value()->color() == color
+                && ( !typeSet || it.value()->pieceType() == type )
+                && ( !fileSet || it.key().first == file )
+                && legalMoves(it.key()).contains( Move( it.key(), move->to() ) ) )
+            {
+                if ( found )
+                {
+                    kWarning() << "Found more than one possible move";
+                    move->setFlag ( Move::Illegal, true );
+                    return;
+                }
+                move->setFrom( it.key() );
+                found = true;
+            }
+        }
+        if ( !found )
+        {
+            kWarning() << "No possible moves found" << move;
+            move->setFlag ( Move::Illegal, true );
+            return;
+        }
+    }
+
+    Piece* p = m_grid->value ( move->from() );
+    if ( !p )
+    {
+        kWarning() << "No piece at position" << move->from();
+        move->setFlag(Move::Illegal, true);
+        return;
+    }
+    move->setPieceData ( qMakePair( p->color(), p->pieceType() ) );
+    move->setFlags ( move->flags() & ~(Move::Take | Move::Castle | Move::Check | Move::CheckMate | Move::EnPassant | Move::Promote) );
+    if ( m_grid->contains ( move->to() ) )
+    {
+        Piece* p = m_grid->value ( move->to() );
+        move->addRemovedPiece ( move->to(), qMakePair ( p->color(), p->pieceType() ) );
+        move->setFlag ( Move::Take, true );
+    }
+    if ( p->pieceType() == King && length ( *move ) == 2 )
+    {
+        kDebug() << "Castling";
         // It's castling
-        move.setFlag ( Move::Castle, true );
-        int line = move.to().second;
+        move->setFlag ( Move::Castle, true );
+        int line = move->to().second;
         Move rookMove;
-        rookMove.setTo ( ( move.from() + move.to() ) / 2 );
-        if ( move.to().first > move.from().first )
+        rookMove.setFlag ( Move::Forced, true );
+        rookMove.setTo ( ( move->from() + move->to() ) / 2 );
+        if ( move->to().first > move->from().first )
         {
             rookMove.setFrom ( 8, line );
         }
@@ -382,37 +473,43 @@ void ChessRules::checkSpecialFlags ( Move& move )
         {
             rookMove.setFrom ( 1, line );
         }
-        move.setAdditionalMoves ( QList<Move>() << rookMove );
-        kDebug() << move.additionalMoves().size();
+        move->setAdditionalMoves ( QList<Move>() << rookMove );
     }
     else
     {
         if ( p->pieceType() == Pawn )
         {
             // Promotion?
-            if ( ( p->color() == White && move.to().second == 8 ) || ( p->color() == Black && move.to().second == 1 ) )
+            if ( ( p->color() == White && move->to().second == 8 ) || ( p->color() == Black && move->to().second == 1 ) )
             {
-                move.setFlag ( Move::Promote, true );
+                move->setFlag ( Move::Promote, true );
             }
-            Pos delta = move.to() - move.from();
+            Pos delta = move->to() - move->from();
             // En Passant?
-            if ( delta.first != 0 && !m_grid->contains ( move.to() ) )
+            if ( delta.first != 0 && !m_grid->contains ( move->to() ) )
             {
-                move.setFlag ( Move::EnPassant, true );
-                Pos capturedPos = move.from() + Pos ( delta.first, 0 );
-                move.setAdditionalCaptures ( QList<Pos>() << capturedPos );
+                move->setFlag ( Move::EnPassant, true );
+                Pos capturedPos = move->from() + Pos ( delta.first, 0 );
+                Piece* p = m_grid->value ( capturedPos );
+                move->addRemovedPiece ( capturedPos, qMakePair ( p->color(), p->pieceType() ) );
             }
         }
     }
+
+    if ( move->flag(Move::Take) )
+    {
+        Piece* p = m_grid->value ( move->to() );
+        move->addRemovedPiece ( move->to(), qMakePair ( p->color(), p->pieceType() ) );
+    }
 }
 
-int ChessRules::length ( const Knights::Move& move )
+int ChessRules::length ( const Move& move )
 {
     Pos delta = move.to() - move.from();
     return qMax ( qAbs ( delta.first ), qAbs ( delta.second ) );
 }
 
-QList< Move > ChessRules::pawnMoves ( const Knights::Pos& pos )
+QList< Move > ChessRules::pawnMoves ( const Pos& pos )
 {
     QList<Move> list;
     Pos forwardDirection;
@@ -453,7 +550,7 @@ QList< Move > ChessRules::pawnMoves ( const Knights::Pos& pos )
     return list;
 }
 
-void ChessRules::moveMade ( const Knights::Move& m )
+void ChessRules::moveMade ( const Move& m )
 {
     m_enPassantMoves.clear();
     switch ( m_grid->value ( m.to() )->pieceType() )
@@ -506,7 +603,7 @@ void ChessRules::moveMade ( const Knights::Move& m )
     moveHistory << data;
 }
 
-QList< Move > ChessRules::castlingMoves ( const Knights::Pos& pos )
+QList< Move > ChessRules::castlingMoves ( const Pos& pos )
 {
     QList<Move> moves;
     Color color = m_grid->value ( pos )->color();
