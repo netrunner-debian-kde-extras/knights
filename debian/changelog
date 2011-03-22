@@ -1,6 +1,9 @@
 knights (2.3.1-1) UNRELEASED; urgency=low
 
   * New upstream release.
+  * Update patches:
+    - Remove 03_dont_crash_fics.diff, no longer needed.
+    - Remove 04_stop_clock_game_over.diff, no longer needed.
 
  -- José Manuel Santamaría Lema <panfaust@gmail.com>  Tue, 22 Mar 2011 14:05:39 +0100
 
