@@ -1,11 +1,11 @@
-knights (2.2.0-2) UNRELEASED; urgency=low
+knights (2.2.0-2) unstable; urgency=low
 
   * Provide a default.desktop symlink to make knights work even if the
     desktop file for the configured theme doesn't exist (this could easily
     happen if you're upgrading from knights 0.6 among other reasons).
   * Remove the starting article from short description.
 
- -- José Manuel Santamaría Lema <panfaust@gmail.com>  Wed, 02 Mar 2011 20:56:21 +0100
+ -- José Manuel Santamaría Lema <panfaust@gmail.com>  Wed, 02 Mar 2011 22:32:04 +0100
 
 knights (2.2.0-1) unstable; urgency=low
 
