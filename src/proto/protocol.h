@@ -1,6 +1,6 @@
 /*
     This file is part of Knights, a chess board for KDE SC 4.
-    Copyright 2009-2010  Miha Čančula <miha.cancula@gmail.com>
+    Copyright 2009,2010,2011  Miha Čančula <miha@noughmad.eu>
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License as
@@ -26,9 +26,20 @@
 #include <core/piece.h>
 
 #include <QtCore/QObject>
+#include <QtCore/QTime>
+#include <QtCore/QPointer>
 
 namespace Knights
 {
+
+class Offer;
+
+
+struct TimeControl;
+
+
+class ChatWidget;
+
     class ProtocolPrivate;
 
     class Protocol : public QObject
@@ -37,10 +48,9 @@ namespace Knights
             Q_ENUMS ( Feature )
             Q_ENUMS ( ErrorCode )
             Q_FLAGS ( Features )
-            Q_PROPERTY ( Color playerColor READ playerColor WRITE setPlayerColor )
-            Q_PROPERTY ( QString opponentName READ opponentName )
-            Q_PROPERTY ( QString playerName READ playerName )
-
+            Q_PROPERTY ( Color color READ color WRITE setColor )
+            Q_PROPERTY ( QString playerName READ playerName WRITE setPlayerName )
+            
         public:
             enum Feature
             {
@@ -51,7 +61,10 @@ namespace Knights
                 Pause = 0x08, /**< The protocol supports pausing the clock */
                 History = 0x10,
                 Undo = 0x20, /**< It is possible to undo a move */
-                GameOver = 0x40 /**< The protocol emits gameOver() when the game is over */
+                GameOver = 0x40, /**< The protocol emits gameOver() when the game is over */
+                Draw = 0x80,
+                Adjourn = 0x100,
+                Resign = 0x200
             };
             Q_DECLARE_FLAGS ( Features, Feature )
 
@@ -63,48 +76,77 @@ namespace Knights
                 InstallationError,
                 UnknownError
             };
+            
+            enum ToolWidgetType
+            {
+                ConsoleToolWidget,
+                ChatToolWidget,
+                OtherToolWidget
+            };
 
+            struct ToolWidgetData
+            {
+                QWidget* widget;
+                QString title;
+                QString name;
+                ToolWidgetType type;
+                Color owner;
+            };
+            
             static QString stringFromErrorCode ( ErrorCode code );
+            static Protocol* white();
+            static void setWhiteProtocol ( Protocol* p );
+            static Protocol* black();
+            static void setBlackProtocol ( Protocol* p );
+            static Protocol* byColor ( Color color );
 
             Protocol ( QObject* parent = 0 );
             virtual ~Protocol();
 
             // Needed functions
+            virtual bool isLocal();
+            virtual bool isComputer();
 
-            Color playerColor() const;
-            QString opponentName() const;
+            Color color() const;
             QString playerName() const;
             QVariant attribute ( const QString& attribute ) const;
+            QVariant attribute ( const char* attribute ) const;
 
-        protected:
-            void setPlayerColor ( Color color );
-            void setOpponentName ( const QString& name );
+            void setColor ( Color color );
             void setPlayerName ( const QString& name );
             void setAttribute ( const QString& attribute, QVariant value );
+            void setAttribute ( const char* attribute, QVariant value );
             void setAttributes ( QVariantMap attributes );
+
+    protected:
+
+            ChatWidget* createChatWidget();
+            ChatWidget* createConsoleWidget();
+            void initComplete();
+            int nextId();
 
         public Q_SLOTS:
             virtual void move ( const Move& m ) = 0;
+            virtual void init() = 0;
             virtual void startGame() = 0;
-            virtual void init ( const QVariantMap& options ) = 0;
+            virtual void makeOffer ( const Offer& offer ) = 0;
+            virtual void acceptOffer ( const Offer& offer ) = 0;
+            virtual void declineOffer ( const Offer& offer ) = 0;
 
             // Optional features
+            virtual void setWinner ( Color winner );
+            
         public:
             virtual Features supportedFeatures();
-            virtual Move::List moveHistory();
-            int timeRemaining();
-
-        public Q_SLOTS:
-            virtual void pauseGame();
-            virtual void resumeGame();
-            virtual void undoLastMove();
-            virtual void setOpponentTimeLimit ( int seconds );
-            virtual void setPlayerTimeLimit ( int seconds );
+            virtual int timeRemaining();
+            virtual QList<ToolWidgetData> toolWidgets();
+            virtual void setTimeControl ( const TimeControl& c );
+            virtual bool isReady();
 
         Q_SIGNALS:
             void pieceMoved ( const Move& m );
             void illegalMove();
-            void gameOver ( const Color& winner );
+            void gameOver ( Color winner );
 
             void errorStringChanged ( const QString& errorString );
             void errorCodeChanged ( const ErrorCode& error );
@@ -112,9 +154,14 @@ namespace Knights
             void initSuccesful();
             void error ( const Protocol::ErrorCode& errorCode, const QString& errorString = QString() );
 
-            void timeChanged ( const Color& color, const QTime& time );
+            void timeChanged ( const QTime& time );
+            void timeLimitChanged ( const QTime& time );
+            void undoPossible ( bool possible );
+            void redoPossible ( bool possible );
 
         private:
+            static QPointer<Protocol> m_white;
+            static QPointer<Protocol> m_black;
             ProtocolPrivate* d_ptr;
             Q_DECLARE_PRIVATE ( Protocol )
     };

@@ -1,6 +1,6 @@
 /*
     This file is part of Knights, a chess board for KDE SC 4.
-    Copyright 2009-2010  Miha Čančula <miha.cancula@gmail.com>
+    Copyright 2009,2010,2011  Miha Čančula <miha@noughmad.eu>
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License as
@@ -39,36 +39,26 @@ namespace Knights
     {
             Q_OBJECT
         public:
+
+            enum FicsMode
+            {
+                NoFics,
+                PlayerVsFics,
+                ComputerVsFics,
+                BothPlayersFics
+            };
+            
             explicit GameDialog ( QWidget* parent = 0, Qt::WindowFlags f = 0 );
             virtual ~GameDialog();
 
-            Settings::EnumProtocol::type protocol() const;
-            Color color() const;
-            QTime playerTime() const;
-            QTime opponentTime() const;
-            QString program() const;
-            QString server() const;
-            bool timeLimit() const;
-            int playerIncrement() const;
-            int opponentIncrement() const;
-
+            void setupProtocols();
             void writeConfig();
 
         private:
-            Ui::GameDialog* ui;
-            bool m_sameTime;
-            bool m_hotseat;
-            bool m_timeEnabled;
-
-            bool m_forceSameTime;
-
-            void updateTimeEdits();
-
+            Ui::GameDialog* ui;            
+    
         private slots:
-            void timeEnabled ( bool enabled );
-            void sameTimeChanged ( bool enabled );
-            void hotseatModeToggled ( bool enabled );
-            void ficsModeToggled ( bool enabled );
+            void updateTimeEdits();
     };
 
 }

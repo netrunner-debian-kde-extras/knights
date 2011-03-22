@@ -1,6 +1,6 @@
 /*
     This file is part of Knights, a chess board for KDE SC 4.
-    Copyright 2009-2010  Miha Čančula <miha.cancula@gmail.com>
+    Copyright 2009,2010,2011  Miha Čančula <miha@noughmad.eu>
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License as
@@ -22,32 +22,49 @@
 #ifndef KNIGHTS_XBOARDPROTO_H
 #define KNIGHTS_XBOARDPROTO_H
 
-#include "protocol.h"
+#include "proto/textprotocol.h"
 
 class KProcess;
 
 namespace Knights
 {
-    class XBoardProtocol : public Protocol
+    class XBoardProtocol : public TextProtocol
     {
             Q_OBJECT
         public:
             XBoardProtocol ( QObject* parent = 0 );
             ~XBoardProtocol();
 
-            virtual void startGame();
             virtual void move ( const Move& m );
             virtual Features supportedFeatures();
+    virtual bool isComputer();
+
+    virtual QList<ToolWidgetData> toolWidgets();
+
+    virtual void parseLine(const QString& line);
+    virtual bool parseStub(const QString& line);
 
         private:
             KProcess* mProcess;
+            QString lastMoveString;
+            bool resumePending;
+    int m_moves;
+    int m_increment;
+    int m_baseTime;
+    bool m_timeLimit;
 
         public Q_SLOTS:
-            virtual void init ( const QVariantMap& options );
+            virtual void init ();
+            virtual void startGame();
+            virtual void setWinner(Color winner);
+            
+    virtual void makeOffer(const Offer& offer);
+    virtual void acceptOffer(const Offer& offer);
+    virtual void declineOffer(const Offer& offer);
+            
 
-        private Q_SLOTS:
-            void readFromProgram();
-            void readError();
+    private Q_SLOTS:
+        void readError();
     };
 }
 

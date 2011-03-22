@@ -39,17 +39,21 @@ namespace Knights
     };
     enum Color
     {
-        NoColor = 0,
-        White,
-        Black
+        NoColor = 0x00,
+        White = 0x01,
+        Black = 0x02
     };
+
+    Q_DECLARE_FLAGS(Colors, Color)
+    Q_DECLARE_OPERATORS_FOR_FLAGS(Colors)
     Color oppositeColor ( Color color );
+    QString colorName ( Color color );
 
     class Piece : public Item
     {
             Q_OBJECT
         public:
-            Piece ( Renderer* renderer, Knights::PieceType type, Knights::Color color, QGraphicsScene* scene, Pos boardPos, QGraphicsItem* parent = 0 );
+            Piece ( Renderer* renderer, PieceType type, Color color, QGraphicsScene* scene, Pos boardPos, QGraphicsItem* parent = 0 );
             virtual ~Piece();
 
             PieceType pieceType();
@@ -68,13 +72,14 @@ namespace Knights
 
     typedef QMap<Pos, Piece*> Grid;
     typedef QPair<Color, PieceType> PieceData;
-    typedef QMap<Pos, PieceData> BoardState;
+    typedef QMap<Pos, PieceData> PieceDataMap;
 }
 
 Q_DECLARE_METATYPE ( Knights::Color )
+Q_DECLARE_METATYPE ( Knights::Colors )
 Q_DECLARE_METATYPE ( Knights::PieceType )
 Q_DECLARE_METATYPE ( Knights::PieceData )
-Q_DECLARE_METATYPE ( Knights::BoardState )
+Q_DECLARE_METATYPE ( Knights::PieceDataMap )
 
 #endif // KNIGHTS_PIECE_H
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on;  replace-tabs on;

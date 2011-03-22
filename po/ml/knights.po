@@ -1,0 +1,1027 @@
+# translation of knights.po to
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# Anish A <anish.nl@gmail.com>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: knights\n"
+"Report-Msgid-Bugs-To: http://bugs.kde.org\n"
+"POT-Creation-Date: 2011-03-10 12:35+0100\n"
+"PO-Revision-Date: 2010-12-22 11:59+0530\n"
+"Last-Translator: Anish A <anish.nl@gmail.com>\n"
+"Language-Team:  Swathantra Malayalam Computing | സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ് "
+"<discuss@lists.smc.org.in>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ml\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: proto/chatwidget.cpp:88
+msgid " says: "
+msgstr ""
+
+#: proto/chatwidget.cpp:125
+#, fuzzy
+#| msgid "You"
+msgid "You: "
+msgstr "താങ്കള്‍"
+
+#: proto/ficsdialog.cpp:79
+msgid "Session started"
+msgstr ""
+
+#: proto/ficsdialog.cpp:92
+msgid "Logging in..."
+msgstr ""
+
+#: proto/ficsdialog.cpp:123 proto/ficsdialog.cpp:132
+msgid "H:mm:ss"
+msgstr "H:mm:ss"
+
+#: proto/ficsdialog.cpp:150
+#, kde-format
+msgctxt "PlayerName (rating)"
+msgid "%1 (%2)"
+msgstr ""
+
+#: proto/ficsdialog.cpp:229
+#, kde-format
+msgid "<font color='red'>Error: %1</font>"
+msgstr ""
+
+#. i18n: file: proto/ficsdialog.ui:284
+#. i18n: ectx: property (text), widget (QPushButton, seekButton)
+#: proto/ficsprotocol.cpp:128 rc.cpp:289
+msgid "Seek"
+msgstr ""
+
+#: proto/ficsprotocol.cpp:129
+msgid "Unseek"
+msgstr ""
+
+#. i18n: file: popup.ui:37
+#. i18n: ectx: property (text), widget (KPushButton, acceptButton)
+#: proto/ficsprotocol.cpp:130 proto/ficsprotocol.cpp:210 rc.cpp:148
+msgid "Accept"
+msgstr "അംഗീകരിക്കുക"
+
+#: proto/ficsprotocol.cpp:131
+msgid "Help"
+msgstr ""
+
+#: proto/ficsprotocol.cpp:151
+msgid "Server Console"
+msgstr ""
+
+#: proto/ficsprotocol.cpp:164
+#, kde-format
+msgid "Chat with %1"
+msgstr ""
+
+#: proto/ficsprotocol.cpp:197
+msgid "Login failed"
+msgstr ""
+
+#: proto/ficsprotocol.cpp:203
+#, fuzzy
+#| msgid "Human at a chess server:"
+msgid "Chess server"
+msgstr "ചെസ്സ് സര്‍വറിലുള്ള വ്യക്തി:"
+
+#. i18n: file: popup.ui:44
+#. i18n: ectx: property (text), widget (KPushButton, declineButton)
+#: proto/ficsprotocol.cpp:206 rc.cpp:151
+msgid "Decline"
+msgstr "തിരസ്കരിക്കുക"
+
+#: proto/ficsprotocol.cpp:313
+msgid "Invalid Password"
+msgstr ""
+
+#: proto/protocol.cpp:79
+msgid "No Error"
+msgstr "പിശകില്ല"
+
+#: proto/protocol.cpp:82
+msgid "User Canceled"
+msgstr "ഉപഭോക്താവ് നിരസിച്ചു"
+
+#: proto/protocol.cpp:85
+msgid "Network Error"
+msgstr "ശൃംഖലയില്‍ പിശക്"
+
+#: proto/protocol.cpp:88
+msgid "Unknown Error"
+msgstr "തിരിച്ചറിയാനാകാത്ത പ്രശ്നം"
+
+#: proto/protocol.cpp:91
+msgid "Program Error"
+msgstr "പ്രോഗ്രാമില്‍ പിശക്"
+
+#: proto/seekgraph.cpp:42
+msgid "Time limit [minutes]"
+msgstr ""
+
+#: proto/seekgraph.cpp:43
+#, fuzzy
+#| msgid "Opponent"
+msgid "Opponent's rating"
+msgstr "എതിര്‍ കളിക്കാരന്‍"
+
+#: proto/xboardproto.cpp:110
+#, kde-format
+msgid ""
+"Program <code>%1</code> could not be started, please check that it is "
+"installed."
+msgstr ""
+"<code>%1</code> പ്രോഗ്രാം തുടങ്ങാന്‍ പറ്റുന്നില്ല. സജ്ജമാക്കിയിട്ടുണ്ടോ എന്നു് പരിശോധിക്കുക."
+
+#: proto/xboardproto.cpp:124
+#, fuzzy, kde-format
+#| msgid "Challenge from %1 (%2)"
+msgid "Console for %1 (%2)"
+msgstr "%1 (%2)-ല്‍ നിന്നുള്ള വെല്ലുവിളി"
+
+#: board.cpp:695
+msgid "Promote"
+msgstr "പദവി ഉയര്‍ത്തുക"
+
+#: board.cpp:696
+msgid "Promotion"
+msgstr "പദവി ഉയര്‍ത്തല്‍"
+
+#: gamedialog.cpp:218
+msgid " minute"
+msgid_plural " minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: gamedialog.cpp:219
+msgid " second"
+msgid_plural " seconds"
+msgstr[0] ""
+msgstr[1] ""
+
+#: gamedialog.cpp:220
+#, fuzzy
+#| msgid "&Move"
+msgid " move"
+msgid_plural " moves"
+msgstr[0] "&നീക്കുക"
+msgstr[1] "&നീക്കുക"
+
+#: gamemanager.cpp:403
+#, fuzzy
+#| msgid "White"
+msgctxt "The player of this color"
+msgid "White"
+msgstr "വെളുപ്പ്"
+
+#: gamemanager.cpp:404
+#, fuzzy
+#| msgid "Black"
+msgctxt "The player of this color"
+msgid "Black"
+msgstr "കറുപ്പ്"
+
+#: gamemanager.cpp:480
+#, kde-format
+msgid "%1 offers you a draw"
+msgstr ""
+
+#: gamemanager.cpp:483
+#, kde-format
+msgid "%2 would like to take back a half move"
+msgid_plural "%2 would like to take back %1 half moves"
+msgstr[0] ""
+msgstr[1] ""
+
+#: gamemanager.cpp:486
+#, kde-format
+msgid "%1 would like to adjourn the game"
+msgstr ""
+
+#: gamemanager.cpp:489
+#, kde-format
+msgid "%1 would like to abort the game"
+msgstr ""
+
+#: knights.cpp:96
+msgid "Resign"
+msgstr ""
+
+#: knights.cpp:97
+msgid "Admit your inevitable defeat"
+msgstr ""
+
+#: knights.cpp:101
+msgid "Undo"
+msgstr ""
+
+#: knights.cpp:102
+msgid "Take back your last move"
+msgstr ""
+
+#: knights.cpp:108
+#, fuzzy
+#| msgid "Rated"
+msgid "Redo"
+msgstr "വിലയിരുത്തിയത്"
+
+#: knights.cpp:109
+msgid "Repeat your last move"
+msgstr ""
+
+#: knights.cpp:122
+msgid "New Game"
+msgstr "പുതിയ കളി"
+
+#: knights.cpp:152 knights.cpp:164
+msgid "This feature is not yet implemented in Knights"
+msgstr ""
+
+#: knights.cpp:173
+#, kde-format
+msgid "%1 vs. %2"
+msgstr ""
+
+#: knights.cpp:178
+#, fuzzy
+#| msgid "Show Check"
+msgid "Show Clock"
+msgstr "ചെക്ക് കാണിക്കുക"
+
+#: knights.cpp:217
+msgid "Offer &Draw"
+msgstr ""
+
+#: knights.cpp:218
+msgid "Offer a draw to your opponent"
+msgstr ""
+
+#: knights.cpp:225
+msgid "Adjourn"
+msgstr ""
+
+#: knights.cpp:226
+msgid "Continue this game at a later time"
+msgstr ""
+
+#: knights.cpp:249
+#, fuzzy
+#| msgid "Show Check"
+msgid "Show Console"
+msgstr "ചെക്ക് കാണിക്കുക"
+
+#: knights.cpp:256
+#, fuzzy
+#| msgid "Show Check"
+msgid "Show Chat"
+msgstr "ചെക്ക് കാണിക്കുക"
+
+#: knights.cpp:292
+msgid "Show White Console"
+msgstr ""
+
+#: knights.cpp:293
+msgid "Show Black Console"
+msgstr ""
+
+#: knights.cpp:325
+msgid "Clock"
+msgstr "ഘടികാരം"
+
+#: knights.cpp:366
+msgid "General"
+msgstr "പൊതുവായ"
+
+#: knights.cpp:369
+msgid "Theme"
+msgstr "പ്രമേയം"
+
+#: knightsview.cpp:104
+msgid "The game ended in a draw"
+msgstr "കളി സമനിലയിലവസാനിച്ചു"
+
+#: knightsview.cpp:109
+#, kde-format
+msgid "The %1 player won."
+msgstr "%1 കളിക്കാരന്‍ ജയിച്ചു."
+
+#: knightsview.cpp:112
+msgid "Congratulations!"
+msgstr "അഭിനന്ദനങ്ങള്‍!"
+
+#: knightsview.cpp:128
+msgid "Settings changed"
+msgstr "ക്രമീകരണങ്ങള്‍ മാറ്റിയിരിക്കുന്നു"
+
+#. i18n: file: clockwidget.ui:44
+#. i18n: ectx: property (title), widget (QGroupBox, groupW)
+#. i18n: file: gamedialog.ui:254
+#. i18n: ectx: property (text), widget (QRadioButton, colorWhite)
+#: knightsview.cpp:161 rc.cpp:8 rc.cpp:50
+msgid "White"
+msgstr "വെളുപ്പ്"
+
+#. i18n: file: clockwidget.ui:17
+#. i18n: ectx: property (title), widget (QGroupBox, groupB)
+#. i18n: file: gamedialog.ui:267
+#. i18n: ectx: property (text), widget (QRadioButton, colorBlack)
+#: knightsview.cpp:163 rc.cpp:5 rc.cpp:53
+msgid "Black"
+msgstr "കറുപ്പ്"
+
+#: knightsview.cpp:174
+msgid "Pawn"
+msgstr "പടയാളി"
+
+#. i18n: file: promotiondialog.ui:46
+#. i18n: ectx: property (text), widget (QRadioButton, radioButtonRook)
+#: knightsview.cpp:176 rc.cpp:211
+msgid "Rook"
+msgstr "തേര്"
+
+#. i18n: file: promotiondialog.ui:60
+#. i18n: ectx: property (text), widget (QRadioButton, radioButtonKnight)
+#: knightsview.cpp:178 rc.cpp:217
+msgid "Knight"
+msgstr "കുതിര"
+
+#. i18n: file: promotiondialog.ui:53
+#. i18n: ectx: property (text), widget (QRadioButton, radioButtonBishop)
+#: knightsview.cpp:180 rc.cpp:214
+msgid "Bishop"
+msgstr "ആന"
+
+#. i18n: file: promotiondialog.ui:36
+#. i18n: ectx: property (text), widget (QRadioButton, radioButtonQueen)
+#: knightsview.cpp:182 rc.cpp:208
+msgid "Queen"
+msgstr "രാജ്ഞി"
+
+#: knightsview.cpp:184
+msgid "King"
+msgstr "രാജാവ്"
+
+#: main.cpp:30
+msgid "Chess board based on KDE Development Platform 4"
+msgstr "കെഡിഇ വികസന അടിത്തറ 4 നെ അടിസ്ഥാനമാക്കിയ ചെസ്സ് കളി"
+
+#. i18n: file: knightsview_base.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, KnightsView)
+#: main.cpp:36 rc.cpp:144
+msgid "Knights"
+msgstr "കെനൈറ്റ്സ്"
+
+#: main.cpp:37
+#, fuzzy
+#| msgid "(C) 2009-2010 Miha Čančula"
+msgid "(C) 2009-2011 Miha Čančula"
+msgstr " © 2009-2010 മിഹ കാന്‍കുള"
+
+#: main.cpp:39 main.cpp:41
+msgid "Miha Čančula"
+msgstr "മിഹ കാന്‍കുള"
+
+#: main.cpp:43
+msgid "Troy Corbin"
+msgstr "ട്രോയി കോര്‍ബിന്‍"
+
+#: main.cpp:43
+msgid "Original Knights for KDE3 and theme author"
+msgstr "കെഡിഇ3-നുള്ള യഥാര്‍ഥ കെനൈറ്റ്സും പ്രമേയ രചയിതാവും"
+
+#: main.cpp:44
+msgid "Dave Kaye"
+msgstr "ഡേവ് കേയി"
+
+#: main.cpp:44
+msgid "Help with new theme features and rendering without KGameRenderer"
+msgstr ""
+"പുതിയ പ്രമേയ പ്രത്യേകതയെയും കെഗെയിംറെന്റെററിഗ് ഇല്ലാതെ ചിത്രീകരിക്കുന്നതിനെ കുറിച്ചുള്ള സഹായം"
+
+#: main.cpp:46 main.cpp:48
+msgid "Thomas Kamps"
+msgstr "തോമസ് കാംപ്സ്"
+
+#: main.cpp:46 main.cpp:48
+msgid "Clock displaying the remaining time"
+msgstr "അവശേഷിക്കുന്ന സമയം കാണിക്കുന്ന ഘടികാരം"
+
+#: main.cpp:53
+msgid "Document to open"
+msgstr "തുറക്കുവാനുള്ള രേഖ"
+
+#: rc.cpp:1
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Anish A (അനീഷ് എ)"
+
+#: rc.cpp:2
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "aneeshn.nl@gmail.com"
+
+#. i18n: file: gamedialog.ui:29
+#. i18n: ectx: property (title), widget (QGroupBox, player1Box)
+#: rc.cpp:11
+#, fuzzy
+#| msgid "Player"
+msgid "Player 1"
+msgstr "കളിക്കാരന്‍"
+
+#. i18n: file: gamedialog.ui:35
+#. i18n: ectx: property (text), widget (QRadioButton, player1Human)
+#: rc.cpp:14
+msgid "Human (You)"
+msgstr ""
+
+#. i18n: file: gamedialog.ui:47
+#. i18n: ectx: property (text), widget (QRadioButton, player1Comp)
+#. i18n: file: gamedialog.ui:100
+#. i18n: ectx: property (text), widget (QRadioButton, player2Comp)
+#: rc.cpp:17 rc.cpp:26
+msgid "Computer engine:"
+msgstr "കമ്പ്യൂട്ടറിലെ സംവിധാനം:"
+
+#. i18n: file: gamedialog.ui:82
+#. i18n: ectx: property (title), widget (QGroupBox, player2Box)
+#: rc.cpp:20
+#, fuzzy
+#| msgid "Player"
+msgid "Player 2"
+msgstr "കളിക്കാരന്‍"
+
+#. i18n: file: gamedialog.ui:88
+#. i18n: ectx: property (text), widget (QRadioButton, player2Human)
+#: rc.cpp:23
+msgid "Human"
+msgstr ""
+
+#. i18n: file: gamedialog.ui:121
+#. i18n: ectx: property (text), widget (QRadioButton, player2Fics)
+#: rc.cpp:29
+#, fuzzy
+#| msgid "Human at a chess server:"
+msgid "Chess server:"
+msgstr "ചെസ്സ് സര്‍വറിലുള്ള വ്യക്തി:"
+
+#. i18n: file: gamedialog.ui:143
+#. i18n: ectx: property (title), widget (QGroupBox, timeGroup)
+#: rc.cpp:32
+msgid "Use Time Control"
+msgstr ""
+
+#. i18n: file: gamedialog.ui:158
+#. i18n: ectx: property (text), widget (QLabel, numberOfMovesLabel)
+#: rc.cpp:35
+msgid "Time control period"
+msgstr ""
+
+#. i18n: file: gamedialog.ui:174
+#. i18n: ectx: property (specialValueText), widget (KIntSpinBox, numberOfMoves)
+#: rc.cpp:38
+msgctxt "Time control mode"
+msgid "Timer Only"
+msgstr ""
+
+#. i18n: file: gamedialog.ui:187
+#. i18n: ectx: property (text), widget (QLabel, timeLimitLabel)
+#: rc.cpp:41
+#, fuzzy
+#| msgid "Time Limit"
+msgid "Initial time limit"
+msgstr "സമയ പരിധി"
+
+#. i18n: file: gamedialog.ui:210
+#. i18n: ectx: property (text), widget (QLabel, timeIncrementLabel)
+#: rc.cpp:44
+#, fuzzy
+#| msgid "Increment per move"
+msgid "Increment per move"
+msgstr "ഓരോ നീക്കത്തിലുമുള്ള വര്‍ദ്ധനവ്"
+
+#. i18n: file: gamedialog.ui:242
+#. i18n: ectx: property (title), widget (QGroupBox, colorGroup)
+#: rc.cpp:47
+msgid "Player 1's Color"
+msgstr ""
+
+#. i18n: file: gamedialog.ui:280
+#. i18n: ectx: property (text), widget (QRadioButton, colorRandom)
+#: rc.cpp:56
+msgid "Choose randomly"
+msgstr "ഏതെങ്കിലും തിരഞ്ഞെടുക്കുക"
+
+#. i18n: file: knights.kcfg:9
+#. i18n: ectx: label, entry (Theme), group (KGameTheme)
+#: rc.cpp:59
+msgid "Theme file for the board"
+msgstr "പലകയുടെ പ്രമേയ രേഖ"
+
+#. i18n: file: knights.kcfg:21
+#. i18n: ectx: label, entry (animationSpeed), group (Preferences)
+#: rc.cpp:62
+msgid "Moves animation speed"
+msgstr "നീക്കങ്ങളുടെ ചിത്രീകരണ വേഗത"
+
+#. i18n: file: knights.kcfg:25
+#. i18n: ectx: label, entry (animateBoard), group (Preferences)
+#: rc.cpp:65
+msgid "whether the Board is animated during rotating and resizing"
+msgstr "തിരിക്കുകയും വലുതാക്കുകയും ചെയ്യുമ്പോള്‍ പലക സജീവമാക്കണോ എന്ന്"
+
+#. i18n: file: knights.kcfg:34
+#. i18n: ectx: label, entry (borderDisplayType), group (Preferences)
+#: rc.cpp:68
+msgid "chessboard border type"
+msgstr "ചെസ്സ് പലകയുടെ അതിരിന്റെ തരം"
+
+#. i18n: file: knights.kcfg:38
+#. i18n: ectx: label, entry (showDanger), group (Preferences)
+#: rc.cpp:71
+msgid "show check marker"
+msgstr "ചെക്ക് അടയാളം കാണിക്കുക"
+
+#. i18n: file: knights.kcfg:42
+#. i18n: ectx: label, entry (showMarker), group (Preferences)
+#: rc.cpp:74
+msgid "show legal moves marker"
+msgstr "സാധുവായ നീക്കത്തിന്റെ അടയാളം കാണിക്കുക"
+
+#. i18n: file: knights.kcfg:46
+#. i18n: ectx: label, entry (showMotion), group (Preferences)
+#: rc.cpp:77
+msgid "show opponents move marker"
+msgstr "എതിരാളിയുടെ നീക്കത്തിന്റെ അടയാളം കാണിക്കുക"
+
+#. i18n: file: knights.kcfg:50
+#. i18n: ectx: label, entry (showClock), group (Preferences)
+#: rc.cpp:80
+msgid "show clocks when time control is in use"
+msgstr ""
+
+#. i18n: file: knights.kcfg:54
+#. i18n: ectx: label, entry (showChat), group (Preferences)
+#: rc.cpp:83
+msgid "show chat window, if supported by the protocol"
+msgstr ""
+
+#. i18n: file: knights.kcfg:58
+#. i18n: ectx: label, entry (showConsole), group (Preferences)
+#: rc.cpp:86
+msgid "show the text console, if supported by the protocol"
+msgstr ""
+
+#. i18n: file: knights.kcfg:64
+#. i18n: ectx: label, entry (timeLimit), group (Time Control)
+#: rc.cpp:89
+#, fuzzy
+#| msgid "time limit for the local player"
+msgid "initial time limit for both players"
+msgstr "പ്രാദേശിക കളിക്കാരന്റെ സമയ പരിധി"
+
+#. i18n: file: knights.kcfg:68
+#. i18n: ectx: label, entry (timeIncrement), group (Time Control)
+#: rc.cpp:92
+#, fuzzy
+#| msgid "time increment per move for the local player"
+msgid "time increment per move (for Incremental time control)"
+msgstr "പ്രാദേശിക കളിക്കാരന്റെ ഓരോ നീക്കത്തിലുമുള്ള സമയ വര്‍ദ്ധനവ്"
+
+#. i18n: file: knights.kcfg:72
+#. i18n: ectx: label, entry (numberOfMoves), group (Time Control)
+#: rc.cpp:95
+msgid ""
+"the number of moves the player has to make in the specified time (for "
+"Conventional time control)"
+msgstr ""
+
+#. i18n: file: knights.kcfg:76
+#. i18n: ectx: label, entry (timeEnabled), group (Time Control)
+#: rc.cpp:98
+msgid "whether time limits are enabled and displayed"
+msgstr "സമയപരിധി പ്രവര്‍ത്തനസജ്ജമാക്കുകയും കാണിക്കുകയും ചെയ്യുന്നുണ്ടോ എന്ന്"
+
+#. i18n: file: knights.kcfg:86
+#. i18n: ectx: label, entry (player1Protocol), group (Protocols)
+#. i18n: file: knights.kcfg:95
+#. i18n: ectx: label, entry (player2Protocol), group (Protocols)
+#: rc.cpp:101 rc.cpp:104
+#, fuzzy
+#| msgid "protocol to be used for communication to opponent"
+msgid "protocol to be used for player 1"
+msgstr "എതിരാളിയോട്  ആശയവിനിമയം ചെയ്യാനുപയോഗിക്കുന്ന സമ്പ്രദായം"
+
+#. i18n: file: knights.kcfg:104
+#. i18n: ectx: label, entry (color), group (Protocols)
+#: rc.cpp:107
+msgid ""
+"the local human player's color in a game against a computer or over the "
+"Internet."
+msgstr "കമ്പ്യൂട്ടറിനോ ഇന്റെര്‍നെറ്റിനോ എതിരെ കളിക്കുന്ന കളിയില്‍ കളിക്കാരന്റെ നിറം."
+
+#. i18n: file: knights.kcfg:108
+#. i18n: ectx: label, entry (programs), group (Protocols)
+#: rc.cpp:110
+msgid "list of programs to run for playing against the computer"
+msgstr ""
+
+#. i18n: file: knights.kcfg:112
+#. i18n: ectx: label, entry (player1Program), group (Protocols)
+#: rc.cpp:113
+msgid "the last selected program for player 1"
+msgstr ""
+
+#. i18n: file: knights.kcfg:116
+#. i18n: ectx: label, entry (player2Program), group (Protocols)
+#: rc.cpp:116
+msgid "the last selected program for player 2"
+msgstr ""
+
+#. i18n: file: knights.kcfg:120
+#. i18n: ectx: label, entry (servers), group (Protocols)
+#: rc.cpp:119
+msgid "list of servers for playing over the Internet"
+msgstr ""
+
+#. i18n: file: knights.kcfg:124
+#. i18n: ectx: label, entry (currentServer), group (Protocols)
+#: rc.cpp:122
+msgid "the last selected server"
+msgstr ""
+
+#. i18n: file: knights.kcfg:128
+#. i18n: ectx: label, entry (ficsUsername), group (Protocols)
+#: rc.cpp:125
+msgid "username for the Free Internet Chess Server"
+msgstr "സ്വതന്ത്ര ഇന്റെര്‍നെറ്റ് ചെസ്സ് സേവകനിലുള്ള ഉപയോക്തൃനാമം"
+
+#. i18n: file: knights.kcfg:132
+#. i18n: ectx: label, entry (guest), group (Protocols)
+#: rc.cpp:128
+msgid "whether to log in as guest"
+msgstr ""
+
+#. i18n: file: knights.kcfg:136
+#. i18n: ectx: label, entry (autoLogin), group (Protocols)
+#: rc.cpp:131
+msgid "whether to log in to chess server automatically"
+msgstr ""
+
+#. i18n: file: knights.kcfg:140
+#. i18n: ectx: label, entry (computerDelay), group (Protocols)
+#: rc.cpp:134
+msgid "delay before a computer's move is reported, in miliseconds"
+msgstr ""
+
+#. i18n: file: knightsui.rc:4
+#: rc.cpp:136
+msgid "Main Toolbar"
+msgstr ""
+
+#. i18n: file: knightsui.rc:14
+#: rc.cpp:138
+msgid "Widgets Toolbar"
+msgstr ""
+
+#. i18n: file: knightsui.rc:29
+#. i18n: ectx: Menu (move)
+#: rc.cpp:141
+#, fuzzy
+#| msgid "&Move"
+msgid "Move"
+msgstr "&നീക്കുക"
+
+#. i18n: file: popup.ui:51
+#. i18n: ectx: property (text), widget (KPushButton, closeButton)
+#: rc.cpp:154
+#, fuzzy
+#| msgid "Clock"
+msgid "Close"
+msgstr "ഘടികാരം"
+
+#. i18n: file: prefs_base.ui:23
+#. i18n: ectx: property (title), widget (QGroupBox, animationGroup)
+#: rc.cpp:157
+msgid "Animations"
+msgstr "ചിത്രീകരണങ്ങള്‍"
+
+#. i18n: file: prefs_base.ui:29
+#. i18n: ectx: property (text), widget (QLabel, animationSpeedLabel)
+#: rc.cpp:160
+msgid "Animation Speed"
+msgstr "ചിത്രീകരണ വേഗത"
+
+#. i18n: file: prefs_base.ui:36
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_animateBoard)
+#: rc.cpp:163
+msgid "Animate Board as well"
+msgstr "പലകയും കൂടി സജീവമാക്കുക"
+
+#. i18n: file: prefs_base.ui:44
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
+#: rc.cpp:166
+msgid "Instant (no animation)"
+msgstr "ഉടന്‍ (സജീവമാക്കണ്ട)"
+
+#. i18n: file: prefs_base.ui:49
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
+#: rc.cpp:169
+msgid "Fast"
+msgstr "പെട്ടെന്ന്"
+
+#. i18n: file: prefs_base.ui:54
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
+#: rc.cpp:172
+msgid "Normal"
+msgstr "സാധാരണ"
+
+#. i18n: file: prefs_base.ui:59
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
+#: rc.cpp:175
+msgid "Slow"
+msgstr "പതുക്കെ"
+
+#. i18n: file: prefs_base.ui:70
+#. i18n: ectx: property (title), widget (QGroupBox, appearanceGroup)
+#: rc.cpp:178
+msgid "Appearance"
+msgstr "കാഴ്ച്ച"
+
+#. i18n: file: prefs_base.ui:76
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_showMarker)
+#: rc.cpp:181
+msgid "Show Legal Moves"
+msgstr "സാധുവായ നീക്കങ്ങള്‍ കാണിക്കുക"
+
+#. i18n: file: prefs_base.ui:92
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_showMotion)
+#: rc.cpp:184
+msgid "Show Opponent's Move"
+msgstr "എതിരാളിയുടെ നീക്കങ്ങള്‍ കാണിക്കുക"
+
+#. i18n: file: prefs_base.ui:102
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_showDanger)
+#: rc.cpp:187
+msgid "Show Check"
+msgstr "ചെക്ക് കാണിക്കുക"
+
+#. i18n: file: prefs_base.ui:113
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_borderDisplayType)
+#: rc.cpp:190
+msgid "No Borders"
+msgstr "അതിരുകള്‍ വേണ്ട"
+
+#. i18n: file: prefs_base.ui:118
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_borderDisplayType)
+#: rc.cpp:193
+msgid "Only Borders"
+msgstr "അതിരുകള്‍ മാത്രം"
+
+#. i18n: file: prefs_base.ui:123
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_borderDisplayType)
+#: rc.cpp:196
+msgid "Borders and Notation"
+msgstr "അതിരുകളും ചിഹ്നങ്ങളും"
+
+#. i18n: file: prefs_base.ui:131
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: rc.cpp:199
+msgid "Border Display"
+msgstr "അതിരിന്റെ പ്രദര്‍ശനം"
+
+#. i18n: file: promotiondialog.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, PromotionWidget)
+#: rc.cpp:202
+msgid "Pawn Promotion"
+msgstr "പടയാളിയുടെ പദവി ഉയര്‍ത്തല്‍"
+
+#. i18n: file: promotiondialog.ui:26
+#. i18n: ectx: property (text), widget (QLabel, labelPawn)
+#: rc.cpp:205
+msgid "Promote pawn to:"
+msgstr "പടയാളിയുടെ പദവി ഉയര്‍ത്തി:"
+
+#. i18n: file: proto/ficsdialog.ui:36
+#. i18n: ectx: attribute (title), widget (QWidget, accountTab)
+#: rc.cpp:220
+#, fuzzy
+#| msgid "Accept"
+msgid "Account"
+msgstr "അംഗീകരിക്കുക"
+
+#. i18n: file: proto/ficsdialog.ui:39
+#. i18n: ectx: attribute (toolTip), widget (QWidget, accountTab)
+#: rc.cpp:223
+#, fuzzy
+#| msgid "Human at a chess server:"
+msgid "Log in to the chess server"
+msgstr "ചെസ്സ് സര്‍വറിലുള്ള വ്യക്തി:"
+
+#. i18n: file: proto/ficsdialog.ui:58
+#. i18n: ectx: property (text), widget (QLabel, usernameLabel)
+#: rc.cpp:226
+msgid "&Username"
+msgstr ""
+
+#. i18n: file: proto/ficsdialog.ui:78
+#. i18n: ectx: property (text), widget (QCheckBox, registeredCheckBox)
+#: rc.cpp:229
+msgid "This is a registered account"
+msgstr ""
+
+#. i18n: file: proto/ficsdialog.ui:88
+#. i18n: ectx: property (text), widget (QLabel, passwordLabel)
+#: rc.cpp:232
+msgid "&Password"
+msgstr ""
+
+#. i18n: file: proto/ficsdialog.ui:111
+#. i18n: ectx: property (text), widget (QCheckBox, rememberCheckBox)
+#: rc.cpp:235
+msgid "Log me in automatically"
+msgstr ""
+
+#. i18n: file: proto/ficsdialog.ui:118
+#. i18n: ectx: property (text), widget (KPushButton, logInButton)
+#: rc.cpp:238
+msgid "Log in"
+msgstr ""
+
+#. i18n: file: proto/ficsdialog.ui:138
+#. i18n: ectx: property (text), widget (KPushButton, registerButton)
+#: rc.cpp:241
+msgid "Create an account"
+msgstr ""
+
+#. i18n: file: proto/ficsdialog.ui:162
+#. i18n: ectx: attribute (title), widget (QWidget, joinTab)
+#: rc.cpp:244
+msgid "Seek List"
+msgstr ""
+
+#. i18n: file: proto/ficsdialog.ui:165
+#. i18n: ectx: attribute (toolTip), widget (QWidget, joinTab)
+#: rc.cpp:247
+msgid "Current ads arranged in a list"
+msgstr ""
+
+#. i18n: file: proto/ficsdialog.ui:202
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:250
+msgid "Player"
+msgstr "കളിക്കാരന്‍"
+
+#. i18n: file: proto/ficsdialog.ui:207
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:253
+msgid "Rating"
+msgstr "വിലയിരുത്തല്‍"
+
+#. i18n: file: proto/ficsdialog.ui:212
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:256
+msgid "Time"
+msgstr "സമയം"
+
+#. i18n: file: proto/ficsdialog.ui:217
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:259
+msgid "Increment"
+msgstr "വര്‍ദ്ധനവ്"
+
+#. i18n: file: proto/ficsdialog.ui:222
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:262
+msgid "Rated"
+msgstr "വിലയിരുത്തിയത്"
+
+#. i18n: file: proto/ficsdialog.ui:227
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:265
+msgid "Variant"
+msgstr "ഇനം"
+
+#. i18n: file: proto/ficsdialog.ui:232
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:268
+msgid "Your color"
+msgstr "താങ്കളുടെ നിറം"
+
+#. i18n: file: proto/ficsdialog.ui:241
+#. i18n: ectx: attribute (title), widget (QWidget, graphTab)
+#: rc.cpp:271
+msgid "Seek Graph"
+msgstr ""
+
+#. i18n: file: proto/ficsdialog.ui:244
+#. i18n: ectx: attribute (toolTip), widget (QWidget, graphTab)
+#: rc.cpp:274
+msgid "Current ads arranged by rating and duration"
+msgstr ""
+
+#. i18n: file: proto/ficsdialog.ui:261
+#. i18n: ectx: attribute (title), widget (QWidget, challengeTab)
+#: rc.cpp:277
+msgid "Challenges"
+msgstr ""
+
+#. i18n: file: proto/ficsdialog.ui:264
+#. i18n: ectx: attribute (toolTip), widget (QWidget, challengeTab)
+#: rc.cpp:280
+#, fuzzy
+#| msgid "Same for both players"
+msgid "Post an ad for other players"
+msgstr "രണ്ട് കളിക്കാര്‍ക്കും ഒരുപോലെ"
+
+#. i18n: file: proto/ficsdialog.ui:270
+#. i18n: ectx: property (text), widget (QCheckBox, ratedCheckBox)
+#: rc.cpp:283
+#, fuzzy
+#| msgid "Rated"
+msgid "Rated match"
+msgstr "വിലയിരുത്തിയത്"
+
+#. i18n: file: proto/ficsdialog.ui:277
+#. i18n: ectx: property (text), widget (QCheckBox, autoCheckBox)
+#: rc.cpp:286
+msgid "Automatically start the game"
+msgstr ""
+
+#. i18n: file: proto/ficsdialog.ui:298
+#. i18n: ectx: attribute (title), widget (QWidget, consoleTab)
+#: rc.cpp:292
+msgid "Console"
+msgstr ""
+
+#. i18n: file: proto/ficsdialog.ui:301
+#. i18n: ectx: attribute (toolTip), widget (QWidget, consoleTab)
+#: rc.cpp:295
+msgid "Use custom commands"
+msgstr ""
+
+#. i18n: file: proto/chatwidget.ui:20
+#. i18n: ectx: property (text), widget (KPushButton, sendButton)
+#: rc.cpp:298
+msgid "Send"
+msgstr ""
+
+#, fuzzy
+
+
+
+
+
+
+
+#, fuzzy
+
+
+
+
+
+
+
+
+
+#, fuzzy
+
+
+
+
+
+
+
+
+
+
+
+
+
+#, fuzzy
+
+
+
+
+#, fuzzy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#, fuzzy

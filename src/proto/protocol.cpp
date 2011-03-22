@@ -1,6 +1,6 @@
 /*
     This file is part of Knights, a chess board for KDE SC 4.
-    Copyright 2009-2010  Miha Čančula <miha.cancula@gmail.com>
+    Copyright 2009,2010,2011  Miha Čančula <miha@noughmad.eu>
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License as
@@ -19,32 +19,56 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "protocol.h"
+#include "proto/protocol.h"
+#include "proto/chatwidget.h"
 #include "core/move.h"
 
 #include <KLocale>
 
-#include <QtCore/QMetaType>
+#include <QtCore/QStack>
+#include <QtCore/QTime>
+#include <KDebug>
+#include <gamemanager.h>
 
 namespace Knights
 {
-
+    const int TimerInterval = 100; // miliseconds
     int id = qRegisterMetaType<Protocol::ErrorCode> ( "Protocol::ErrorCode" );
+
+    QPointer<Protocol> Protocol::m_white = 0;
+    QPointer<Protocol> Protocol::m_black = 0;
 
     class ProtocolPrivate
     {
         public:
+
+            ProtocolPrivate();
+            
             QVariantMap attributes;
+            Protocol* white;
+            Protocol* black;
+            Color color;
+    bool ready;
+    int nextId;
     };
 
-    Protocol::Protocol ( QObject* parent ) : QObject ( parent ), d_ptr ( new ProtocolPrivate )
+    ProtocolPrivate::ProtocolPrivate()
+    : white(0)
+    , black(0)
+    , ready(false)
+    , nextId(0)
     {
 
     }
 
+
+    Protocol::Protocol ( QObject* parent ) : QObject ( parent ), d_ptr ( new ProtocolPrivate )
+    {
+    }
+
     Protocol::~Protocol()
     {
-
+         delete d_ptr;
     }
 
     QString Protocol::stringFromErrorCode ( Protocol::ErrorCode code )
@@ -71,24 +95,51 @@ namespace Knights
         }
     }
 
-    void Protocol::setPlayerColor ( Color color )
+void Protocol::setWhiteProtocol(Protocol* p)
+{
+    p->setColor(White);
+    m_white = p;
+}
+
+void Protocol::setBlackProtocol(Protocol* p)
+{
+    p->setColor(Black);
+    m_black = p;
+}
+
+Protocol* Protocol::white()
+{
+    return m_white;
+}
+
+Protocol* Protocol::black()
+{
+    return m_black;
+}
+
+Protocol* Protocol::byColor(Color color)
+{
+    switch ( color )
     {
-        setAttribute ( QLatin1String ( "PlayerColor" ), QVariant::fromValue<Color> ( color ) );
+        case White:
+            return white();
+        case Black:
+            return black();
+        case NoColor:
+            return 0;
+    }
+    return 0;
+}
+    void Protocol::setColor ( Color color )
+    {
+        Q_D(Protocol);
+        d->color = color;
     }
 
-    Color Protocol::playerColor() const
+    Color Protocol::color() const
     {
-        return attribute ( QLatin1String ( "PlayerColor" ) ).value<Color>();
-    }
-
-    void Protocol::setOpponentName ( const QString& name )
-    {
-        setAttribute ( QLatin1String ( "OpponentName" ), name );
-    }
-
-    QString Protocol::opponentName() const
-    {
-        return attribute ( QLatin1String ( "OpponentName" ) ).toString();
+        Q_D(const Protocol);
+        return d->color;
     }
 
     void Protocol::setPlayerName ( const QString& name )
@@ -107,6 +158,11 @@ namespace Knights
         d->attributes.insert ( attribute,  value );
     }
 
+    void Protocol::setAttribute ( const char* attribute, QVariant value )
+    {
+        setAttribute( QLatin1String ( attribute ), value );
+    }
+
     void Protocol::setAttributes ( QVariantMap attributes )
     {
         Q_D ( Protocol );
@@ -119,19 +175,15 @@ namespace Knights
         return d->attributes.value ( attribute );
     }
 
+    QVariant Protocol::attribute ( const char* attribute ) const
+    {
+        return this->attribute ( QLatin1String ( attribute ) );
+    }
+
+
     Protocol::Features Protocol::supportedFeatures()
     {
         return NoFeatures;
-    }
-
-    void Protocol::setOpponentTimeLimit ( int seconds )
-    {
-        Q_UNUSED ( seconds )
-    }
-
-    void Protocol::setPlayerTimeLimit ( int seconds )
-    {
-        Q_UNUSED ( seconds )
     }
 
     int Protocol::timeRemaining()
@@ -139,25 +191,76 @@ namespace Knights
         return -1;
     }
 
-    void Protocol::pauseGame()
+    QList< Protocol::ToolWidgetData > Protocol::toolWidgets()
     {
-
+        return QList< Protocol::ToolWidgetData >();
     }
+    
+void Protocol::setWinner(Color winner)
+{
+    Q_UNUSED(winner);
+}
 
-    void Protocol::resumeGame()
-    {
+void Protocol::setTimeControl(const TimeControl& c)
+{
+    Q_UNUSED(c);
+}
 
-    }
+void Protocol::acceptOffer(const Offer& offer)
+{
+    Q_UNUSED(offer);
+}
 
-    void Protocol::undoLastMove()
-    {
+void Protocol::declineOffer(const Offer& offer)
+{
+    Q_UNUSED(offer);
+}
 
-    }
+ChatWidget* Protocol::createChatWidget()
+{
+    return new ChatWidget;
+}
 
-    Move::List Protocol::moveHistory()
-    {
-        return Move::List();
-    }
+ChatWidget* Protocol::createConsoleWidget()
+{
+    ChatWidget* console = new ChatWidget;
+    console->setConsoleMode(true);
+    return console;
+}
+
+void Protocol::initComplete()
+{
+    Q_D(Protocol);
+    d->ready = true;
+    emit initSuccesful();
+}
+
+bool Protocol::isReady()
+{
+    Q_D(const Protocol);
+    return d->ready;
+}
+
+int Protocol::nextId()
+{
+    Q_D(Protocol);
+    return d->nextId++;
+}
+
+bool Protocol::isLocal()
+{
+    return false;
+}
+
+bool Protocol::isComputer()
+{
+    return false;
+}
+
+
+
+
+
 
 }
 

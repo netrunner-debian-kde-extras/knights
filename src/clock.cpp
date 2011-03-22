@@ -1,6 +1,6 @@
 /*
     This file is part of Knights, a chess board for KDE SC 4.
-    Copyright 2010 Miha Čančula <miha.cancula@gmail.com>
+    Copyright 2010,2011 Miha Čančula <miha@noughmad.eu>
 
     Plasma analog-clock drawing code:
     Copyright 2007 by Aaron Seigo <aseigo@kde.org>
@@ -29,7 +29,6 @@
 #include <QPainter>
 #include <QPaintEvent>
 #include <Plasma/Svg>
-#include <KDebug>
 
 using namespace Knights;
 
@@ -74,10 +73,9 @@ void Clock::setClockSize(const QSize &size)
 
 void Clock::setTime(const QTime &time)
 {
-    if (time.minute() != this->time.minute() || time.hour() != this->time.hour()) {
-        if (m_repaintCache == RepaintNone) {
-            m_repaintCache = RepaintHands;
-        }
+    if (m_repaintCache == RepaintNone)
+    {
+        m_repaintCache = RepaintHands;
     }
     this->time = time;
     update();
@@ -136,8 +134,8 @@ void Clock::paintInterface(QPainter *p, const QRect &rect)
 
     // compute hand angles
     // Because this clock shows time remainig, all the angles are negative
-    const qreal minutes = -6.0 * time.minute() - 180;
-    const qreal hours = -30.0 * time.hour() - 180 - ((time.minute() / 59.0) * 30.0);
+    const qreal minutes = -6.0 * time.minute() - 0.1 * time.second() - 180;
+    const qreal hours = -30.0 * time.hour() - 0.5 * time.minute() - 180;
     qreal seconds = 0;
     if (m_showSecondHand) {
         static const double anglePerSec = 6;

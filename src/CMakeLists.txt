@@ -1,14 +1,21 @@
-set(knights_SRCS
+set(knights_SRCS offerwidget.cpp gamemanager.cpp proto/textprotocol.cpp
     core/pos.cpp
     core/move.cpp
     core/renderer.cpp
     core/item.cpp
     core/piece.cpp
+
     proto/protocol.cpp
+    proto/localprotocol.cpp
     proto/xboardproto.cpp
     proto/ficsprotocol.cpp
     proto/ficsdialog.cpp
+    proto/seekgraph.cpp
+    proto/chatwidget.cpp
+   
+
     rules/chessrules.cpp
+
     gamedialog.cpp
     board.cpp
     clock.cpp
@@ -22,6 +29,10 @@ if (KGR)
     add_definitions(-DWITH_KGR)
 endif (KGR)
 
+if (OCS_ABOUT)
+    add_definitions(-DWITH_OCS)
+endif (OCS_ABOUT)
+
 if (${QT_VERSION} VERSION_GREATER "4.6.0")
     add_definitions(-DWITH_QT_46)
 endif()
@@ -30,11 +41,22 @@ if (ANIMATIONS)
     add_definitions(-DWITH_ANIMATIONS)
 endif()
 
-kde4_add_ui_files(knights_SRCS knightsview_base.ui prefs_base.ui gamedialog.ui clockwidget.ui proto/ficsdialog.ui promotiondialog.ui)
+kde4_add_ui_files(knights_SRCS
+    knightsview_base.ui
+    prefs_base.ui
+    gamedialog.ui
+    clockwidget.ui
+    promotiondialog.ui
+    proto/ficsdialog.ui
+    proto/chatwidget.ui
+    popup.ui
+)
 kde4_add_kcfg_files(knights_SRCS settings.kcfgc )
 kde4_add_executable(knights ${knights_SRCS})
 
-target_link_libraries(knights ${KDE4_KDEUI_LIBS} ${KDE4_PLASMA_LIBS} ${KDEGAMES_LIBRARY} ${QT_QTNETWORK_LIBRARY})
+target_link_libraries(knights ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_PLASMA_LIBS} ${KDEGAMES_LIBRARY} ${QT_QTNETWORK_LIBRARY})
+
+#add_subdirectory(qml)
 
 install(TARGETS knights ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
@@ -44,4 +66,5 @@ install( PROGRAMS knights.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR} )
 install( FILES knights.kcfg  DESTINATION  ${KCFG_INSTALL_DIR} )
 install( FILES knightsui.rc  DESTINATION  ${DATA_INSTALL_DIR}/knights )
 install( FILES knights.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
+
 

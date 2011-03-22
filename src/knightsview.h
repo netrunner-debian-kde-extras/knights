@@ -1,6 +1,6 @@
 /*
     This file is part of Knights, a chess board for KDE SC 4.
-    Copyright 2009-2010  Miha Čančula <miha.cancula@gmail.com>
+    Copyright 2009,2010,2011  Miha Čančula <miha@noughmad.eu>
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License as
@@ -22,16 +22,22 @@
 #ifndef KNIGHTS_VIEW_H
 #define KNIGHTS_VIEW_H
 
-#include "board.h"
-
-#include "ui_knightsview_base.h"
-
+#include "offerwidget.h"
+#include "core/piece.h"
 #include <QtGui/QWidget>
 
+namespace Ui
+{
+    class KnightsView;
+}
 
 namespace Knights
 {
+
+struct Offer;
+
     class Protocol;
+    class Board;
 
     /**
      * This is the main view class for Knights.  Most of the non-menu,
@@ -43,25 +49,26 @@ namespace Knights
      * @version %{VERSION}
      */
 
-    class KnightsView : public QWidget, public Ui::knightsview_base
+    class KnightsView : public QWidget
     {
             Q_OBJECT
         public:
             /**
              * Default constructor
              */
-            KnightsView ( QWidget *parent );
+            explicit KnightsView ( QWidget *parent );
             /**
              * Destructor
              */
             virtual ~KnightsView();
-            void setupBoard ( Knights::Protocol* protocol = 0 );
             void setPaused ( bool paused );
 
         private:
-            Ui::knightsview_base ui;
+            Ui::KnightsView* ui;
             Board* m_board;
-            Protocol* m_protocol;
+            bool m_showAllOffers;
+            bool m_allOffers;
+            QList<OfferWidget*> m_offerWidgets;
 
             static QString pieceTypeName ( PieceType );
             static QString colorName ( Color );
@@ -84,11 +91,22 @@ namespace Knights
             void activePlayerChanged ( Color );
             void displayedPlayerChanged ( Color );
 
+            void popupAccepted();
+            void popupRejected();
+
         private slots:
             void settingsChanged();
             void resizeScene();
-            void gameOver ( Color winner );
             void centerView ( const QPointF& center );
+            void showAllOffersToggled();
+
+    public slots:
+            void setupBoard();
+            void clearBoard();
+            void gameOver ( Color winner );
+            void showPopup ( const Offer& offer );
+    void popupHidden(int id);
+    void updateOffers();
 
         protected:
             virtual void resizeEvent ( QResizeEvent* e );

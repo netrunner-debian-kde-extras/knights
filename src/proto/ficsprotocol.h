@@ -22,15 +22,18 @@
 #ifndef KNIGHTS_FICSPROTOCOL_H
 #define KNIGHTS_FICSPROTOCOL_H
 
-#include <proto/protocol.h>
+#include "proto/textprotocol.h"
 
 #include <QtCore/QTextStream>
+#include <QtCore/QTime>
+#include <gamemanager.h>
 
 class QTcpSocket;
 
 namespace Knights
 {
     class FicsDialog;
+    class ChatWidget;
 
     typedef QPair<QString, int> FicsPlayer;
 
@@ -45,6 +48,14 @@ namespace Knights
         bool manual;
         bool formula;
         int gameId;
+        QPair< int, int > ratingRange;
+        bool automatic;
+    };
+
+    struct FicsChallenge
+    {
+        FicsPlayer player;
+        int gameId;
     };
 
     enum Stage
@@ -54,7 +65,7 @@ namespace Knights
         PlayStage
     };
 
-    class FicsProtocol : public Knights::Protocol
+    class FicsProtocol : public TextProtocol
     {
             Q_OBJECT
         public:
@@ -65,62 +76,61 @@ namespace Knights
 
             virtual void startGame();
             virtual void move ( const Move& m );
+            virtual QList<ToolWidgetData> toolWidgets();
+            
+    virtual void makeOffer(const Offer& offer);
+    virtual void acceptOffer(const Offer& offer);
+    virtual void declineOffer(const Offer& offer);
 
         private:
-            static const int Timeout;
+            const QString movePattern;
+            const QRegExp seekExp;
+            const QRegExp challengeExp;
+            const QRegExp moveStringExp;
+            const QRegExp moveRegExp;
+            const QRegExp gameStartedExp;
+            const QRegExp offerExp;
 
-            static const QString namePattern;
-            static const QString idPattern;
-            static const QString ratingPattern;
-            static const QString timePattern;
-            static const QString variantPattern;
-            static const QString argsPattern;
-            static const QString pieces;
-            static const QString coordinate;
-            static const QString remainingTime;
-            static const QString movePattern;
-            static const QString currentPlayerPattern;
-
-            static const QRegExp moveRegExp;
-            static const QRegExp moveStringExp;
-            static const QRegExp seekRegExp;
-            static const QRegExp soughtRegExp;
-            static const QRegExp challengeRegExp;
-            static const QRegExp gameStartedExp;
-            static const QRegExp gameInfoExp;
-
-            QTcpSocket* m_socket;
-            QTextStream m_stream;
             Stage m_stage;
-            QString username;
             QString password;
+            bool sendPassword;
             FicsDialog* m_widget;
             bool forcePrompt;
             bool m_seeking;
+            ChatWidget* m_chat;
+            QMap<int, Offer> m_offers;
+            QString otherPlayerName;
+            
+            bool undoPending;
+            bool drawPending;
 
-            void logIn();
-            void sendPassword();
+            Color parseColor( QString str );
+            virtual void parseLine(const QString& line);
+            virtual bool parseStub(const QString& line);
 
         public Q_SLOTS:
-            virtual void init ( const QVariantMap& options );
-            void socketConnected();
+            virtual void init ();
+            virtual void resign();
+
             void socketError();
-            void dialogAccepted();
             void dialogRejected();
             void acceptSeek ( int id );
-            void acceptChallenge();
-            void declineChallenge();
+            void acceptChallenge ( int id );
+            void declineChallenge ( int id );
+            void login(const QString& username, const QString& password);
+            void sendChat ( QString text );
 
-        private Q_SLOTS:
-            void readFromSocket();
             void openGameDialog();
-            void checkSought();
             void setSeeking ( bool seek );
             void setupOptions();
 
         Q_SIGNALS:
+            void sessionStarted();
+            void clearSeeks();
+            void gameOfferRemoved ( int id );
             void gameOfferReceived ( const FicsGameOffer& offer );
-            void challengeReceived ( const FicsPlayer& challenger );
+            void challengeReceived ( const FicsChallenge& challenge );
+            void challengeRemoved ( int id );
     };
 }
 
