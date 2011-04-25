@@ -1,4 +1,9 @@
-knights (2.3.1-1) UNRELEASED; urgency=low
+knights (2.3.1-2~pre1) UNRELEASED; urgency=low
+ 
+
+ -- José Manuel Santamaría Lema <panfaust@gmail.com>  Mon, 25 Apr 2011 21:39:46 +0200
+
+knights (2.3.1-1) unstable; urgency=low
 
   * New upstream release.
   * Update patches:
@@ -7,7 +12,7 @@ knights (2.3.1-1) UNRELEASED; urgency=low
   * Add sjeng to Suggests.
   * Add crafty to Suggests.
 
- -- José Manuel Santamaría Lema <panfaust@gmail.com>  Tue, 22 Mar 2011 14:05:39 +0100
+ -- José Manuel Santamaría Lema <panfaust@gmail.com>  Tue, 22 Mar 2011 17:09:46 +0100
 
 knights (2.2.0-2) unstable; urgency=low
 
