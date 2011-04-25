@@ -3,8 +3,8 @@ Section: games
 Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: José Manuel Santamaría Lema <panfaust@gmail.com>
-Build-Depends: debhelper (>= 7), cdbs, pkg-kde-tools, cmake, kdelibs5-dev (>> 4:4.4),
- libkdegames-dev (>> 4:4.4)
+Build-Depends: debhelper (>= 7), cdbs, pkg-kde-tools, cmake, kdelibs5-dev (>> 4:4.6),
+ libkdegames-dev (>> 4:4.6)
 Standards-Version: 3.9.1
 Homepage: http://kde-apps.org/content/show.php/Knights?content=122046
 Vcs-Browser: http://git.debian.org/?p=pkg-kde/kde-extras/knights.git
