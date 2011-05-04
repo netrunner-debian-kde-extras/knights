@@ -4,6 +4,7 @@ knights (2.3.1-2~pre2) UNRELEASED; urgency=low
     fine with KDE 4.6 libraries.
   * Bump kdelibs5-dev, libkdegames-dev build dependencies to 4.6 because of the
     patch mentioned in the previous changelog entry.
+  * Bump Standards-Version to 3.9.2; no changes needed.
 
  -- José Manuel Santamaría Lema <panfaust@gmail.com>  Mon, 25 Apr 2011 21:39:46 +0200
 
