@@ -1,4 +1,4 @@
-knights (2.3.1-2~pre2) UNRELEASED; urgency=low
+knights (2.3.1-2) experimental; urgency=low
  
   * Remove 02_no_hotnewstuff.diff since knights GHNS is suposed to work
     fine with KDE 4.6 libraries.
@@ -6,7 +6,7 @@ knights (2.3.1-2~pre2) UNRELEASED; urgency=low
     patch mentioned in the previous changelog entry.
   * Bump Standards-Version to 3.9.2; no changes needed.
 
- -- José Manuel Santamaría Lema <panfaust@gmail.com>  Mon, 25 Apr 2011 21:39:46 +0200
+ -- José Manuel Santamaría Lema <panfaust@gmail.com>  Wed, 04 May 2011 21:10:20 +0200
 
 knights (2.3.1-1) unstable; urgency=low
 
