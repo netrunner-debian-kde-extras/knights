@@ -271,28 +271,48 @@ void Board::mousePressEvent ( QGraphicsSceneMouseEvent* e )
             }
         }
         draggedPiece = d_piece;
-        drag = new QDrag ( e->widget() );
-        drag->setMimeData ( new QMimeData() );
         m_draggedPos = e->scenePos();
+        dragStartPoint = e->screenPos();
     }
 }
 
 void Board::mouseReleaseEvent(QGraphicsSceneMouseEvent* e)
 {
     Q_UNUSED(e);
-    delete drag;
     draggedPiece = 0;
 }
 
 
 void Board::mouseMoveEvent ( QGraphicsSceneMouseEvent* e )
 {
-    QPoint delta = e->screenPos() - dragStartPoint;
-    if ( drag && !m_dragActive && (delta.manhattanLength() >= QApplication::startDragDistance()) )
+    if (!(e->buttons() & Qt::LeftButton) || m_dragActive)
     {
+        return;
+    }
+    if (draggedPiece && ((e->screenPos() - dragStartPoint).manhattanLength() >= QApplication::startDragDistance()) )
+    {
+        //initiate a new drag event
+        drag = new QDrag ( e->widget() );
+        drag->setMimeData ( new QMimeData() );
         m_dragActive = true;
+        selectedPiece = 0;
         drag->exec();
     }
+}
+
+void Board::dragLeaveEvent(QGraphicsSceneDragDropEvent* e)
+{
+    Q_UNUSED(e);
+    if ( !m_dragActive )
+    {
+        return;
+    }
+    qDeleteAll ( markers );
+    markers.clear();
+    centerOnPos ( draggedPiece );
+    draggedPiece->setZValue ( pieceZValue );
+    draggedPiece = 0;
+    m_dragActive = false;
 }
 
 void Board::dropEvent ( QGraphicsSceneDragDropEvent* e )
@@ -717,7 +737,7 @@ PieceType Board::getPromotedType()
             return Rook;
         }
     }
-    return NoType;
+    return Queen;
 }
 #include "board.moc"
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on;  replace-tabs on;  replace-tabs on;
