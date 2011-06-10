@@ -1,10 +1,10 @@
-knights (2.3.2-0r0) UNRELEASED; urgency=low
+knights (2.3.2-1) unstable; urgency=low
 
   * New upstream release.
   * Add load_right_default_theme.diff to prevent issues when you have configured
     a theme that doesn't exist (may happen easily with obsolete themes).
 
- -- José Manuel Santamaría Lema <panfaust@gmail.com>  Tue, 24 May 2011 23:18:09 +0200
+ -- José Manuel Santamaría Lema <panfaust@gmail.com>  Mon, 30 May 2011 21:39:08 +0200
 
 knights (2.3.1-2) experimental; urgency=low
  
