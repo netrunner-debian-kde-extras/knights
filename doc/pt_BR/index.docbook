@@ -5,7 +5,7 @@
 >">
   <!ENTITY kappname "&knights;">
   <!ENTITY package "extragear/games">
-  <!ENTITY kappversion "2.3 beta 1"
+  <!ENTITY kappversion "2.4.0"
 ><!--Application version. Use this variable everywhere it's needed.-->
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % Brazilian-Portuguese "INCLUDE">
@@ -57,10 +57,10 @@
 		</legalnotice>
 
 		<date
->16/02/2011</date
+>2011-10-23</date
 ><!-- Date of (re)writing, or update.-->
 		<releaseinfo
->&kappversion; </releaseinfo
+>&kappversion; (&kde; 4.7) </releaseinfo
 ><!-- Application version number. Use the variable definitions within header to change this value.-->
 
 		<abstract>
@@ -89,7 +89,11 @@
 		</keywordset>
 
 	</bookinfo>
-
+<!-- 
+new in
+>2.4.0 history, UCI, Difficulty settings, see
+http://noughmad.com/2011/10/25/upcoming-features-in-knights/ 
+-->
 	<chapter id="introduction">
 		<title
 >Introdução</title>
@@ -133,11 +137,13 @@
 			<title
 >Iniciar o jogo</title>
 			<para
->Quando o programa começar ou o usuário selecionar a opção <guimenu
+>Quando o programa começar ou o usuário selecionar a opção <menuchoice
+><guimenu
 >Jogo</guimenu
 > <guimenuitem
 >Novo</guimenuitem
->, irá aparecer uma janela. Nela, é possível indicar com quem você irá jogar, a sua cor e os limites de tempo. </para>
+></menuchoice
+>, irá aparecer uma janela. Nela é possível indicar com quem você irá jogar, a sua cor e os limites de tempo. </para>
 				<mediaobject
 ><imageobject
 ><imagedata fileref="Knights-newgame-dialog.png"/></imageobject
@@ -153,15 +159,15 @@
 >Jogador 2</guilabel
 >. </para>
 			<para
->Se você quiser jogar contra o computador, selecione a opção <guilabel
->Humano (Você)</guilabel
-> para o <guilabel
->Jogador 1</guilabel
-> e <guilabel
->Mecanismo do computador</guilabel
-> para o <guilabel
->Jogador 2</guilabel
->. Escolha o programa contra o qual deseja jogar e certifique-se de que o programa que indicou está instalado no seu computador e suporta o protocolo do XBoard. </para>
+>If you wish to play against the computer, select <guilabel
+>Human (You)</guilabel
+> for <guilabel
+>Player 1</guilabel
+> and <guilabel
+>Computer engine</guilabel
+> for <guilabel
+>Player 2</guilabel
+>. Choose the program you would like to play against, and make sure that the program you specify is installed on your computer and that it supports the XBoard protocol. </para>
 			<para
 >Se você quiser jogar contra outra pessoa na Internet, selecione a opção <guilabel
 >Humano (Você)</guilabel
@@ -325,8 +331,8 @@
 > <listitem
 ><para
 ><ulink url="http://en.wikipedia.org/wiki/Rules_of_chess"
->Wikipédia</ulink
-></para
+>Wikipedia</ulink
+>&nbsp;</para
 ></listitem>
 		</itemizedlist>
 		</para>
@@ -352,7 +358,7 @@
 ></listitem>
 				<listitem
 ><para
->Diagonal - uma linha reta de casas da mesma cor em um ângulo indo de de um lado do tabuleiro para outro lado do tabuleiro é chamado diagonal.</para
+>Diagonal - uma linha reta de casas da mesma cor em um ângulo indo de um lado do tabuleiro para outro lado do tabuleiro é chamado diagonal.</para
 ></listitem>
 				<listitem
 ><para
@@ -397,7 +403,7 @@
 >capturada</quote
 > e é removida do jogo. Todas as peças podem ser capturadas, exceto o rei. O jogo termina no movimento antes do rei ser capturado - <quote
 ><link linkend="checkmate"
->xeque-mate</link
+>cheque-mate</link
 ></quote
 >. Capturar sempre requer que a peça atacante se posicione na casa da peça oponente durante a realização de um movimento normal. A única exceção é para a captura de um peão <link linkend="en_passant-movement"
 >en passant</link
@@ -490,9 +496,9 @@
 >Rei</title>
 			<para
 >O rei é a peça mais importante do xadrez. Se o rei for encurralado de modo que sua captura seja inevitável, o jogo termina e o este jogador perde. O rei tem pouca mobilidade, assim ele é considerado também uma das peças mais fracas no jogo. O rei pode se mover para qualquer casa adjacente. Assim, ele pode mover-se uma casa em qualquer direção: horizontalmente, verticalmente ou diagonalmente. Ele não pode se mover para uma casa ocupada por uma peça da mesma cor. O rei captura outra peça da mesma maneira que se move, ocupando a casa da peça do oponente. Existe um limite adicional ao movimento do rei. O rei não pode se mover para uma casa que o coloque sob ataque de uma peça oponente (chamado em <quote
->xeque</quote
->). Como resultado desta limitação, dois reis nunca poderão estar ao lado um do outro - uma vez que mover-se para o lado do outro rei o colocaria em xeque. O rei pode também ser forçado a mover-se ou capturar se estiver sob ataque (<quote
->xeque</quote
+>cheque</quote
+>). Como resultado desta limitação, dois reis nunca poderão estar ao lado um do outro - uma vez que mover-se para o lado do outro rei o colocaria em cheque. O rei pode também ser forçado a mover-se ou capturar se estiver sob ataque (<quote
+>cheque</quote
 >) e a única maneira de interromper o ataque for mover o rei.</para>
 			<mediaobject
 ><imageobject
@@ -556,7 +562,7 @@
 ></listitem>
 				<listitem
 ><para
->O rei não pode estar em xeque.</para
+>O rei não pode estar em cheque.</para
 ></listitem>
 				<listitem
 ><para
@@ -564,7 +570,7 @@
 ></listitem>
 				<listitem
 ><para
->O rei não pode terminar o movimento em uma casa que está sendo atacada por uma peça do oponente. (O movimento de roque não pode terminar com o rei em xeque.)</para
+>O rei não pode terminar o movimento em uma casa que está sendo atacada por uma peça do oponente. (O movimento de roque não pode terminar com o rei em cheque.)</para
 ></listitem>
 			</itemizedlist>
 			</para>
@@ -607,7 +613,7 @@
 >promovido</quote
 >) uma rainha, torre, bispo ou cavalo. Esta promoção ocorre como parte do movimento. Normalmente a peça escolhida é a rainha, e em inglês frequentemente isso é chamando de <quote
 >queening</quote
->. As outras peças podem algumas vezes serem escolhidas se seus movimentos ajudarem a fazer um xeque-mate, frequentemente denominando isso de <quote
+>. As outras peças podem algumas vezes serem escolhidas se seus movimentos ajudarem a fazer um cheque-mate, frequentemente denominando isso de <quote
 >em promoção</quote
 >. O peão pode se tornar qualquer peça, mesmo que esta peça já esteja no tabuleiro. Assim você pode possuir duas rainhas ou três torres, bispos ou cavalos no jogo ao mesmo tempo.</para>
 		</sect2>
@@ -621,8 +627,8 @@
 >Xeque-mate</title>
 			<para
 >Quando um rei estiver sob ataque e ameaçado de ser capturado por uma peça do seu oponente, o rei está <quote
->em xeque</quote
->. O rei deve sair do xeque imediatamente. Existem três modos possíveis de se sair do xeque. <itemizedlist>
+>em cheque</quote
+>. O rei deve sair do cheque imediatamente. Existem três modos possíveis de se sair do cheque. <itemizedlist>
 				<listitem
 ><para
 >Capturar a peça atacante.</para
@@ -639,9 +645,9 @@
 			</para>
 			
 			<para
->Se não existir um meio do rei escapar do xeque, a posição é chamada de <quote
->xeque-mate</quote
-> e o jogo termina. O jogador que sofreu o xeque-mate perde o jogo. O rei nunca é de fato capturado ou removido do tabuleiro.</para>
+>Se não existir um meio do rei escapar do cheque, a posição é chamada de <quote
+>cheque-mate</quote
+> e o jogo termina. O jogador que sofreu o cheque-mate perde o jogo. O rei nunca é de fato capturado ou removido do tabuleiro.</para>
 		</sect2>
 		<sect2 id="resign">
 			<title
@@ -670,7 +676,7 @@
 ></listitem>
 				<listitem
 ><para
->Impossibilidade de xeque-mate - Se uma situação ocorre onde nenhum dos jogadores pode realizar um xeque-mate com uma série de movimentos legais. Normalmente isto ocorre porque não existem peças suficientes no tabuleiro para um xeque-mate, mas isto é possível em outras situações. Combinações com material insuficiente para o xeque-mate são: <itemizedlist>
+>Impossibilidade de cheque-mate - Se uma situação ocorre onde nenhum dos jogadores pode realizar um cheque-mate com uma série de movimentos legais. Normalmente isto ocorre porque não existem peças suficientes no tabuleiro para um cheque-mate, mas isto é possível em outras situações. Combinações com material insuficiente para o cheque-mate são: <itemizedlist>
 					<listitem
 ><para
 >rei versus rei</para
@@ -705,7 +711,7 @@
 			<title
 >Afogamento</title>
 			<para
->Se um jogador não possui nenhum movimento legal (qualquer movimento colocaria seu rei em xeque) mas seu rei não estiver em xeque, o jogo termina em um <quote
+>Se um jogador não possui nenhum movimento legal (qualquer movimento colocaria seu rei em cheque) mas seu rei não estiver em cheque, o jogo termina em um <quote
 >afogamento</quote
 >. O afogamento resulta em um jogo empatado.</para>
 		</sect2>
@@ -799,9 +805,9 @@
 >Uma vez que esteja satisfeito com as modificações que você fez você pode ativá-las clicando em <guibutton
 >Aplicar</guibutton
 > ou no botão <guibutton
->Ok</guibutton
+>OK</guibutton
 >, localizado na parte inferior desta janela. Clicar em <guibutton
->Ok</guibutton
+>OK</guibutton
 > também fechará a janela de configuração. </para>
 		<para
 >Se, no entanto, você não estiver satisfeito com suas modificações - basta clicar em <guibutton
@@ -811,24 +817,41 @@
 > antes de clicar em <guibutton
 >Aplicar</guibutton
 > ou <guibutton
->Ok</guibutton
+>OK</guibutton
 >. </para>
 
 		<sect1 id="configuration-general">
 			<title
 >Geral</title>
 			<para
->A seção <guimenu
->Geral</guimenu
-> contém opções na aparência geral do &knights;. As animações das peças e do tabuleiro podem ser ativadas ou modificadas. A seção de animações fica visível com base nos aplicativos do sistema, e somente no caso das animações estarem disponíveis. Todos os três tipos de <link linkend="markers"
->marcadores</link
-> podem ser ativados ou desativados. Os contornos do tabuleiro poderão ser ativados com ou sem a notação algébrica do xadrez, usando um menu de opções. </para>
+>The <guimenu
+>General</guimenu
+> section contains options on the general appearance of &knights;. Animations of the pieces and board can be enabled or modified. The animations section is visible based upon system software, and is seen only if animations are available. All three types of <link linkend="markers"
+>markers</link
+> can be enabled or disabled. Borders around the chess board can be activated with or without algebraic chess notation by using a drop down menu. </para>
 			<note>
 				<title
 >Nota:</title>
 				<para
 >Alguns temas podem não suportar marcadores, contornos e/ou notações. Nesse caso, a configuração não fará efeito sobre eles, mas será lembrada no caso de nova alteração do tema. </para>
 			</note>
+		</sect1>
+		
+		<sect1 id="configuration-accessibility">
+			<title
+>Acessibilidade</title>
+			<para
+>A seção <guimenu
+>Acessibilidade</guimenu
+> tem algumas opções que dizem respeito à apresentação do tabuleiro e da utilização de programas externos que facilitam a capacidade de pessoas com necessidades especiais poderem jogar. </para>
+			<para
+>The feature of turning around the board when the local player changes is now optional, making it possible to use &knights; on a tablet as a chess board replacement. </para>
+			<para
+>O &jovie; - o serviço de texto-para-fala do &kde; - pode ser usado para sintetizar as jogadas dos adversários. </para>
+			<para
+>É possível controlar o &knights; através de uma interface de &DBus;. Atualmente ele não tem utilidade, com exceção de uma versão não lançada do <ulink url="http://simon-listens.org/"
+>Simon</ulink
+>, que permite a interação somente com a voz. </para>
 		</sect1>
 
 		<sect1 id="configuration-themes">
@@ -839,7 +862,7 @@
 >Tema</guimenu
 > permite a seleção de um tema. O tema fornece as imagens para o tabuleiro, peças, marcadores e outros itens. Para selecionar um novo tema, escolha o nome do tema na lista de seleção. Você poderá também obter novos temas na mesma página, clicando em <guibutton
 >Obter temas novos</guibutton
-> . Os temas são armazenados no kde-look.org na seção &knights;. </para>
+>. Os temas são armazenados no kde-look.org na seção &knights;. </para>
 			<note>
 				<title
 >Nota:</title>

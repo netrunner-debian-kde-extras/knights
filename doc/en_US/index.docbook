@@ -3,7 +3,7 @@
   <!ENTITY knights "<application>Knights</application>">
   <!ENTITY kappname "&knights;">
   <!ENTITY package "extragear/games">
-  <!ENTITY kappversion "2.3.1"><!--Application version. Use this variable everywhere it's needed.-->
+  <!ENTITY kappversion "2.4.1"><!--Application version. Use this variable everywhere it's needed.-->
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE">
 ]>
@@ -32,8 +32,8 @@
 		<legalnotice>&FDLNotice;
 		</legalnotice>
 
-		<date>2011-02-16</date><!-- Date of (re)writing, or update.-->
-		<releaseinfo>&kappversion;
+		<date>2011-12-18</date><!-- Date of (re)writing, or update.-->
+		<releaseinfo>&kappversion; (&kde; 4.7)
 		</releaseinfo><!-- Application version number. Use the variable definitions within header to change this value.-->
 
 		<abstract>
@@ -54,7 +54,10 @@
 		</keywordset>
 
 	</bookinfo>
-
+<!-- 
+new in >2.4.0 history, UCI, Difficulty settings, see
+http://noughmad.com/2011/10/25/upcoming-features-in-knights/ 
+-->
 	<chapter id="introduction">
 		<title>Introduction</title>
 		<note>
@@ -94,19 +97,32 @@
 				<mediaobject><imageobject><imagedata fileref="Knights-newgame-dialog.png" /></imageobject></mediaobject>
 			<para>
 				If you wish to play against a friend on the same computer, select 
-				  <guilabel>Human (You)</guilabel> for <guilabel>Player 1</guilabel>
-				  and <guilabel>Human</guilabel> for <guilabel>Player 2</guilabel>.
+				<guilabel>Human (You)</guilabel> for <guilabel>Player 1</guilabel>
+				and <guilabel>Human</guilabel> for <guilabel>Player 2</guilabel>.
 			</para>
 			<para>
 				If you wish to play against the computer, select 
 				<guilabel>Human (You)</guilabel> for <guilabel>Player 1</guilabel> and 
 				<guilabel>Computer engine</guilabel> for <guilabel>Player 2</guilabel>.
 				Choose the program you would like to play against, and
-				make sure that the program you specify is installed
-				on your computer and that it supports the XBoard protocol.
+				make sure that the program you specify is installed on your
+				computer and that it supports either the XBoard or UCI protocol.
 			</para>
 			<para>
-				If you wish to play against someone over the internet,
+				If you have installed a chess engine but it does not appear in the list,
+				click the <guilabel>Configure Engines</guilabel> button and add the engine
+				there. For more information on this dialog see <link linkend="configuration-engines">Computer Engines</link>.
+			</para>
+			<note><title>Note</title>
+			<para>
+				Even though a program is listed in the dialog, it does not mean it is installed.
+				Make sure you install whatever chess engine you wish to play against. 
+				You can check whether an engine is installed on your system or not in the
+				<guilabel>Configure Engines</guilabel> dialog. 
+			</para>
+			</note>
+			<para>
+				If you wish to play against someone over the Internet,
 				select <guilabel>Human (You)</guilabel> for <guilabel>Player 1</guilabel> and
 				<guilabel>Human at a chess server</guilabel> for <guilabel>Player 2</guilabel>.
 				You will have to login into the server and find
@@ -157,7 +173,7 @@
 				
 			</itemizedlist>
 			<para>
-				After you press the <guibutton>Ok</guibutton> button, the dialog will close.
+				After you press the <guibutton>OK</guibutton> button, the dialog will close.
 				If you selected a player at a chess server, you will have to log in and find your opponent.
 				Otherwise, the game will start immediately. 
 			</para>
@@ -242,7 +258,7 @@
 		</itemizedlist>
 		<para>Rules and general chess information can be found at:
 		<itemizedlist>
-			<listitem><para><ulink url="http://en.wikipedia.org/wiki/Rules_of_chess">Wikipedia</ulink></para></listitem>
+			<listitem><para><ulink url="http://en.wikipedia.org/wiki/Rules_of_chess">Wikipedia</ulink>&nbsp;</para></listitem>
 		</itemizedlist>
 		</para>
 	</sect1>
@@ -324,7 +340,7 @@
 			only piece that cannot move backward.  The pawn is also the only piece that does not capture in the same way that it moves.  The 
 			pawn captures an opposing piece by moving diagonally one square - it cannot capture by moving straight ahead.</para>
 			
-			<para>In the picture below the lower pawn is still on its original square, so it may move one or two squares forward (indicted
+			<para>In the picture below the lower pawn is still on its original square, so it may move one or two squares forward (indicated
 			by the green X).  It may capture by moving to the right or left at a diagonal, but only if that square is occupied by an opposing
 			piece (indicated by the red X).  Otherwise, it may not move diagonally.  The upper pawn has already moved from its original square.
 			It may move only one square forward.  Likewise, it can capture moving to the left or right diagonally if the square contains an
@@ -556,7 +572,7 @@
 		to the player's remaining time before the move.  If the move is made before the delay time expires, 
 		the remaining delay time is kept by the player and their clock time increases.  Similarly, a fixed time can 
 		be added to the player's clock after a move is completed.  When time is added to the clock, the time amount is 
-		refered to as the <quote>time increment</quote>.</para>
+		referred to as the <quote>time increment</quote>.</para>
 		
 		<para>Time controls vary widely depending upon the game, game type and any sponsor.  Also during a game there 
 		may be several types of time controls joined together, with unused time added to the next time control.  For 
@@ -607,15 +623,15 @@
 		<para>
 			Once you are satisfied with the changes you have selected you
 			can make the changes by either clicking the <guibutton>Apply</guibutton> 
-			or the <guibutton>Ok</guibutton> button, located at the bottom part 
-			of the dialog. Clicking <guibutton>Ok</guibutton> will also close the
+			or the <guibutton>OK</guibutton> button, located at the bottom part 
+			of the dialog. Clicking <guibutton>OK</guibutton> will also close the
 			configuration dialog.
 		</para>
 		<para>
 			If, however, you are dissatisfied with your changes – simply click
 			<guibutton>Cancel</guibutton> to discard the changes and close
 			the configuration dialog. You must click <guibutton>Cancel</guibutton>
-			before clicking <guibutton>Apply</guibutton> or <guibutton>Ok</guibutton>.
+			before clicking <guibutton>Apply</guibutton> or <guibutton>OK</guibutton>.
 		</para>
 
 		<sect1 id="configuration-general">
@@ -625,7 +641,10 @@
 				general appearance of &knights;.  Animations of the pieces and
 				board can be enabled or modified. The animations section is visible
 				based upon system software, and is seen only if animations are 
-				available.  All three types of <link linkend="markers">markers</link>
+				available. Turning around the board is available, allowing the &knights;
+				chess board to be flipped when used on a computer screen or stationary when 
+				used on a tablet computer as a chess board replacement.
+				All three types of <link linkend="markers">markers</link>
 				can be enabled or disabled.  Borders around the chess board can be 
 				activated with or without algebraic chess notation by using a drop 
 				down menu.
@@ -638,6 +657,40 @@
 					but will be remembered in case you change themes again.
 				</para>
 			</note>
+		</sect1>
+
+		<sect1 id="configuration-engines">
+			<title>Computer Engines</title>
+			<mediaobject><imageobject><imagedata fileref="Knights-engines.png" /></imageobject></mediaobject>
+			<para>
+				The <guimenu>Computer Engines</guimenu> section allows you to configure
+				your computer opponents. For each engine specify the program name, the command used
+				to launch it, and the protocol it uses. &knights; supports two protocols for 
+				chess engines: XBoard and UCI. 
+			</para>
+			<para>
+				A new engine configuration can be added by clicking <guibutton>Add</guibutton> and
+				entering the three options mentioned above. A symbol in the last columns tells you whether
+				the specified program is installed on your computer or not. 
+			</para>
+		</sect1>
+		
+		<sect1 id="configuration-accessibility">
+			<title>Accessibility</title>
+			<para>
+				The <guimenu>Accessibility</guimenu> section has some options
+				regarding the board display and usage of external programs to
+				make it easier for people with impairments to play the game.
+			</para>
+			<para>
+				&jovie; the &kde; Text To Speech Service can be used to speak the opponents’ moves. 
+			</para>
+			<para>
+				It is possible to control &knights; via a &DBus; interface. 
+				It has no current uses, except with an unreleased version of 
+				<ulink url="http://simon-listens.org/">Simon</ulink>, 
+				enabling voice-only interaction.
+			</para>
 		</sect1>
 
 		<sect1 id="configuration-themes">

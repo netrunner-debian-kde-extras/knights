@@ -82,7 +82,6 @@ namespace Knights
             Piece* pieceAt ( const QPointF& point );
             Pos mapFromScene ( const QPointF& point );
             QPointF mapToScene ( Pos pos );
-            void changeCurrentPlayer();
             void centerOnPos ( Item* item, const Pos& pos, bool animated = true );
             void centerOnPos ( Item* item, bool animated = true );
             void removeFrame();
@@ -119,7 +118,6 @@ namespace Knights
         public slots:
             void movePiece ( const Move& move );
             void updateTheme();
-            void setPaused ( bool paused );
             void updateGraphics();
             void changeDisplayedPlayer();
             void setCurrentColor ( Color color );

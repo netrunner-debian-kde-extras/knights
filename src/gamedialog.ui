@@ -40,38 +40,95 @@
        </widget>
       </item>
       <item row="1" column="0">
-       <layout class="QHBoxLayout" name="compLayout_1">
-        <item>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
          <widget class="QRadioButton" name="player1Comp">
           <property name="text">
            <string>Computer engine:</string>
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="KHistoryComboBox" name="player1Program">
-          <property name="enabled">
-           <bool>false</bool>
+        <item row="0" column="1" colspan="3">
+         <widget class="KComboBox" name="player1Program"/>
+        </item>
+        <item row="1" column="2">
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
-          <property name="historyItems">
-           <stringlist/>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="1">
+         <widget class="KPushButton" name="player1Engines">
+          <property name="text">
+           <string>Configure Engines</string>
           </property>
          </widget>
         </item>
        </layout>
       </item>
-      <item row="2" column="0">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QGroupBox" name="colorGroup">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>Player 1's Color</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QRadioButton" name="colorWhite">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>0</height>
-         </size>
+        <property name="text">
+         <string>White</string>
         </property>
-       </spacer>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="colorBlack">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Black</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="colorRandom">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Choose randomly</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -93,23 +150,36 @@
        </widget>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="compLayout_2">
-        <item>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
          <widget class="QRadioButton" name="player2Comp">
           <property name="text">
            <string>Computer engine:</string>
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="KHistoryComboBox" name="player2Program">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="historyItems">
-           <stringlist/>
+        <item row="0" column="1" colspan="2">
+         <widget class="KComboBox" name="player2Program"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QToolButton" name="player2Engines">
+          <property name="text">
+           <string>Configure Engines</string>
           </property>
          </widget>
+        </item>
+        <item row="1" column="2">
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>
@@ -230,75 +300,23 @@
      </layout>
     </widget>
    </item>
-   <item row="0" column="1">
-    <widget class="QGroupBox" name="colorGroup">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="title">
-      <string>Player 1's Color</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QRadioButton" name="colorWhite">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>White</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="colorBlack">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Black</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="colorRandom">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Choose randomly</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
-  <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
   </customwidget>
   <customwidget>
    <class>KHistoryComboBox</class>
@@ -309,50 +327,18 @@
  <resources/>
  <connections>
   <connection>
-   <sender>player1Comp</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>player1Program</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>124</x>
-     <y>82</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>309</x>
-     <y>83</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>player2Comp</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>player2Program</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>90</x>
-     <y>281</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>309</x>
-     <y>282</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>player2Fics</sender>
    <signal>toggled(bool)</signal>
    <receiver>player2Server</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>159</x>
-     <y>310</y>
+     <x>171</x>
+     <y>288</y>
     </hint>
     <hint type="destinationlabel">
-     <x>309</x>
-     <y>311</y>
+     <x>362</x>
+     <y>289</y>
     </hint>
    </hints>
   </connection>
@@ -363,12 +349,12 @@
    <slot>setHidden(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>44</x>
-     <y>297</y>
+     <x>56</x>
+     <y>288</y>
     </hint>
     <hint type="destinationlabel">
-     <x>366</x>
-     <y>47</y>
+     <x>506</x>
+     <y>165</y>
     </hint>
    </hints>
   </connection>
@@ -379,12 +365,28 @@
    <slot>setHidden(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>104</x>
-     <y>307</y>
+     <x>116</x>
+     <y>288</y>
     </hint>
     <hint type="destinationlabel">
-     <x>524</x>
-     <y>45</y>
+     <x>630</x>
+     <y>165</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>player2Fics</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>timeGroup</receiver>
+   <slot>setChecked(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>51</x>
+     <y>275</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>454</x>
+     <y>129</y>
     </hint>
    </hints>
   </connection>

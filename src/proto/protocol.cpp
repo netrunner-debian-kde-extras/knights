@@ -32,7 +32,7 @@
 
 namespace Knights
 {
-    const int TimerInterval = 100; // miliseconds
+    const int TimerInterval = 100; // milliseconds
     int id = qRegisterMetaType<Protocol::ErrorCode> ( "Protocol::ErrorCode" );
 
     QPointer<Protocol> Protocol::m_white = 0;
@@ -241,12 +241,6 @@ bool Protocol::isReady()
     return d->ready;
 }
 
-int Protocol::nextId()
-{
-    Q_D(Protocol);
-    return d->nextId++;
-}
-
 bool Protocol::isLocal()
 {
     return false;
@@ -257,10 +251,11 @@ bool Protocol::isComputer()
     return false;
 }
 
-
-
-
-
+void Protocol::setDifficulty(int depth, int memory)
+{
+    Q_UNUSED(depth);
+    Q_UNUSED(memory);
+}
 
 }
 

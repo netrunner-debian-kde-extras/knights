@@ -5,7 +5,7 @@
 >">
   <!ENTITY kappname "&knights;">
   <!ENTITY package "extragear/games">
-  <!ENTITY kappversion "2.3.1"
+  <!ENTITY kappversion "2.4.1"
 ><!--Application version. Use this variable everywhere it's needed.-->
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % Dutch "INCLUDE">
@@ -43,10 +43,10 @@
 		</legalnotice>
 
 		<date
->2011-02-16</date
+>2011-12-18</date
 ><!-- Date of (re)writing, or update.-->
 		<releaseinfo
->&kappversion; </releaseinfo
+>&kappversion; (&kde; 4.7) </releaseinfo
 ><!-- Application version number. Use the variable definitions within header to change this value.-->
 
 		<abstract>
@@ -75,7 +75,11 @@
 		</keywordset>
 
 	</bookinfo>
-
+<!-- 
+new in
+>2.4.0 history, UCI, Difficulty settings, see
+http://noughmad.com/2011/10/25/upcoming-features-in-knights/ 
+-->
 	<chapter id="introduction">
 		<title
 >Inleiding</title>
@@ -149,7 +153,19 @@
 >Computerprogramma</guilabel
 > voor <guilabel
 >Speler 2</guilabel
->. Kies het programma waar u tegen wilt spelen. U moet er wel zeker van zijn dat het door u opgegeven programma op uw computer is geïnstalleerd, en dat dit het XBoard protocol ondersteunt. </para>
+>. Kies het programma waar u tegen wilt spelen. U moet er wel zeker van zijn dat het door u opgegeven programma op uw computer is geïnstalleerd, en dat dit het XBoard- of UCI-protocol ondersteunt. </para>
+			<para
+>Indien een door u geïnstalleerd schaakprogramma niet in de lijst voorkomt, klik dan op de knop <guilabel
+>Programma's instellen</guilabel
+> waarna u uw programma kunt toevoegen. Zie <xref linkend="configuration-engines"/> voor meer informatie hierover. </para>
+			<note
+><title
+>Opmerking</title>
+			<para
+>Ook al staat een programma in de lijst, betekent dat nog niet dat het is geïnstalleerd. Vergewis u ervan dat elk schaakprogramma waar u tegen wilt spelen, ook werkelijk is geïnstalleerd. U kunt in de dialoog <guilabel
+>Programma's instellen</guilabel
+> controleren welke programma's op uw systeem zijn geïnstalleerd. </para>
+			</note>
 			<para
 >Indien u wenst te spelen tegen iemand op het internet, selecteert u <guilabel
 >Mens (U)</guilabel
@@ -206,7 +222,7 @@
 			<para
 >Na drukken op de knop <guibutton
 >Ok</guibutton
-> wordt de dialoog afgesloten. Kiest u om tegen een speler op een schaakserver te spelen, dan moet u nog inloggen en een tegenstander vinden. In andere gevallen start het spel direct. </para>
+> wordt de dialoog afgesloten. Kiest u om tegen een speler op een schaakserver te spelen, dan moet u nog inloggen en een tegenstander vinden. In andere gevallen start het spel meteen. </para>
 			<note
 ><title
 >Opmerking</title>
@@ -314,7 +330,7 @@
 ><para
 ><ulink url="http://en.wikipedia.org/wiki/Rules_of_chess"
 >Wikipedia</ulink
-></para
+>&nbsp;</para
 ></listitem>
 		</itemizedlist>
 		</para>
@@ -409,7 +425,7 @@
 >De pion is het meest talrijke en het minst krachtige stuk op het bord. De bewegingen van pionnen zijn erg ongewoon. Gewoonlijk bewegen zij zich alleen naar voren, een veld per keer. Maar bij de eerste keer dat een pion wordt verplaatst, kan die twee velden naar voren gaan. De pion kan niet over andere stukken springen, elk stuk dat direct voor de pion staat blokkeert zijn voortgang. De pion is het enige stuk dat niet naar achteren kan bewegen. De pion is ook het enige stuk dat niet in zijn normale bewegingsrichting slaat. De pion slaat een stuk van de tegenspeler door diagonaal (schuin) een veld vooruit te gaan - hij kan geen stuk recht vooruit slaan.</para>
 			
 			<para
->In de afbeelding hieronder staat de onderste pion nog op het zelfde veld als toen het spel begon, en kan dus een of twee velden naar voren gaan (aangegeven met de groene X). Hij kan een stuk van de tegenpartij één veld schuin naar linksvoor of rechtsvoor slaan, als die zich op dat veld bevindt (zie rode X). Dit is de enige manier waarop een pion in een diagonale richting kan bewegen. De bovenste pion is al eens eerder verplaatst, en kan dus alleen één veld naar voren bewegen. Overigens mag hij op de zelfde manier slaan als de andere pion.</para>
+>In de onderstaande afbeelding staat de onderste pion nog op het zelfde veld als toen het spel begon, en kan dus een of twee velden naar voren gaan (aangegeven met de groene X). Hij kan een stuk van de tegenpartij één veld schuin naar linksvoor of rechtsvoor slaan, als die zich op dat veld bevindt (zie rode X). Dit is de enige manier waarop een pion in een diagonale richting kan bewegen. De bovenste pion is al eens eerder verplaatst, en kan dus alleen één veld naar voren bewegen. Overigens mag hij op de zelfde manier slaan als de andere pion.</para>
 			<mediaobject
 ><imageobject
 ><imagedata fileref="Knights-move-pawn.png"/></imageobject
@@ -722,7 +738,7 @@
 >. Hierbij is er een vastgestelde tijd voor het hele spel, onafhankelijk van het aantal zetten.</para>
 		
 		<para
->Naast de tijdbeperking kan er ook een vertragingstijd worden toegepast, om de tijd die nodig is om een zet uit te voeren te compenseren. Tijdens de <quote
+>Naast de tijdbeperking kan er ook een vertragingstijd worden toegepast, om de tijd die nodig is om een zet uit te voeren te compenseren. Met de <quote
 >Bronsteinvertraging</quote
 > begint de klok, nadat de speler begint met zijn zet uit te voeren, pas na een zekere vertragingstijd te lopen. Als de zet wordt gedaan binnen deze vertragingstijd, heeft dat geen invloed op de klok van de speler. Bij de <quote
 >Fischervertraging</quote
@@ -800,15 +816,47 @@
 			<para
 >In het gedeelte <guimenu
 >Algemeen</guimenu
-> zijn opties voor de algemene instellingen voor het uiterlijk van &knights;. U kunt hier de animaties aan/uitzetten van de stukken en het bord. Of het animatiegedeelte zichtbaar is, is afhankelijk van de hardware, en alleen wanneer die de animaties mogelijk maakt. Alle drie de soorten <link linkend="markers"
+> zijn opties voor de algemene instellingen van het uiterlijk van &knights;. U kunt hier de animaties aan/uitzetten en wijzigen van de stukken en het bord. Het animatiegedeelte is afhankelijk van de hardware, en alleen zichtbaar wanneer animaties mogelijk zijn. Draaien van het bord is mogelijk, waardoor &knights; het bord kan draaien op een computerscherm, of het bord vast staat indien gebruik wordt gemaakt van een tablet in plaats van een schaakbord.Alle drie de soorten <link linkend="markers"
 >merktekens</link
-> kunnen worden aan- of uitgezet. Het langs de randen van het bord tonen van de kenmerken van de vakjes volgens de algebraïsche schaaknotatie kan in een neerklapmenu worden gekozen. </para>
+> kunnen worden aan- of uitgezet. Het langs de randen van het bord wel of niet tonen van de kenmerken van de vakjes volgens de algebraïsche schaaknotatie kan in een neerklapmenu worden gekozen. </para>
 			<note>
 				<title
 >Opmerking:</title>
 				<para
 >In sommige thema's zijn er geen merktekens, randen en/of notaties beschikbaar. Hierin zijn de instellingen niet van toepassing, maar die worden wel onthouden voor het geval dat u weer een ander thema kiest. </para>
 			</note>
+		</sect1>
+
+		<sect1 id="configuration-engines">
+			<title
+>Computerprogramma's</title>
+			<mediaobject
+><imageobject
+><imagedata fileref="Knights-engines.png"/></imageobject
+></mediaobject>
+			<para
+>In de sectie <guimenu
+>Computerprogramma's</guimenu
+> kunt u de computerprogramma's instellen waar u tegen wilt spelen. Van elk programma geeft u de naam op, de opdracht waar het mee wordt gestart, en het gebruikte protocol. &knights; kent twee protocollen voor schaakprogramma's: XBoard en UCI. </para>
+			<para
+>U kunt nieuwe programmainstellingen toevoegen met de knop <guibutton
+>Toevoegen</guibutton
+>, waarna u de bovenstaande opties invoert. Met een symbool in de laatste kolommen wordt aangegeven of het opgegeven programma op uw computer is geïnstalleerd. </para>
+		</sect1>
+		
+		<sect1 id="configuration-accessibility">
+			<title
+>Toegankelijkheid</title>
+			<para
+>In de sectie <guimenu
+>Toegankelijkheid</guimenu
+> zijn enkele opties te vinden met betrekking tot de weergave van het bord en het gebruik van externe programma's, waardoor voor mensen met een beperking het spelen wat eenvoudiger  wordt gemaakt. </para>
+			<para
+>&jovie; het Tekst naar Spraak-programma van &kde; kan worden gebruikt voor het uitspreken van de zetten van de tegenspeler. </para>
+			<para
+>&knights; kan worden bestuurd via een &DBus;-interface. Dit wordt nu niet gebruikt, behalve in een niet uitgegeven versie van <ulink url="http://simon-listens.org/"
+>Simon</ulink
+>, waarmee een besturing mogelijk wordt met alleen de stem. </para>
 		</sect1>
 
 		<sect1 id="configuration-themes">

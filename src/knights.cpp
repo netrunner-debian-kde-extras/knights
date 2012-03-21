@@ -22,7 +22,7 @@
 #include "knights.h"
 
 #include "core/piece.h"
-#include "proto/xboardproto.h"
+#include "proto/xboardprotocol.h"
 #include "proto/ficsprotocol.h"
 #include "knightsview.h"
 #include "settings.h"
@@ -39,8 +39,7 @@
 #include <KStandardGameAction>
 #include <KLocale>
 #include <KMessageBox>
-#include <KMenuBar>
-#include <KMenu>
+#include <KFileDialog>
 
 #include <QtGui/QDropEvent>
 #include <QtCore/QTimer>
@@ -49,6 +48,13 @@
 #include <KUser>
 #include "gamemanager.h"
 #include "rules/chessrules.h"
+#include <KGameDifficulty>
+#include <QListView>
+#include <QStringListModel>
+#include "historywidget.h"
+#include "enginesettings.h"
+
+const char* DontAskDiscard = "dontAskInternal";
 
 namespace Knights
 {
@@ -62,12 +68,30 @@ namespace Knights
 
         // tell the KXmlGuiWindow that this is indeed the main widget
         setCentralWidget ( m_view );
+        
+        // initial creation/setup of the docks
+        setDockNestingEnabled (true);
+        setupClockDock();
+        setupConsoleDocks();
+        setupHistoryDock();
 
         // then, setup our actions
         setupActions();
 
         // add a status bar
         statusBar()->show();
+        
+        KGameDifficulty::init( this, Manager::self(), SLOT (levelChanged(KGameDifficulty::standardLevel) ) );
+        KGameDifficulty::addStandardLevel ( KGameDifficulty::VeryEasy );
+        KGameDifficulty::addStandardLevel ( KGameDifficulty::Easy );
+        KGameDifficulty::addStandardLevel ( KGameDifficulty::Medium );
+        KGameDifficulty::addStandardLevel ( KGameDifficulty::Hard );
+        KGameDifficulty::addStandardLevel ( KGameDifficulty::VeryHard );
+        KGameDifficulty::addStandardLevel ( KGameDifficulty::Configurable );
+        KGameDifficulty::setRestartOnChange ( KGameDifficulty::NoRestartOnChange );
+        
+        KGameDifficulty::standardLevel level = (KGameDifficulty::standardLevel)Settings::computerDifficulty();
+        KGameDifficulty::setLevel ( level );
 
         // a call to KXmlGuiWindow::setupGUI() populates the GUI
         // with actions, using KXMLGUI.
@@ -75,24 +99,39 @@ namespace Knights
         // mainwindow to automatically save settings if changed: window size,
         // toolbar position, icon size, etc.
         setupGUI();
-        connect ( m_view, SIGNAL ( gameNew() ), this, SLOT ( fileNew() ), Qt::QueuedConnection );
-        connect ( Manager::self(), SIGNAL(initComplete()), SLOT(protocolInitSuccesful()) );
-
-        QTimer::singleShot ( 0, this, SLOT ( fileNew() ) );
+        
+        // make all the docks invisible.
+        // Show required docks after the game protocols are selected
+        m_clockDock->hide();
+        m_bconsoleDock->hide();
+        m_wconsoleDock->hide();
+        m_chatDock->hide();
+        
+        connect ( m_view, SIGNAL (gameNew()), this, SLOT (fileNew()), Qt::QueuedConnection );
+        connect ( Manager::self(), SIGNAL (initComplete()), SLOT (protocolInitSuccesful()) );
+        connect ( Manager::self(), SIGNAL (playerNameChanged()), SLOT (updateCaption()) );
+        connect( qApp, SIGNAL (lastWindowClosed()), this, SLOT (exitKnights()) );
+                
+        QTimer::singleShot ( 0, this, SLOT (fileNew()) );
     }
 
     MainWindow::~MainWindow()
     {
+        Settings::setComputerDifficulty ( (int)KGameDifficulty::level() );
     }
 
     void MainWindow::setupActions()
     {
-        KStandardGameAction::gameNew ( this, SLOT ( fileNew() ), actionCollection() );
-        KStandardGameAction::quit ( qApp, SLOT ( closeAllWindows() ), actionCollection() );
-        KStandardGameAction::pause ( this, SLOT ( pauseGame ( bool ) ), actionCollection() );
-        KStandardAction::preferences ( this, SLOT ( optionsPreferences() ), actionCollection() );
-
-        KAction* resignAction = actionCollection()->addAction ( QLatin1String("resign"), Manager::self(), SLOT ( resign() ) );
+        KStandardGameAction::gameNew ( this, SLOT (fileNew()), actionCollection() );
+        KStandardGameAction::quit ( qApp, SLOT (closeAllWindows()), actionCollection() );
+        KStandardGameAction::pause ( this, SLOT (pauseGame(bool)), actionCollection() );
+        KStandardAction::preferences ( this, SLOT (optionsPreferences()), actionCollection() );
+        
+        KStandardGameAction::save ( this, SLOT (fileSave()), actionCollection() );
+        KStandardGameAction::saveAs ( this, SLOT (fileSaveAs()), actionCollection() );
+        KStandardGameAction::load ( this, SLOT (fileLoad()), actionCollection() );
+        
+        KAction* resignAction = actionCollection()->addAction ( QLatin1String("resign"), Manager::self(), SLOT (resign()) );
         resignAction->setText ( i18n ( "Resign" ) );
         resignAction->setHelpText(i18n("Admit your inevitable defeat"));
         resignAction->setIcon(KIcon(QLatin1String("flag-red")));
@@ -101,21 +140,74 @@ namespace Knights
         undoAction->setText ( i18n("Undo") );
         undoAction->setHelpText ( i18n("Take back your last move") );
         undoAction->setIcon ( KIcon(QLatin1String("edit-undo")) );;
-        undoAction->setEnabled(false);
-        connect ( Manager::self(), SIGNAL(undoPossible(bool)), undoAction, SLOT(setEnabled(bool)) );
+        connect ( Manager::self(), SIGNAL (undoPossible(bool)), undoAction, SLOT (setEnabled(bool)) );
+        undoAction->setEnabled( false );
 
         KAction* redoAction = actionCollection()->addAction ( QLatin1String("move_redo"), this, SLOT(redo()) );
         redoAction->setText ( i18n("Redo") );
         redoAction->setHelpText ( i18n("Repeat your last move") );
         redoAction->setIcon ( KIcon(QLatin1String("edit-redo")) );;
-        redoAction->setEnabled(false);
-        connect ( Manager::self(), SIGNAL(redoPossible(bool)), redoAction, SLOT(setEnabled(bool)) );
-
-        connect( qApp, SIGNAL( lastWindowClosed() ), this, SLOT( exitKnights() ) );
+        connect ( Manager::self(), SIGNAL (redoPossible(bool)), redoAction, SLOT (setEnabled(bool)) );
+        redoAction->setEnabled( false );
+        
+        KAction* drawAction = actionCollection()->addAction ( QLatin1String ( "propose_draw" ), Manager::self(), SLOT (offerDraw()) );
+        drawAction->setText ( i18n ( "Offer &Draw" ) );
+        drawAction->setHelpText(i18n("Offer a draw to your opponent"));
+        drawAction->setIcon(KIcon(QLatin1String("flag-blue")));
+        
+        KAction* adjournAction = actionCollection()->addAction ( QLatin1String ( "adjourn" ), Manager::self(), SLOT (adjourn()) );
+        adjournAction->setText ( i18n ( "Adjourn" ) );
+        adjournAction->setHelpText(i18n("Continue this game at a later time"));
+        adjournAction->setIcon(KIcon(QLatin1String("document-save")));
+        
+        KAction* abortAction = actionCollection()->addAction ( QLatin1String("abort"), Manager::self(), SLOT (abort()) );
+        abortAction->setText ( i18n ( "Abort" ) );
+        abortAction->setHelpText(i18n("End the game immediately"));
+        abortAction->setIcon(KIcon(QLatin1String("dialog-cancel")));
+        
+        KToggleAction* clockAction = new KToggleAction ( KIcon(QLatin1String("clock")), i18n("Show Clock"), actionCollection() );
+        actionCollection()->addAction ( QLatin1String("show_clock"), clockAction );
+        connect ( clockAction, SIGNAL (triggered(bool)), m_clockDock, SLOT (setVisible(bool)) );
+        connect ( clockAction, SIGNAL (triggered(bool)), this, SLOT (setShowClockSetting(bool)) );
+        clockAction->setVisible (false);
+        
+        KToggleAction* historyAction = new KToggleAction ( KIcon(QLatin1String("view-history")), i18n("Show History"), actionCollection() );
+        actionCollection()->addAction ( QLatin1String("show_history"), historyAction );
+        connect ( historyAction, SIGNAL (triggered(bool)), m_historyDock, SLOT (setVisible(bool)) );
+        connect ( historyAction, SIGNAL (triggered(bool)), this, SLOT (setShowHistorySetting(bool)) );
+        historyAction->setVisible (true);
+        historyAction->setChecked ( Settings::showHistory() );
+      
+        KToggleAction* wconsoleAction = new KToggleAction ( KIcon(QLatin1String("utilities-terminal")), i18n("Show White Console"), actionCollection() );
+        actionCollection()->addAction ( QLatin1String("show_console_white"), wconsoleAction );
+        connect ( wconsoleAction, SIGNAL (triggered(bool)), m_wconsoleDock, SLOT (setVisible(bool)) );
+        connect ( wconsoleAction, SIGNAL (triggered(bool)), this, SLOT (setShowConsoleSetting()) );
+        wconsoleAction->setVisible (false);
+        
+        KToggleAction* bconsoleAction = new KToggleAction ( KIcon(QLatin1String("utilities-terminal")), i18n("Show Black Console"), actionCollection() );
+        actionCollection()->addAction ( QLatin1String("show_console_black"), bconsoleAction );
+        connect ( bconsoleAction, SIGNAL (triggered(bool)), m_bconsoleDock, SLOT (setVisible(bool)) );
+        connect ( bconsoleAction, SIGNAL (triggered(bool)), this, SLOT (setShowConsoleSetting()) );
+        bconsoleAction->setVisible (false);        
+        
+        KToggleAction* chatAction = new KToggleAction ( KIcon(QLatin1String("meeting-attending")), i18n("Show Chat"), actionCollection() );
+        actionCollection()->addAction ( QLatin1String("show_chat"), chatAction );
+        connect ( chatAction, SIGNAL (triggered(bool)), m_chatDock, SLOT (setVisible(bool)) );
+        connect ( chatAction, SIGNAL (triggered(bool)), this, SLOT (setShowChatSetting(bool)) );
+        chatAction->setVisible (false); 
+        
+        protocolFeatures [ "propose_draw" ] = Protocol::Draw;
+        protocolFeatures [ "adjourn" ] = Protocol::Adjourn;
+        protocolFeatures [ "resign" ] = Protocol::Resign;
+        protocolFeatures [ "abort" ] = Protocol::Abort;
     }
 
     void MainWindow::fileNew()
     {
+        if (!maybeSave())
+        {
+            return;
+        }
         KDialog gameNewDialog;
         GameDialog* dialogWidget = new GameDialog ( &gameNewDialog );
         gameNewDialog.setMainWidget ( dialogWidget );
@@ -123,18 +215,6 @@ namespace Knights
         if ( gameNewDialog.exec() == KDialog::Accepted )
         {
             Manager::self()->reset();
-            foreach ( QDockWidget* dock, m_dockWidgets )
-            {
-                removeDockWidget ( dock );
-                delete dock;
-            }
-            m_dockWidgets.clear();
-            // Remove protocol-dependent actions
-            foreach ( QAction* action, m_protocolActions )
-            {
-                actionCollection()->removeAction(action);
-            }
-            m_protocolActions.clear();
             m_view->clearBoard();
             dialogWidget->setupProtocols();
             connect ( Protocol::white(), SIGNAL(error(Protocol::ErrorCode,QString)), SLOT(protocolError(Protocol::ErrorCode,QString)) );
@@ -144,7 +224,34 @@ namespace Knights
             Manager::self()->initialize();
         }
     }
+    
+void MainWindow::fileLoad()
+{
+    if (!maybeSave())
+    {
+        return;
+    }
+    
+    QString fileName = KFileDialog::getOpenFileName ( KUrl("kfiledialog://knights"), i18n("*.pgn | Portable game notation" ) );
+    if ( fileName.isEmpty() )
+    {
+        return;
+    }
+    
+    Manager::self()->reset();
+    m_view->clearBoard();
+    
+    Protocol::setWhiteProtocol ( new LocalProtocol() );
+    Protocol::setBlackProtocol ( new LocalProtocol() );
+    
+    connect ( Protocol::white(), SIGNAL(error(Protocol::ErrorCode,QString)), SLOT(protocolError(Protocol::ErrorCode,QString)) );
+    connect ( Protocol::black(), SIGNAL(error(Protocol::ErrorCode,QString)), SLOT(protocolError(Protocol::ErrorCode,QString)) );
+    
+    m_loadFileName = fileName;
+    Manager::self()->initialize();
+}
 
+    
 void MainWindow::showFicsDialog(Color color, bool computer)
 {
     if ( computer || true) // TODO: Implement, and remove this check
@@ -168,178 +275,198 @@ void MainWindow::showFicsSpectateDialog()
 
     void MainWindow::protocolInitSuccesful()
     {
+        kDebug() << Settings::showClock() << Settings::showConsole();
         QString whiteName = Protocol::white()->playerName();
         QString blackName = Protocol::black()->playerName();
-        setCaption( i18n ( "%1 vs. %2", whiteName, blackName ) );
+        updateCaption();
+        
+        // show clock action button if timer active
+        // show clock dock widget if timer active and configuration file entry has visible = true
         if ( Manager::self()->timeControlEnabled ( White ) || Manager::self()->timeControlEnabled ( Black ) )
         {
-            showClockWidgets();
-            
-            KToggleAction* clockAction = new KToggleAction ( KIcon(QLatin1String("clock")), i18n("Show Clock"), actionCollection() );
-            actionCollection()->addAction ( QLatin1String("show_clock"), clockAction );
-            connect ( clockAction, SIGNAL(triggered(bool)), m_clockDock, SLOT(setVisible(bool)) );
-            connect ( clockAction, SIGNAL(triggered(bool)), this, SLOT(setShowClockSetting(bool)) );
-            connect ( m_clockDock, SIGNAL(visibilityChanged(bool)), clockAction, SLOT(setChecked(bool)) );
-            m_protocolActions << clockAction;
-        }
-
-        Protocol* player = 0;
-        Protocol* opp = 0;
-        if ( Protocol::white()->isLocal() )
-        {
-            player = Protocol::white();
-            opp = Protocol::black();
-        }
-        if ( Protocol::black()->isLocal() )
-        {
-            if ( player || opp )
+            actionCollection()->action ( QLatin1String ( "show_clock" ) )->setVisible (true);
+            playerClock->setPlayerName(White, Protocol::white()->playerName());
+            playerClock->setPlayerName(Black, Protocol::black()->playerName());
+            playerClock->setTimeLimit ( White, Manager::self()->timeLimit ( White ) );
+            playerClock->setTimeLimit ( Black, Manager::self()->timeLimit ( Black ) );
+            if (Settings::showClock())
             {
-                player = 0;
-                opp = 0;
+                m_clockDock->setVisible (true);
+                actionCollection()->action ( QLatin1String ( "show_clock" ) )->setChecked (true);
             }
             else
             {
-                player = Protocol::black();
-                opp = Protocol::white();
+                m_clockDock->setVisible (false);
+                actionCollection()->action ( QLatin1String ( "show_clock" ) )->setChecked (false);
             }
-        }
-        if ( !player )
-        {
-            // Either two local humans, or two computers / FICS players
-            // in both cases, we don't need those actions
         }
         else
         {
-            Protocol::Features f = opp->supportedFeatures();
-            if ( f & Protocol::Draw )
-            {
-                KAction* drawAction = actionCollection()->addAction ( QLatin1String ( "propose_draw" ), Manager::self(), SLOT ( offerDraw() ) );
-                drawAction->setText ( i18n ( "Offer &Draw" ) );
-                drawAction->setHelpText(i18n("Offer a draw to your opponent"));
-                drawAction->setIcon(KIcon(QLatin1String("flag-blue")));
-                m_protocolActions << drawAction;
-            }
-            if ( f & Protocol::Adjourn )
-            {
-                KAction* adjournAction = actionCollection()->addAction ( QLatin1String ( "adjourn" ), Manager::self(), SLOT ( adjourn() ) );
-                adjournAction->setText ( i18n ( "Adjourn" ) );
-                adjournAction->setHelpText(i18n("Continue this game at a later time"));
-                adjournAction->setIcon(KIcon(QLatin1String("document-save")));
-                m_protocolActions << adjournAction;
-            }
+            m_clockDock->setVisible (false);
+            actionCollection()->action ( QLatin1String ( "show_clock" ) )->setVisible (false);
         }
+
+        Protocol::Features f = Protocol::NoFeatures;
+        if ( Protocol::white()->isLocal() && !(Protocol::black()->isLocal()) )
+        {
+            f = Protocol::black()->supportedFeatures();
+        }
+        else if ( Protocol::black()->isLocal() && !(Protocol::white()->isLocal()) )
+        {
+            f = Protocol::white()->supportedFeatures();
+        }
+                
+        QMap<QByteArray, Protocol::Feature>::ConstIterator it;
+        for ( it = protocolFeatures.constBegin(); it != protocolFeatures.constEnd(); ++it )
+        {
+            actionCollection()->action( QLatin1String(it.key()) )->setEnabled ( f & it.value() );
+        }
+        
+        // show console action button if protocol allows a console
+        // show console dock widget if protocol allows and configuration file entry has visible = true
+        // finally, hide any dock widget not needed - in case it is still active from previous game
+        actionCollection()->action ( QLatin1String ( "show_console_white" ) )->setVisible (false);
+        actionCollection()->action ( QLatin1String ( "show_console_black" ) )->setVisible (false);
+        actionCollection()->action ( QLatin1String ( "show_chat" ) )->setVisible (false);
         QList<Protocol::ToolWidgetData> list;
         list << Protocol::black()->toolWidgets();
         list << Protocol::white()->toolWidgets();
         foreach ( const Protocol::ToolWidgetData& data, list )
             {
-                QDockWidget* dock = new QDockWidget ( data.title, this );
-                dock->setWidget ( data.widget );
-                dock->setObjectName ( data.name + QLatin1String("DockWidget") );
-                QString iconName;
-                QString actionName;
-                QString actionText;
-                bool show = false;
-               
                 switch ( data.type )
                 {
                     case Protocol::ConsoleToolWidget:
-                        iconName = QLatin1String("utilities-terminal");
-                        actionName = QLatin1String( data.owner == White ? "show_console_white" : "show_console_black" );
-                        actionText = i18n("Show Console");
-                        show = Settings::showConsole();
+                        if( data.owner == White )
+                        {
+                            m_wconsoleDock->setWindowTitle ( data.title );
+                            m_wconsoleDock->setWidget ( data.widget );
+                            actionCollection()->action ( QLatin1String ( "show_console_white" ) )->setVisible (true);
+                            if( Settings::showConsole() ) 
+                            {
+                                m_wconsoleDock->setVisible (true);
+                                actionCollection()->action ( QLatin1String ( "show_console_white" ) )->setChecked (true);
+                            }
+                            else
+                            {
+                                m_wconsoleDock->setVisible (false);
+                                actionCollection()->action ( QLatin1String ( "show_console_white" ) )->setChecked (false);
+                            }
+                        }
+                        else
+                        {
+                            m_bconsoleDock->setWindowTitle ( data.title );
+                            m_bconsoleDock->setWidget ( data.widget );
+                            actionCollection()->action ( QLatin1String ( "show_console_black" ) )->setVisible (true);
+                            if( Settings::showConsole() ) 
+                            {
+                                m_bconsoleDock->setVisible (true);
+                                actionCollection()->action ( QLatin1String ( "show_console_black" ) )->setChecked (true);
+                            }
+                            else
+                            {
+                                m_bconsoleDock->setVisible (false);
+                                actionCollection()->action ( QLatin1String ( "show_console_black" ) )->setChecked (false);
+                            }
+                        }
                         break;
                         
                     case Protocol::ChatToolWidget:
-                        iconName = QLatin1String("meeting-attending");
-                        actionName = QLatin1String("show_chat");
-                        actionText = i18n("Show Chat");
-                        show = Settings::showChat();
-                        break;
-                        
-                    default:
-                        actionName = data.name;
-                        actionText = data.title;
-                        break;
-                }
-        
-                KToggleAction* toolAction = new KToggleAction ( KIcon(iconName), actionText, actionCollection() );
-                connect ( toolAction, SIGNAL(triggered(bool)), dock, SLOT(setVisible(bool)) );
-                switch ( data.type )
-                {
-                    case Protocol::ConsoleToolWidget:
-                        connect ( toolAction, SIGNAL(triggered(bool)), this, SLOT(setShowConsoleSetting(bool)) );
-                        break;
-                    case Protocol::ChatToolWidget:
-                        connect ( toolAction, SIGNAL(triggered(bool)), this, SLOT(setShowChatSetting(bool)) );
+                        m_chatDock->setWindowTitle ( data.title );
+                        m_chatDock->setWidget ( data.widget );
+                        actionCollection()->action ( QLatin1String ( "show_chat" ) )->setVisible (true);
+                        if( Settings::showChat() ) 
+                        {
+                            m_chatDock->setVisible (true);
+                            actionCollection()->action ( QLatin1String ( "show_chat" ) )->setChecked (true);
+                        }
+                        else
+                        {
+                            m_chatDock->setVisible (false);
+                            actionCollection()->action ( QLatin1String ( "show_chat" ) )->setChecked (false);
+                        }
                         break;
                         
                     default:
                         break;
                 }
-                connect ( dock, SIGNAL(visibilityChanged(bool)), toolAction, SLOT(setChecked(bool)) );
-                actionCollection()->addAction ( actionName, toolAction );
-                m_protocolActions << toolAction;
-                
-                m_dockWidgets << dock;
-                addDockWidget ( Qt::LeftDockWidgetArea, dock );
-                dock->setVisible ( show );
             }
-        QAction* wc = actionCollection()->action ( QLatin1String("show_console_white") );
-        QAction* bc = actionCollection()->action ( QLatin1String("show_console_black") );
-        if ( wc && bc )
+        if (!actionCollection()->action( QLatin1String ( "show_console_white" ) )->isVisible() ) 
         {
-            wc->setText ( i18n("Show White Console") );
-            bc->setText ( i18n("Show Black Console") );
+            m_wconsoleDock->hide();
         }
-        createGUI(); // Resets dock widget states
-        
-        QAction* a = actionCollection()->action ( QLatin1String("show_clock") );
-        if ( a )
+        if (!actionCollection()->action( QLatin1String ( "show_console_black" ) )->isVisible() )  
         {
-            a->setChecked ( Settings::showClock() );
+            m_bconsoleDock->hide();
         }
-        a = actionCollection()->action ( QLatin1String("show_chat") );
-        if ( a )
+        if (!actionCollection()->action( QLatin1String ( "show_chat" ) )->isVisible() )
         {
-            a->setChecked ( Settings::showChat() );
-        }
-        
-        if ( wc )
-        {
-            wc->setChecked ( Settings::showConsole() );
-        }
-        if ( bc )
-        {
-            bc->setChecked ( Settings::showConsole() );
+            m_chatDock->hide();
         }
         
         Manager::self()->setRules ( new ChessRules );
         Manager::self()->startGame();
-        m_view->setupBoard();
+        
+        if (m_loadFileName.isEmpty())
+        {
+            m_view->setupBoard();
+        } 
+        else 
+        {
+            int speed = Settings::animationSpeed();
+            Settings::setAnimationSpeed ( Settings::EnumAnimationSpeed::Instant );
+            m_view->setupBoard();
+            
+            Manager::self()->loadGameHistoryFrom ( m_loadFileName );
+            setCaption ( m_loadFileName );
+            
+            m_loadFileName.clear();
+            Settings::setAnimationSpeed ( speed );
+        }
     }
     
-    void MainWindow::showClockWidgets()
+    void MainWindow::setupClockDock()
     {
-        ClockWidget* playerClock = new ClockWidget ( this );
         m_clockDock = new QDockWidget ( i18n ( "Clock" ), this );
         m_clockDock->setObjectName ( QLatin1String ( "ClockDockWidget" ) ); // for QMainWindow::saveState()
+        playerClock = new ClockWidget ( this );  
         m_clockDock->setWidget ( playerClock );
-        m_dockWidgets << m_clockDock;
-        
-        connect ( m_view, SIGNAL ( displayedPlayerChanged ( Color ) ), playerClock, SLOT ( setDisplayedPlayer ( Color ) ) );
-        
-        playerClock->setPlayerName(White, Protocol::white()->playerName());
-        playerClock->setPlayerName(Black, Protocol::black()->playerName());
-
-        connect ( Manager::self(), SIGNAL(timeChanged(Color,QTime)), playerClock, SLOT(setCurrentTime(Color,QTime)) );
-
-        playerClock->setTimeLimit ( White, Manager::self()->timeLimit ( White ) );
-        playerClock->setTimeLimit ( Black, Manager::self()->timeLimit ( Black ) );
-
+        m_clockDock->setFeatures ( QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable );
+        connect ( m_view, SIGNAL (displayedPlayerChanged(Color)), playerClock, SLOT (setDisplayedPlayer(Color)) );
+        connect ( Manager::self(), SIGNAL (timeChanged(Color,QTime)), playerClock, SLOT (setCurrentTime(Color,QTime)) );
         addDockWidget ( Qt::RightDockWidgetArea, m_clockDock );
     }
+    
+    void MainWindow::setupConsoleDocks()
+    {
+        m_bconsoleDock = new QDockWidget ();
+        m_bconsoleDock->setObjectName ( QLatin1String ( "BlackConsoleDockWidget" ) );
+        m_bconsoleDock->setFeatures ( QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable );
+        addDockWidget ( Qt::LeftDockWidgetArea, m_bconsoleDock );
+          
+        m_wconsoleDock = new QDockWidget ();
+        m_wconsoleDock->setObjectName ( QLatin1String ( "WhiteConsoleDockWidget" ) );
+        m_wconsoleDock->setFeatures ( QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable ); 
+        addDockWidget ( Qt::LeftDockWidgetArea, m_wconsoleDock );
+       
+        m_chatDock = new QDockWidget ();
+        m_chatDock->setObjectName ( QLatin1String ( "ChatDockWidget" ) );
+        m_chatDock->setFeatures ( QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable );        
+        addDockWidget ( Qt::LeftDockWidgetArea, m_chatDock );
+    }    
+    
+    void MainWindow::setupHistoryDock()
+    {
+        m_historyDock = new QDockWidget ();
+        m_historyDock->setObjectName ( QLatin1String("HistoryDockWidget") );
+        m_historyDock->setFeatures ( QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable );
+        
+        m_historyDock->setWindowTitle ( i18n("Move History") );
+        m_historyDock->setWidget ( new HistoryWidget );
 
+        addDockWidget ( Qt::LeftDockWidgetArea, m_historyDock );
+    }
+
+    
     void MainWindow::protocolError ( Protocol::ErrorCode errorCode, const QString& errorString )
     {
         if ( errorCode != Protocol::UserCancelled )
@@ -364,16 +491,25 @@ void MainWindow::showFicsSpectateDialog()
         ui_prefs_base.animationGroup->hide();
 #endif
         dialog->addPage ( generalSettingsDlg, i18n ( "General" ), QLatin1String ( "games-config-options" ) );
-        connect ( dialog, SIGNAL ( settingsChanged ( QString ) ), m_view, SLOT ( settingsChanged() ) );
+        connect ( dialog, SIGNAL (settingsChanged(QString)), m_view, SLOT (settingsChanged()) );
+        
+        EngineSettings* engineSettings = new EngineSettings ( this );
+        dialog->addPage ( engineSettings, i18n("Computer Engines"), QLatin1String("computer") );
+        connect ( dialog, SIGNAL(accepted()), engineSettings, SLOT(writeConfig()) );
+        
+        QWidget* accessDlg = new QWidget;
+        ui_prefs_access.setupUi ( accessDlg );
+        dialog->addPage ( accessDlg, i18n( "Accessibility"), QLatin1String("preferences-desktop-accessibility") );
+        
         QWidget* themeDlg = new KGameThemeSelector ( dialog, Settings::self(), KGameThemeSelector::NewStuffEnableDownload );
         dialog->addPage ( themeDlg, i18n ( "Theme" ), QLatin1String ( "games-config-theme" ) );
         dialog->setAttribute ( Qt::WA_DeleteOnClose );
+                
         dialog->show();
     }
 
     void MainWindow::pauseGame ( bool pause )
     {
-        m_view->setPaused ( pause );
         Offer o;
         o.action = pause ? ActionPause : ActionResume;
         o.id = qrand();
@@ -411,30 +547,122 @@ void MainWindow::showFicsSpectateDialog()
 
     void MainWindow::setShowClockSetting( bool value )
     {
-        Settings::self()->setShowClock( value );
+        Settings::setShowClock( value );
+    }
+    
+    void MainWindow::setShowHistorySetting(bool value)
+    {
+        Settings::setShowHistory ( value );
     }
 
-    void MainWindow::setShowConsoleSetting( bool value )
+
+    void MainWindow::setShowConsoleSetting()
     {
-        Settings::self()->setShowConsole( value );
+         if ( (actionCollection()->action( QLatin1String ( "show_console_white" ) )->isChecked() ) && (actionCollection()->action( QLatin1String ( "show_console_white" ) )->isVisible() ) )
+         {
+             Settings::setShowConsole( true );
+         }
+         else if ( (actionCollection()->action( QLatin1String ( "show_console_black" ) )->isChecked() ) && (actionCollection()->action( QLatin1String ( "show_console_black" ) )->isVisible() ) )
+         {
+             Settings::setShowConsole( true );
+         }
+         else
+         {
+             Settings::setShowConsole( false );
+         }
     }
 
     void MainWindow::setShowChatSetting( bool value )
     {
-        Settings::self()->setShowChat( value );
+        Settings::setShowChat( value );
     }
 
     void MainWindow::exitKnights()
     {
         //This will close the gnuchess/crafty/whatever process if it's running.
-        if ( Protocol::white() ) {
-            delete Protocol::white();
-        }
-        if ( Protocol::black() ) {
-            delete Protocol::black();
-        }
+        delete Protocol::white();
+        delete Protocol::black();
         Settings::self()->writeConfig();
     }
+    
+    void MainWindow::updateCaption()
+    {
+        if (Protocol::white() && Protocol::black())
+        {
+            setCaption( i18n ( "%1 vs. %2", Protocol::white()->playerName(), Protocol::black()->playerName() ) );
+        }
+    }
+
+    bool MainWindow::queryClose()
+    {
+        return maybeSave();
+    }
+    
+    
+bool MainWindow::maybeSave()
+{
+    if (!Manager::self()->isGameActive())
+    {
+        return true;
+    }
+    
+    bool ask = Settings::askDiscard();
+    if (!ask)
+    {
+        return true;
+    }
+    
+    Settings::setDontAskInternal( QString() );
+
+    QString msg = i18n("This will end your game.\n"
+                    "Would you like to save the move history?" );
+    int result = KMessageBox::warningYesNoCancel( QApplication::activeWindow(), msg, QString(),
+                                                  KStandardGuiItem::save(), 
+                                                  KStandardGuiItem::discard(), 
+                                                  KStandardGuiItem::cancel(),
+                                                  QLatin1String(DontAskDiscard) );
+    
+    KMessageBox::ButtonCode res;
+    Settings::setAskDiscard ( KMessageBox::shouldBeShownYesNo ( QLatin1String(DontAskDiscard), res ) );
+    
+    if (result == KMessageBox::Yes)
+    {
+        fileSave();
+    }
+    
+    return result != KMessageBox::Cancel;
+}
+    
+void MainWindow::fileSave()
+{
+    if ( m_fileName.isEmpty() )
+    {
+        m_fileName = KFileDialog::getSaveFileName ( KUrl("kfiledialog://knights"), i18n("*.pgn | Portable game notation" ) );
+    }
+    
+    if ( m_fileName.isEmpty() )
+    {
+        return;
+    }
+    
+    Manager::self()->saveGameHistoryAs( m_fileName );
+    
+    setCaption ( m_fileName );
+}
+
+void MainWindow::fileSaveAs()
+{
+    QString fileName = KFileDialog::getSaveFileName ( KUrl("kfiledialog://knights"), i18n("*.pgn | Portable game notation" ) );
+    if ( fileName.isEmpty() )
+    {
+        return;
+    }
+    
+    m_fileName = fileName;
+    Manager::self()->saveGameHistoryAs( m_fileName );    
+    setCaption ( m_fileName );
+}
+
 
 }
 

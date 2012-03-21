@@ -1,13 +1,13 @@
 # Translation of knights.po into Serbian.
-# Slobodan Terzić <githzerai06@gmail.com>, 2010.
+# Slobodan Terzic <githzerai06@gmail.com>, 2010.
 # Chusslove Illich <caslav.ilic@gmx.net>, 2010, 2011.
-# slobodan terzić <githzerai06@gmail.com>, 2010.
+# Dalibor Djuric <daliborddjuric@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: knights\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2011-03-10 12:35+0100\n"
-"PO-Revision-Date: 2011-05-01 01:05+0200\n"
+"POT-Creation-Date: 2012-01-15 02:28+0100\n"
+"PO-Revision-Date: 2011-11-04 22:14+0100\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr\n"
@@ -28,6 +28,19 @@ msgstr " каже: "
 #: proto/chatwidget.cpp:125
 msgid "You: "
 msgstr "Ви: "
+
+#: proto/computerprotocol.cpp:56
+#, kde-format
+msgid ""
+"Program <code>%1</code> could not be started, please check that it is "
+"installed."
+msgstr ""
+"Није могуће покренути програм <code>%1</code>, проверите да ли је инсталиран."
+
+#: proto/computerprotocol.cpp:73
+#, kde-format
+msgid "Console for %1 (%2)"
+msgstr "Конзола за %1 (%2)"
 
 #: proto/ficsdialog.cpp:79
 msgid "Session started"
@@ -56,48 +69,51 @@ msgstr "<font color='red'>Грешка: %1</font>"
 
 #. i18n: file: proto/ficsdialog.ui:284
 #. i18n: ectx: property (text), widget (QPushButton, seekButton)
-#: proto/ficsprotocol.cpp:128 rc.cpp:289
+#: proto/ficsprotocol.cpp:130 rc.cpp:161
+msgctxt "Start searching for opponents"
 msgid "Seek"
 msgstr "Тражи"
 
-#: proto/ficsprotocol.cpp:129
+#: proto/ficsprotocol.cpp:131
+msgctxt "Stop searching for opponents"
 msgid "Unseek"
 msgstr "Повуци"
 
 #. i18n: file: popup.ui:37
 #. i18n: ectx: property (text), widget (KPushButton, acceptButton)
-#: proto/ficsprotocol.cpp:130 proto/ficsprotocol.cpp:210 rc.cpp:148
+#: proto/ficsprotocol.cpp:132 proto/ficsprotocol.cpp:212 offerwidget.cpp:38
+#: rc.cpp:248
 msgid "Accept"
 msgstr "Прихвати"
 
-#: proto/ficsprotocol.cpp:131
+#: proto/ficsprotocol.cpp:133
 msgid "Help"
 msgstr "Помоћ"
 
-#: proto/ficsprotocol.cpp:151
+#: proto/ficsprotocol.cpp:153
 msgid "Server Console"
 msgstr "Конзола сервера"
 
-#: proto/ficsprotocol.cpp:164
+#: proto/ficsprotocol.cpp:166
 #, kde-format
 msgid "Chat with %1"
 msgstr "Ћаскање са %1"
 
-#: proto/ficsprotocol.cpp:197
+#: proto/ficsprotocol.cpp:199
 msgid "Login failed"
 msgstr "Неуспешно пријављивање"
 
-#: proto/ficsprotocol.cpp:203
+#: proto/ficsprotocol.cpp:205
 msgid "Chess server"
 msgstr "Шаховски сервер"
 
 #. i18n: file: popup.ui:44
 #. i18n: ectx: property (text), widget (KPushButton, declineButton)
-#: proto/ficsprotocol.cpp:206 rc.cpp:151
+#: proto/ficsprotocol.cpp:208 offerwidget.cpp:41 rc.cpp:251
 msgid "Decline"
 msgstr "Одбиј"
 
-#: proto/ficsprotocol.cpp:313
+#: proto/ficsprotocol.cpp:315
 msgid "Invalid Password"
 msgstr "Неисправна лозинка"
 
@@ -129,28 +145,30 @@ msgstr "Временско ограничење [минути]"
 msgid "Opponent's rating"
 msgstr "Противников рејтинг"
 
-#: proto/xboardproto.cpp:110
-#, kde-format
-msgid ""
-"Program <code>%1</code> could not be started, please check that it is "
-"installed."
-msgstr ""
-"Није могуће покренути програм <code>%1</code>, проверите да ли је инсталиран."
-
-#: proto/xboardproto.cpp:124
-#, kde-format
-msgid "Console for %1 (%2)"
-msgstr "Конзола за %1 (%2)"
-
-#: board.cpp:695
+#: board.cpp:706
 msgid "Promote"
 msgstr "Промовиши"
 
-#: board.cpp:696
+#: board.cpp:707
 msgid "Promotion"
 msgstr "Промоција"
 
-#: gamedialog.cpp:218
+# >> @item
+#: enginesettings.cpp:78
+msgid "Invalid interface"
+msgstr "лоше сучеље"
+
+#: enginesettings.cpp:81 enginesettings.cpp:140
+msgctxt "Protocol name"
+msgid "XBoard"
+msgstr "Икс‑табла"
+
+#: enginesettings.cpp:84 enginesettings.cpp:140
+msgctxt "Protocol name"
+msgid "UCI"
+msgstr "УЦИ"
+
+#: gamedialog.cpp:241
 msgid " minute"
 msgid_plural " minutes"
 msgstr[0] " минута"
@@ -158,7 +176,7 @@ msgstr[1] " минута"
 msgstr[2] " минута"
 msgstr[3] " минут"
 
-#: gamedialog.cpp:219
+#: gamedialog.cpp:242
 msgid " second"
 msgid_plural " seconds"
 msgstr[0] " секунди"
@@ -166,7 +184,7 @@ msgstr[1] " секунди"
 msgstr[2] " секунди"
 msgstr[3] " секунд"
 
-#: gamedialog.cpp:220
+#: gamedialog.cpp:243 gamemanager.cpp:912
 msgid " move"
 msgid_plural " moves"
 msgstr[0] " потеза"
@@ -174,22 +192,22 @@ msgstr[1] " потеза"
 msgstr[2] " потеза"
 msgstr[3] " потез"
 
-#: gamemanager.cpp:403
+#: gamemanager.cpp:462
 msgctxt "The player of this color"
 msgid "White"
 msgstr "Бели"
 
-#: gamemanager.cpp:404
+#: gamemanager.cpp:463
 msgctxt "The player of this color"
 msgid "Black"
 msgstr "Црни"
 
-#: gamemanager.cpp:480
+#: gamemanager.cpp:577
 #, kde-format
 msgid "%1 offers you a draw"
 msgstr "%1 вам нуди реми"
 
-#: gamemanager.cpp:483
+#: gamemanager.cpp:580
 #, kde-format
 msgid "%2 would like to take back a half move"
 msgid_plural "%2 would like to take back %1 half moves"
@@ -198,175 +216,194 @@ msgstr[1] "%2 жели да повуче %1 полупотеза"
 msgstr[2] "%2 жели да повуче %1 полупотеза"
 msgstr[3] "%2 жели да повуче полупотез"
 
-#: gamemanager.cpp:486
+#: gamemanager.cpp:583
 #, kde-format
 msgid "%1 would like to adjourn the game"
 msgstr "%1 жели да одгоди партију"
 
-#: gamemanager.cpp:489
+#: gamemanager.cpp:586
 #, kde-format
 msgid "%1 would like to abort the game"
 msgstr "%1 жели да прекине партију"
 
-#: knights.cpp:96
+#: gamemanager.cpp:700
+#, kde-format
+msgctxt "string to be spoken when the opponent castles queenside"
+msgid "%1 castles queenside"
+msgstr "%1 изводи велику рокаду"
+
+#: gamemanager.cpp:705
+#, kde-format
+msgctxt "string to be spoken when the opponent castles queenside"
+msgid "%1 castles kingside"
+msgstr "%1 изводи малу рокаду"
+
+#: gamemanager.cpp:711
+#, kde-format
+msgctxt "string to be spoken when the opponent makes a normal  move"
+msgid "%1 to %2"
+msgstr "%1 на %2"
+
+#: gamemanager.cpp:723
+msgctxt "Your king is under attack"
+msgid "Check"
+msgstr "Шах"
+
+#: gamemanager.cpp:727
+msgctxt "Your king is dead"
+msgid "Checkmate"
+msgstr "Шах‑мат"
+
+#: knights.cpp:135
 msgid "Resign"
 msgstr "Предај"
 
-#: knights.cpp:97
+#: knights.cpp:136
 msgid "Admit your inevitable defeat"
 msgstr "Признај неизбежан пораз"
 
-#: knights.cpp:101
+#: knights.cpp:140
 msgid "Undo"
 msgstr "Опозови"
 
-#: knights.cpp:102
+#: knights.cpp:141
 msgid "Take back your last move"
 msgstr "Повуци мој последњи потез"
 
-#: knights.cpp:108
+#: knights.cpp:147
 msgid "Redo"
 msgstr "Понови"
 
-#: knights.cpp:109
+#: knights.cpp:148
 msgid "Repeat your last move"
 msgstr "Понови мој последњи потез"
 
-#: knights.cpp:122
+#: knights.cpp:154
+msgid "Offer &Draw"
+msgstr "Понуди &реми"
+
+#: knights.cpp:155
+msgid "Offer a draw to your opponent"
+msgstr "Предложи противнику реми"
+
+#: knights.cpp:159
+msgid "Adjourn"
+msgstr "Одгоди"
+
+#: knights.cpp:160
+msgid "Continue this game at a later time"
+msgstr "Настави ову игру касније"
+
+#: knights.cpp:164
+msgid "Abort"
+msgstr "Обустави"
+
+#: knights.cpp:165
+msgid "End the game immediately"
+msgstr "Одмах прекини партију"
+
+#: knights.cpp:168
+msgid "Show Clock"
+msgstr "Прикажи сат"
+
+#: knights.cpp:174
+msgid "Show History"
+msgstr "Прикажи историјат"
+
+#: knights.cpp:181
+msgid "Show White Console"
+msgstr "Прикажи конзолу белог"
+
+#: knights.cpp:187
+msgid "Show Black Console"
+msgstr "Прикажи конзолу црног"
+
+#: knights.cpp:193
+msgid "Show Chat"
+msgstr "Прикажи ћаскање"
+
+#: knights.cpp:214
 msgid "New Game"
 msgstr "Нова партија"
 
-#: knights.cpp:152 knights.cpp:164
+#: knights.cpp:235 knights.cpp:640 knights.cpp:655
+msgid "*.pgn | Portable game notation"
+msgstr "*.pgn|преносива нотација партије"
+
+#: knights.cpp:259 knights.cpp:271
 msgid "This feature is not yet implemented in Knights"
 msgstr "Ова могућност још није изведена у Коњима"
 
-#: knights.cpp:173
+#: knights.cpp:429
+msgid "Clock"
+msgstr "Сат"
+
+#: knights.cpp:463
+msgid "Move History"
+msgstr "Историјат потеза"
+
+#: knights.cpp:493
+msgid "General"
+msgstr "Опште"
+
+#: knights.cpp:497
+msgid "Computer Engines"
+msgstr "Рачунарски мотори"
+
+#: knights.cpp:502
+msgid "Accessibility"
+msgstr "Приступачност"
+
+#: knights.cpp:505
+msgid "Theme"
+msgstr "Тема"
+
+#: knights.cpp:592
 #, kde-format
 msgid "%1 vs. %2"
 msgstr "%1 — %2"
 
-#: knights.cpp:178
-msgid "Show Clock"
-msgstr "Прикажи сат"
+#: knights.cpp:617
+msgid ""
+"This will end your game.\n"
+"Would you like to save the move history?"
+msgstr ""
 
-#: knights.cpp:217
-msgid "Offer &Draw"
-msgstr "Понуди &реми"
+#: knightsview.cpp:129
+msgid "Game over"
+msgstr "Крај партије"
 
-#: knights.cpp:218
-msgid "Offer a draw to your opponent"
-msgstr "Предложи противнику реми"
-
-#: knights.cpp:225
-msgid "Adjourn"
-msgstr "Одгоди"
-
-#: knights.cpp:226
-msgid "Continue this game at a later time"
-msgstr "Настави ову игру касније"
-
-#: knights.cpp:249
-msgid "Show Console"
-msgstr "Прикажи конзолу"
-
-#: knights.cpp:256
-msgid "Show Chat"
-msgstr "Прикажи ћаскање"
-
-#: knights.cpp:292
-msgid "Show White Console"
-msgstr "Прикажи конзолу белог"
-
-#: knights.cpp:293
-msgid "Show Black Console"
-msgstr "Прикажи конзолу црног"
-
-#: knights.cpp:325
-msgid "Clock"
-msgstr "Сат"
-
-#: knights.cpp:366
-msgid "General"
-msgstr "Опште"
-
-#: knights.cpp:369
-msgid "Theme"
-msgstr "Тема"
-
-#: knightsview.cpp:104
+#: knightsview.cpp:134
 msgid "The game ended in a draw"
 msgstr "Партија је завршена ремијем."
 
-#: knightsview.cpp:109
+#: knightsview.cpp:144
+msgctxt "White as in the player with white pieces"
+msgid "The game ended with a victory for <emphasis>White</emphasis>"
+msgstr "Партија је завршена победом <emphasis>белог</emphasis>"
+
+#: knightsview.cpp:149
+msgctxt "Black as in the player with black pieces"
+msgid "The game ended with a victory for <emphasis>Black</emphasis>"
+msgstr "Партија је завршена победом <emphasis>црног</emphasis>"
+
+#: knightsview.cpp:157
 #, kde-format
-msgid "The %1 player won."
-msgstr "Победио је играч %1."
+msgctxt "Player name, then <White as in the player with white pieces"
+msgid ""
+"The game ended with a victory for <emphasis>%1</emphasis>, playing White"
+msgstr "Партија је завршена победом играча <emphasis>%1</emphasis> (бели)"
 
-#: knightsview.cpp:112
-msgid "Congratulations!"
-msgstr "Честитамо!"
+#: knightsview.cpp:162
+#, kde-format
+msgctxt "Player name, then Black as in the player with black pieces"
+msgid ""
+"The game ended with a victory for <emphasis>%1</emphasis>, playing Black"
+msgstr "Партија је завршена победом играча <emphasis>%1</emphasis> (црни)"
 
-#: knightsview.cpp:128
+#: knightsview.cpp:180
 msgid "Settings changed"
 msgstr "Поставке су измењене"
-
-# >! Contexts.
-# >> @option:radio Your Color
-#. i18n: file: clockwidget.ui:44
-#. i18n: ectx: property (title), widget (QGroupBox, groupW)
-#. i18n: file: gamedialog.ui:254
-#. i18n: ectx: property (text), widget (QRadioButton, colorWhite)
-#: knightsview.cpp:161 rc.cpp:8 rc.cpp:50
-msgid "White"
-msgstr "Бели"
-
-# >! Contexts.
-# >> @option:radio Your Color
-#. i18n: file: clockwidget.ui:17
-#. i18n: ectx: property (title), widget (QGroupBox, groupB)
-#. i18n: file: gamedialog.ui:267
-#. i18n: ectx: property (text), widget (QRadioButton, colorBlack)
-#: knightsview.cpp:163 rc.cpp:5 rc.cpp:53
-msgid "Black"
-msgstr "Црни"
-
-# >> @item
-#: knightsview.cpp:174
-msgid "Pawn"
-msgstr "пешак"
-
-# >> @item
-#. i18n: file: promotiondialog.ui:46
-#. i18n: ectx: property (text), widget (QRadioButton, radioButtonRook)
-#: knightsview.cpp:176 rc.cpp:211
-msgid "Rook"
-msgstr "топ"
-
-# >> @item
-#. i18n: file: promotiondialog.ui:60
-#. i18n: ectx: property (text), widget (QRadioButton, radioButtonKnight)
-#: knightsview.cpp:178 rc.cpp:217
-msgid "Knight"
-msgstr "коњ"
-
-# >> @item
-#. i18n: file: promotiondialog.ui:53
-#. i18n: ectx: property (text), widget (QRadioButton, radioButtonBishop)
-#: knightsview.cpp:180 rc.cpp:214
-msgid "Bishop"
-msgstr "ловац"
-
-# >> @item
-#. i18n: file: promotiondialog.ui:36
-#. i18n: ectx: property (text), widget (QRadioButton, radioButtonQueen)
-#: knightsview.cpp:182 rc.cpp:208
-msgid "Queen"
-msgstr "краљица"
-
-# >> @item
-#: knightsview.cpp:184
-msgid "King"
-msgstr "краљ"
 
 #: main.cpp:30
 msgid "Chess board based on KDE Development Platform 4"
@@ -374,7 +411,7 @@ msgstr "Шаховска игра заснована на Развојној п�
 
 #. i18n: file: knightsview_base.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, KnightsView)
-#: main.cpp:36 rc.cpp:144
+#: main.cpp:36 rc.cpp:65
 msgid "Knights"
 msgstr "Коњи"
 
@@ -424,6 +461,26 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "githzerai06@gmail.com"
 
+# >! Contexts.
+# >> @option:radio Your Color
+#. i18n: file: clockwidget.ui:17
+#. i18n: ectx: property (title), widget (QGroupBox, groupB)
+#. i18n: file: gamedialog.ui:113
+#. i18n: ectx: property (text), widget (QRadioButton, colorBlack)
+#: rc.cpp:5 rc.cpp:29
+msgid "Black"
+msgstr "Црни"
+
+# >! Contexts.
+# >> @option:radio Your Color
+#. i18n: file: clockwidget.ui:44
+#. i18n: ectx: property (title), widget (QGroupBox, groupW)
+#. i18n: file: gamedialog.ui:100
+#. i18n: ectx: property (text), widget (QRadioButton, colorWhite)
+#: rc.cpp:8 rc.cpp:26
+msgid "White"
+msgstr "Бели"
+
 #. i18n: file: gamedialog.ui:29
 #. i18n: ectx: property (title), widget (QGroupBox, player1Box)
 #: rc.cpp:11
@@ -438,148 +495,610 @@ msgstr "Човек (ви)"
 
 #. i18n: file: gamedialog.ui:47
 #. i18n: ectx: property (text), widget (QRadioButton, player1Comp)
-#. i18n: file: gamedialog.ui:100
+#. i18n: file: gamedialog.ui:157
 #. i18n: ectx: property (text), widget (QRadioButton, player2Comp)
-#: rc.cpp:17 rc.cpp:26
+#: rc.cpp:17 rc.cpp:41
 msgid "Computer engine:"
 msgstr "Рачунарски мотор:"
 
-#. i18n: file: gamedialog.ui:82
+#. i18n: file: gamedialog.ui:70
+#. i18n: ectx: property (text), widget (KPushButton, player1Engines)
+#. i18n: file: gamedialog.ui:167
+#. i18n: ectx: property (text), widget (QToolButton, player2Engines)
+#: rc.cpp:20 rc.cpp:44
+#, fuzzy
+#| msgid "Computer Engines"
+msgid "Configure Engines"
+msgstr "Рачунарски мотори"
+
+#. i18n: file: gamedialog.ui:88
+#. i18n: ectx: property (title), widget (QGroupBox, colorGroup)
+#: rc.cpp:23
+msgid "Player 1's Color"
+msgstr "Боја играча 1"
+
+#. i18n: file: gamedialog.ui:126
+#. i18n: ectx: property (text), widget (QRadioButton, colorRandom)
+#: rc.cpp:32
+msgid "Choose randomly"
+msgstr "Изабери насумично"
+
+#. i18n: file: gamedialog.ui:139
 #. i18n: ectx: property (title), widget (QGroupBox, player2Box)
-#: rc.cpp:20
+#: rc.cpp:35
 msgid "Player 2"
 msgstr "Играч 2"
 
-#. i18n: file: gamedialog.ui:88
+#. i18n: file: gamedialog.ui:145
 #. i18n: ectx: property (text), widget (QRadioButton, player2Human)
-#: rc.cpp:23
+#: rc.cpp:38
 msgid "Human"
 msgstr "Човек"
 
-#. i18n: file: gamedialog.ui:121
+#. i18n: file: gamedialog.ui:191
 #. i18n: ectx: property (text), widget (QRadioButton, player2Fics)
-#: rc.cpp:29
+#: rc.cpp:47
 msgid "Chess server:"
 msgstr "Шаховски сервер:"
 
-#. i18n: file: gamedialog.ui:143
+#. i18n: file: gamedialog.ui:213
 #. i18n: ectx: property (title), widget (QGroupBox, timeGroup)
-#: rc.cpp:32
+#: rc.cpp:50
 msgid "Use Time Control"
 msgstr "Временска контрола"
 
-#. i18n: file: gamedialog.ui:158
+#. i18n: file: gamedialog.ui:228
 #. i18n: ectx: property (text), widget (QLabel, numberOfMovesLabel)
-#: rc.cpp:35
+#: rc.cpp:53
 msgid "Time control period"
 msgstr "Период временске контроле"
 
-#. i18n: file: gamedialog.ui:174
+#. i18n: file: gamedialog.ui:244
 #. i18n: ectx: property (specialValueText), widget (KIntSpinBox, numberOfMoves)
-#: rc.cpp:38
+#: rc.cpp:56
 msgctxt "Time control mode"
 msgid "Timer Only"
 msgstr "само сат"
 
-#. i18n: file: gamedialog.ui:187
+#. i18n: file: gamedialog.ui:257
 #. i18n: ectx: property (text), widget (QLabel, timeLimitLabel)
-#: rc.cpp:41
+#: rc.cpp:59
 msgid "Initial time limit"
 msgstr "Почетно временско ограничење"
 
-#. i18n: file: gamedialog.ui:210
+#. i18n: file: gamedialog.ui:280
 #. i18n: ectx: property (text), widget (QLabel, timeIncrementLabel)
-#: rc.cpp:44
+#: rc.cpp:62
 msgid "Increment per move"
 msgstr "Увећање по потезу"
 
-#. i18n: file: gamedialog.ui:242
-#. i18n: ectx: property (title), widget (QGroupBox, colorGroup)
-#: rc.cpp:47
-msgid "Player 1's Color"
-msgstr "Боја играча 1"
+#. i18n: file: promotiondialog.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, PromotionWidget)
+#: rc.cpp:68
+msgid "Pawn Promotion"
+msgstr "Промоција пешака"
 
-#. i18n: file: gamedialog.ui:280
-#. i18n: ectx: property (text), widget (QRadioButton, colorRandom)
-#: rc.cpp:56
-msgid "Choose randomly"
-msgstr "Изабери насумично"
+#. i18n: file: promotiondialog.ui:26
+#. i18n: ectx: property (text), widget (QLabel, labelPawn)
+#: rc.cpp:71
+msgid "Promote pawn to:"
+msgstr "Промовиши пешака у:"
 
-#. i18n: file: knights.kcfg:9
+# >> @item
+#. i18n: file: promotiondialog.ui:36
+#. i18n: ectx: property (text), widget (QRadioButton, radioButtonQueen)
+#: rc.cpp:74
+msgid "Queen"
+msgstr "краљица"
+
+# >> @item
+#. i18n: file: promotiondialog.ui:46
+#. i18n: ectx: property (text), widget (QRadioButton, radioButtonRook)
+#: rc.cpp:77
+msgid "Rook"
+msgstr "топ"
+
+# >> @item
+#. i18n: file: promotiondialog.ui:53
+#. i18n: ectx: property (text), widget (QRadioButton, radioButtonBishop)
+#: rc.cpp:80
+msgid "Bishop"
+msgstr "ловац"
+
+# >> @item
+#. i18n: file: promotiondialog.ui:60
+#. i18n: ectx: property (text), widget (QRadioButton, radioButtonKnight)
+#: rc.cpp:83
+msgid "Knight"
+msgstr "коњ"
+
+#. i18n: file: proto/chatwidget.ui:20
+#. i18n: ectx: property (text), widget (KPushButton, sendButton)
+#: rc.cpp:86
+msgid "Send"
+msgstr "Пошаљи"
+
+#. i18n: file: proto/chatwidget.ui:51
+#. i18n: ectx: property (text), widget (QToolButton, toolButton)
+#: rc.cpp:89
+msgid "..."
+msgstr "..."
+
+#. i18n: file: proto/ficsdialog.ui:36
+#. i18n: ectx: attribute (title), widget (QWidget, accountTab)
+#: rc.cpp:92
+msgid "Account"
+msgstr "Налог"
+
+#. i18n: file: proto/ficsdialog.ui:39
+#. i18n: ectx: attribute (toolTip), widget (QWidget, accountTab)
+#: rc.cpp:95
+msgid "Log in to the chess server"
+msgstr "Пријави се на шаховски сервер"
+
+#. i18n: file: proto/ficsdialog.ui:58
+#. i18n: ectx: property (text), widget (QLabel, usernameLabel)
+#: rc.cpp:98
+msgid "&Username"
+msgstr "&Корисничко име"
+
+#. i18n: file: proto/ficsdialog.ui:78
+#. i18n: ectx: property (text), widget (QCheckBox, registeredCheckBox)
+#: rc.cpp:101
+msgid "This is a registered account"
+msgstr "Ово је регистрован налог"
+
+#. i18n: file: proto/ficsdialog.ui:88
+#. i18n: ectx: property (text), widget (QLabel, passwordLabel)
+#: rc.cpp:104
+msgid "&Password"
+msgstr "&Лозинка"
+
+# rewrite-msgid: /Log me in/Log in/
+#. i18n: file: proto/ficsdialog.ui:111
+#. i18n: ectx: property (text), widget (QCheckBox, rememberCheckBox)
+#: rc.cpp:107
+msgid "Log me in automatically"
+msgstr "Пријави ме аутоматски"
+
+#. i18n: file: proto/ficsdialog.ui:118
+#. i18n: ectx: property (text), widget (KPushButton, logInButton)
+#: rc.cpp:110
+msgid "Log in"
+msgstr "Пријави ме"
+
+#. i18n: file: proto/ficsdialog.ui:138
+#. i18n: ectx: property (text), widget (KPushButton, registerButton)
+#: rc.cpp:113
+msgid "Create an account"
+msgstr "Направи налог"
+
+#. i18n: file: proto/ficsdialog.ui:162
+#. i18n: ectx: attribute (title), widget (QWidget, joinTab)
+#: rc.cpp:116
+msgid "Seek List"
+msgstr "Листа претраге"
+
+#. i18n: file: proto/ficsdialog.ui:165
+#. i18n: ectx: attribute (toolTip), widget (QWidget, joinTab)
+#: rc.cpp:119
+msgid "Current ads arranged in a list"
+msgstr "Текући изазови поређани у списак"
+
+#. i18n: file: proto/ficsdialog.ui:202
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:122
+msgid "Player"
+msgstr "играч"
+
+#. i18n: file: proto/ficsdialog.ui:207
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:125
+msgid "Rating"
+msgstr "рејтинг"
+
+#. i18n: file: proto/ficsdialog.ui:212
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:128
+msgid "Time"
+msgstr "време"
+
+#. i18n: file: proto/ficsdialog.ui:217
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:131
+msgid "Increment"
+msgstr "увећање"
+
+#. i18n: file: proto/ficsdialog.ui:222
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:134
+msgid "Rated"
+msgstr "за рејтинг"
+
+#. i18n: file: proto/ficsdialog.ui:227
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:137
+msgid "Variant"
+msgstr "варијанта"
+
+#. i18n: file: proto/ficsdialog.ui:232
+#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
+#: rc.cpp:140
+msgid "Your color"
+msgstr "ваша боја"
+
+#. i18n: file: proto/ficsdialog.ui:241
+#. i18n: ectx: attribute (title), widget (QWidget, graphTab)
+#: rc.cpp:143
+msgid "Seek Graph"
+msgstr "Графикон претраге"
+
+#. i18n: file: proto/ficsdialog.ui:244
+#. i18n: ectx: attribute (toolTip), widget (QWidget, graphTab)
+#: rc.cpp:146
+msgid "Current ads arranged by rating and duration"
+msgstr "Текући изазови поређани по рејтингу и трајању"
+
+#. i18n: file: proto/ficsdialog.ui:261
+#. i18n: ectx: attribute (title), widget (QWidget, challengeTab)
+#: rc.cpp:149
+msgid "Challenges"
+msgstr "Изазови"
+
+#. i18n: file: proto/ficsdialog.ui:264
+#. i18n: ectx: attribute (toolTip), widget (QWidget, challengeTab)
+#: rc.cpp:152
+msgid "Post an ad for other players"
+msgstr "Постави изазов за друге играче"
+
+#. i18n: file: proto/ficsdialog.ui:270
+#. i18n: ectx: property (text), widget (QCheckBox, ratedCheckBox)
+#: rc.cpp:155
+msgid "Rated match"
+msgstr "Меч за рејтинг"
+
+#. i18n: file: proto/ficsdialog.ui:277
+#. i18n: ectx: property (text), widget (QCheckBox, autoCheckBox)
+#: rc.cpp:158
+msgid "Automatically start the game"
+msgstr "Аутоматски започни партију"
+
+#. i18n: file: proto/ficsdialog.ui:298
+#. i18n: ectx: attribute (title), widget (QWidget, consoleTab)
+#: rc.cpp:164
+msgid "Console"
+msgstr "Конзола"
+
+#. i18n: file: proto/ficsdialog.ui:301
+#. i18n: ectx: attribute (toolTip), widget (QWidget, consoleTab)
+#: rc.cpp:167
+msgid "Use custom commands"
+msgstr "Унесите посебне наредбе"
+
+#. i18n: file: prefs_base.ui:17
+#. i18n: ectx: property (title), widget (QGroupBox, animationGroup)
+#: rc.cpp:170
+msgid "Animations"
+msgstr "Анимације"
+
+#. i18n: file: prefs_base.ui:23
+#. i18n: ectx: property (text), widget (QLabel, animationSpeedLabel)
+#: rc.cpp:173
+#, fuzzy
+#| msgid "Animation Speed"
+msgid "Animation &speed:"
+msgstr "Брзина анимације"
+
+#. i18n: file: prefs_base.ui:34
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
+#: rc.cpp:176
+msgid "Instant (no animation)"
+msgstr "тренутна (без анимације)"
+
+#. i18n: file: prefs_base.ui:39
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
+#: rc.cpp:179
+msgid "Fast"
+msgstr "брза"
+
+#. i18n: file: prefs_base.ui:44
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
+#: rc.cpp:182
+msgid "Normal"
+msgstr "нормална"
+
+#. i18n: file: prefs_base.ui:49
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
+#: rc.cpp:185
+msgid "Slow"
+msgstr "спора"
+
+#. i18n: file: prefs_base.ui:57
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_animateBoard)
+#: rc.cpp:188
+#, fuzzy
+#| msgid "Animate Board as well"
+msgid "Animate the board as well"
+msgstr "Анимирај и таблу"
+
+#. i18n: file: prefs_base.ui:67
+#. i18n: ectx: property (title), widget (QGroupBox, appearanceGroup)
+#: rc.cpp:191
+msgid "Appearance"
+msgstr "Изглед"
+
+#. i18n: file: prefs_base.ui:76
+#. i18n: ectx: property (text), widget (QLabel, showMarkersForLabel)
+#: rc.cpp:194
+msgid "Show &markers for:"
+msgstr ""
+
+#. i18n: file: prefs_base.ui:86
+#. i18n: ectx: property (text), widget (QCheckBox, showMarkersForCheckBox)
+#: rc.cpp:197
+#, fuzzy
+#| msgid "Show Legal Moves"
+msgctxt "Option to show markers for"
+msgid "Legal moves"
+msgstr "Прикажи дозвољене потезе"
+
+#. i18n: file: prefs_base.ui:99
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_showMotion)
+#: rc.cpp:200
+#, fuzzy
+#| msgid "Show Opponent's Move"
+msgctxt "Option to show markers for"
+msgid "Opponent's move"
+msgstr "Прикажи потез противника"
+
+#. i18n: file: prefs_base.ui:109
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_showDanger)
+#: rc.cpp:203
+#, fuzzy
+#| msgctxt "Your king is under attack"
+#| msgid "Check"
+msgctxt "Option to show markers for"
+msgid "Check"
+msgstr "Шах"
+
+#. i18n: file: prefs_base.ui:119
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: rc.cpp:206
+#, fuzzy
+#| msgid "Border Display"
+msgid "Border display:"
+msgstr "Приказ ивица"
+
+#. i18n: file: prefs_base.ui:127
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_borderDisplayType)
+#: rc.cpp:209
+#, fuzzy
+#| msgid "No Borders"
+msgid "No borders"
+msgstr "без ивица"
+
+#. i18n: file: prefs_base.ui:132
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_borderDisplayType)
+#: rc.cpp:212
+#, fuzzy
+#| msgid "Only Borders"
+msgid "Only borders"
+msgstr "само ивице"
+
+#. i18n: file: prefs_base.ui:137
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_borderDisplayType)
+#: rc.cpp:215
+#, fuzzy
+#| msgid "Borders and Notation"
+msgid "Borders and notation"
+msgstr "ивице и нотација"
+
+#. i18n: file: prefs_base.ui:148
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: rc.cpp:218
+msgid "Behavior"
+msgstr ""
+
+#. i18n: file: prefs_base.ui:154
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_flipBoard)
+#: rc.cpp:221
+msgid "Flip the board in local matches between humans"
+msgstr "Преврћи таблу у локалним партијама између људи"
+
+#. i18n: file: prefs_base.ui:161
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_askDiscard)
+#: rc.cpp:224
+msgid "Show confirmation dialog before closing"
+msgstr ""
+
+#. i18n: file: prefs_access.ui:17
+#. i18n: ectx: property (title), widget (QGroupBox, external_box)
+#: rc.cpp:227
+#, fuzzy
+#| msgid "External programs"
+msgid "External Programs"
+msgstr "Спољашњи програми"
+
+#. i18n: file: prefs_access.ui:23
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_speakOpponentsMoves)
+#: rc.cpp:230
+msgid "Speak opponent's moves"
+msgstr "Изговарај потезе противника"
+
+#. i18n: file: prefs_access.ui:30
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_allowExternalControl)
+#: rc.cpp:233
+msgid "Allow other programs to control Knights"
+msgstr "Дозволи другим програмима да управљају Коњима"
+
+#. i18n: file: knightsui.rc:21
+#. i18n: ectx: Menu (move)
+#: rc.cpp:236
+msgid "Move"
+msgstr "Потез"
+
+#. i18n: file: knightsui.rc:37
+#. i18n: ectx: ToolBar (mainToolBar)
+#: rc.cpp:239
+msgid "Main Toolbar"
+msgstr "Главна трака"
+
+#. i18n: file: knightsui.rc:44
+#. i18n: ectx: ToolBar (actionsToolbar)
+#: rc.cpp:242
+#, fuzzy
+#| msgid "Main Toolbar"
+msgid "Game Actions Toolbar"
+msgstr "Главна трака"
+
+#. i18n: file: knightsui.rc:55
+#. i18n: ectx: ToolBar (dockToolBar)
+#: rc.cpp:245
+msgid "Dockable Windows Toolbar"
+msgstr "Трака усидривих прозора"
+
+#. i18n: file: popup.ui:51
+#. i18n: ectx: property (text), widget (KPushButton, closeButton)
+#: rc.cpp:254
+msgid "Close"
+msgstr "Затвори"
+
+#. i18n: file: enginesettings.ui:19
+#. i18n: ectx: property (text), widget (KPushButton, addButton)
+#: rc.cpp:257
+msgid "Add"
+msgstr "Додај"
+
+#. i18n: file: enginesettings.ui:26
+#. i18n: ectx: property (text), widget (KPushButton, removeButton)
+#: rc.cpp:260
+msgid "Remove"
+msgstr "Уклони"
+
+# >! Contexts.
+#. i18n: file: enginesettings.ui:61
+#. i18n: ectx: property (text), widget (QTableWidget, tableWidget)
+#: rc.cpp:263
+msgid "Name"
+msgstr "Име"
+
+#. i18n: file: enginesettings.ui:66
+#. i18n: ectx: property (text), widget (QTableWidget, tableWidget)
+#: rc.cpp:266
+msgid "Command"
+msgstr "наредба"
+
+#. i18n: file: enginesettings.ui:71
+#. i18n: ectx: property (text), widget (QTableWidget, tableWidget)
+#: rc.cpp:269
+msgid "Protocol"
+msgstr "протокол"
+
+#. i18n: file: enginesettings.ui:76
+#. i18n: ectx: property (text), widget (QTableWidget, tableWidget)
+#: rc.cpp:272
+msgid "Installed"
+msgstr "инсталирана"
+
+#. i18n: file: knights.kcfg:10
 #. i18n: ectx: label, entry (Theme), group (KGameTheme)
-#: rc.cpp:59
+#: rc.cpp:275
 msgid "Theme file for the board"
 msgstr "Фајл теме табле"
 
-#. i18n: file: knights.kcfg:21
+#. i18n: file: knights.kcfg:16
+#. i18n: ectx: label, entry (askDiscard), group (Notification Messages)
+#: rc.cpp:278
+msgid "whether to show a confirmation dialog before discarding game history"
+msgstr ""
+
+#. i18n: file: knights.kcfg:20
+#. i18n: ectx: label, entry (dontAskInternal), group (Notification Messages)
+#: rc.cpp:281
+msgid "internal variable controlling the confirm dialog"
+msgstr ""
+
+#. i18n: file: knights.kcfg:32
 #. i18n: ectx: label, entry (animationSpeed), group (Preferences)
-#: rc.cpp:62
+#: rc.cpp:284
 msgid "Moves animation speed"
 msgstr "Брзина анимације потеза"
 
-#. i18n: file: knights.kcfg:25
+#. i18n: file: knights.kcfg:36
 #. i18n: ectx: label, entry (animateBoard), group (Preferences)
-#: rc.cpp:65
+#: rc.cpp:287
 msgid "whether the Board is animated during rotating and resizing"
 msgstr "Да ли се табла анимира при ротацији и промени величине"
 
-#. i18n: file: knights.kcfg:34
+#. i18n: file: knights.kcfg:40
+#. i18n: ectx: label, entry (flipBoard), group (Preferences)
+#: rc.cpp:290
+msgid "whether to rotate the board when in local two-player mode"
+msgstr "Да ли се табла ротира у локалном режиму два играча"
+
+#. i18n: file: knights.kcfg:49
 #. i18n: ectx: label, entry (borderDisplayType), group (Preferences)
-#: rc.cpp:68
+#: rc.cpp:293
 msgid "chessboard border type"
 msgstr "Врста ивица шаховске табле"
 
-#. i18n: file: knights.kcfg:38
+#. i18n: file: knights.kcfg:53
 #. i18n: ectx: label, entry (showDanger), group (Preferences)
-#: rc.cpp:71
+#: rc.cpp:296
 msgid "show check marker"
 msgstr "Маркер шаха"
 
-#. i18n: file: knights.kcfg:42
+#. i18n: file: knights.kcfg:57
 #. i18n: ectx: label, entry (showMarker), group (Preferences)
-#: rc.cpp:74
+#: rc.cpp:299
 msgid "show legal moves marker"
 msgstr "Маркер дозвољених потеза"
 
-#. i18n: file: knights.kcfg:46
+#. i18n: file: knights.kcfg:61
 #. i18n: ectx: label, entry (showMotion), group (Preferences)
-#: rc.cpp:77
+#: rc.cpp:302
 msgid "show opponents move marker"
 msgstr "Маркер противничког потеза"
 
-#. i18n: file: knights.kcfg:50
+#. i18n: file: knights.kcfg:65
 #. i18n: ectx: label, entry (showClock), group (Preferences)
-#: rc.cpp:80
+#: rc.cpp:305
 msgid "show clocks when time control is in use"
 msgstr "Прикажи сатове при временској контроли"
 
-#. i18n: file: knights.kcfg:54
+#. i18n: file: knights.kcfg:69
 #. i18n: ectx: label, entry (showChat), group (Preferences)
-#: rc.cpp:83
+#: rc.cpp:308
 msgid "show chat window, if supported by the protocol"
 msgstr "Прикажи прозор ћаскања, ако га подржава протокол"
 
-#. i18n: file: knights.kcfg:58
+#. i18n: file: knights.kcfg:73
 #. i18n: ectx: label, entry (showConsole), group (Preferences)
-#: rc.cpp:86
+#: rc.cpp:311
 msgid "show the text console, if supported by the protocol"
 msgstr "Прикажи текстуалну конзолу, ако је подржава протокол"
 
-#. i18n: file: knights.kcfg:64
+#. i18n: file: knights.kcfg:77
+#. i18n: ectx: label, entry (showHistory), group (Preferences)
+#: rc.cpp:314
+msgid "show move history"
+msgstr "Прикажи историјат потеза"
+
+#. i18n: file: knights.kcfg:83
 #. i18n: ectx: label, entry (timeLimit), group (Time Control)
-#: rc.cpp:89
+#: rc.cpp:317
 msgid "initial time limit for both players"
 msgstr "Почетно временско ограничење за оба играча"
 
-#. i18n: file: knights.kcfg:68
+#. i18n: file: knights.kcfg:87
 #. i18n: ectx: label, entry (timeIncrement), group (Time Control)
-#: rc.cpp:92
+#: rc.cpp:320
 msgid "time increment per move (for Incremental time control)"
 msgstr "Увећање времена по потезу (за временску контролу са увећањем)"
 
-#. i18n: file: knights.kcfg:72
+#. i18n: file: knights.kcfg:91
 #. i18n: ectx: label, entry (numberOfMoves), group (Time Control)
-#: rc.cpp:95
+#: rc.cpp:323
 msgid ""
 "the number of moves the player has to make in the specified time (for "
 "Conventional time control)"
@@ -587,360 +1106,179 @@ msgstr ""
 "Број потеза који играч мора да начини у задатом времену (за обичну контролу "
 "времена)"
 
-#. i18n: file: knights.kcfg:76
+#. i18n: file: knights.kcfg:95
 #. i18n: ectx: label, entry (timeEnabled), group (Time Control)
-#: rc.cpp:98
+#: rc.cpp:326
 msgid "whether time limits are enabled and displayed"
 msgstr "Да ли су временска ограничења укључена и видљива"
 
-#. i18n: file: knights.kcfg:86
+#. i18n: file: knights.kcfg:105
 #. i18n: ectx: label, entry (player1Protocol), group (Protocols)
-#. i18n: file: knights.kcfg:95
+#. i18n: file: knights.kcfg:114
 #. i18n: ectx: label, entry (player2Protocol), group (Protocols)
-#: rc.cpp:101 rc.cpp:104
+#: rc.cpp:329 rc.cpp:332
 msgid "protocol to be used for player 1"
 msgstr "Жељени протокол за играча 1"
 
-#. i18n: file: knights.kcfg:104
+#. i18n: file: knights.kcfg:123
 #. i18n: ectx: label, entry (color), group (Protocols)
-#: rc.cpp:107
+#: rc.cpp:335
 msgid ""
 "the local human player's color in a game against a computer or over the "
 "Internet."
 msgstr ""
 "Боја локалног људског играча у игри против рачунара или преко Интернета."
 
-#. i18n: file: knights.kcfg:108
+#. i18n: file: knights.kcfg:127
 #. i18n: ectx: label, entry (programs), group (Protocols)
-#: rc.cpp:110
+#: rc.cpp:338
 msgid "list of programs to run for playing against the computer"
 msgstr "Списак програма који се покрећу за играње против рачунара"
 
-#. i18n: file: knights.kcfg:112
+#. i18n: file: knights.kcfg:131
 #. i18n: ectx: label, entry (player1Program), group (Protocols)
-#: rc.cpp:113
+#: rc.cpp:341
 msgid "the last selected program for player 1"
 msgstr "Последње изабрани програм за играча 1"
 
-#. i18n: file: knights.kcfg:116
+#. i18n: file: knights.kcfg:135
 #. i18n: ectx: label, entry (player2Program), group (Protocols)
-#: rc.cpp:116
+#: rc.cpp:344
 msgid "the last selected program for player 2"
 msgstr "Последње изабрани програм за играча 2"
 
-#. i18n: file: knights.kcfg:120
+#. i18n: file: knights.kcfg:139
+#. i18n: ectx: label, entry (computerDifficulty), group (Protocols)
+#: rc.cpp:347
+msgid "the skill of computer players"
+msgstr "Вештина рачунарских играча"
+
+#. i18n: file: knights.kcfg:143
+#. i18n: ectx: label, entry (computerSearchDepth), group (Protocols)
+#: rc.cpp:350
+msgid ""
+"the search depth of computer engines, when the difficulty is set to "
+"Configurable"
+msgstr ""
+
+#. i18n: file: knights.kcfg:147
+#. i18n: ectx: label, entry (computerMemorySize), group (Protocols)
+#: rc.cpp:353
+msgid ""
+"the memory size used by computer engines, when the difficulty is set to "
+"Configurable"
+msgstr ""
+
+#. i18n: file: knights.kcfg:151
 #. i18n: ectx: label, entry (servers), group (Protocols)
-#: rc.cpp:119
+#: rc.cpp:356
 msgid "list of servers for playing over the Internet"
 msgstr "Списак сервера за играње преко Интернета"
 
-#. i18n: file: knights.kcfg:124
+#. i18n: file: knights.kcfg:155
 #. i18n: ectx: label, entry (currentServer), group (Protocols)
-#: rc.cpp:122
+#: rc.cpp:359
 msgid "the last selected server"
 msgstr "Последње изабрани сервер"
 
-#. i18n: file: knights.kcfg:128
+#. i18n: file: knights.kcfg:159
 #. i18n: ectx: label, entry (ficsUsername), group (Protocols)
-#: rc.cpp:125
+#: rc.cpp:362
 msgid "username for the Free Internet Chess Server"
 msgstr "Корисничко име на Слободном шаховском серверу на Интернету"
 
-#. i18n: file: knights.kcfg:132
+#. i18n: file: knights.kcfg:163
 #. i18n: ectx: label, entry (guest), group (Protocols)
-#: rc.cpp:128
+#: rc.cpp:365
 msgid "whether to log in as guest"
 msgstr "Да ли се пријавити као гост"
 
-#. i18n: file: knights.kcfg:136
+#. i18n: file: knights.kcfg:167
 #. i18n: ectx: label, entry (autoLogin), group (Protocols)
-#: rc.cpp:131
+#: rc.cpp:368
 msgid "whether to log in to chess server automatically"
 msgstr "Да ли се аутоматски пријавити на шаховски сервер"
 
-#. i18n: file: knights.kcfg:140
+#. i18n: file: knights.kcfg:171
 #. i18n: ectx: label, entry (computerDelay), group (Protocols)
-#: rc.cpp:134
-msgid "delay before a computer's move is reported, in miliseconds"
+#: rc.cpp:371
+msgid "delay before a computer's move is reported, in milliseconds"
 msgstr "Застој пре пријављивања потеза рачунара, у милисекундама"
 
-#. i18n: file: knightsui.rc:4
-#: rc.cpp:136
-msgid "Main Toolbar"
-msgstr "Главна трака"
+# rewrite-msgid: /settings//
+#. i18n: file: knights.kcfg:175
+#. i18n: ectx: label, entry (engineConfigurations), group (Protocols)
+#: rc.cpp:374
+msgid "stored configurations of engine-specific settings"
+msgstr "Сачуване поставе посебне по мотору"
 
-#. i18n: file: knightsui.rc:14
-#: rc.cpp:138
-msgid "Widgets Toolbar"
-msgstr "Трака виџета"
+#. i18n: file: knights.kcfg:181
+#. i18n: ectx: label, entry (speakOpponentsMoves), group (Accessibility)
+#: rc.cpp:377
+msgid "whether opponents' moves are spoken by Jovie"
+msgstr "Да ли се противнички потези изговарају преко Џови"
 
-#. i18n: file: knightsui.rc:29
-#. i18n: ectx: Menu (move)
-#: rc.cpp:141
-msgid "Move"
-msgstr "Потез"
+#. i18n: file: knights.kcfg:185
+#. i18n: ectx: label, entry (allowExternalControl), group (Accessibility)
+#: rc.cpp:380
+msgid "whether commands over D-Bus are accepted"
+msgstr "Да ли се прихватају наредбе преко д‑буса"
 
-#. i18n: file: popup.ui:51
-#. i18n: ectx: property (text), widget (KPushButton, closeButton)
-#: rc.cpp:154
-msgid "Close"
-msgstr "Затвори"
+#. i18n: file: customdifficultydialog.ui:20
+#. i18n: ectx: property (text), widget (QLabel, searchDepthLabel)
+#: rc.cpp:384
+msgid "Search &depth:"
+msgstr ""
 
-#. i18n: file: prefs_base.ui:23
-#. i18n: ectx: property (title), widget (QGroupBox, animationGroup)
-#: rc.cpp:157
-msgid "Animations"
-msgstr "Анимације"
+#. i18n: file: customdifficultydialog.ui:30
+#. i18n: ectx: property (specialValueText), widget (KIntSpinBox, searchDepthIntSpinBox)
+#: rc.cpp:387
+msgctxt "Let the engine determine the search depth"
+msgid "Engine default"
+msgstr ""
 
-#. i18n: file: prefs_base.ui:29
-#. i18n: ectx: property (text), widget (QLabel, animationSpeedLabel)
-#: rc.cpp:160
-msgid "Animation Speed"
-msgstr "Брзина анимације"
+#. i18n: file: customdifficultydialog.ui:37
+#. i18n: ectx: property (text), widget (QLabel, memorySizeLabel)
+#: rc.cpp:390
+msgid "Memory &size:"
+msgstr ""
 
-#. i18n: file: prefs_base.ui:36
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_animateBoard)
-#: rc.cpp:163
-msgid "Animate Board as well"
-msgstr "Анимирај и таблу"
+#. i18n: file: customdifficultydialog.ui:47
+#. i18n: ectx: property (suffix), widget (KIntSpinBox, memorySizeIntSpinBox)
+#: rc.cpp:393
+msgctxt "Megabytes"
+msgid " MB"
+msgstr ""
 
-#. i18n: file: prefs_base.ui:44
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
-#: rc.cpp:166
-msgid "Instant (no animation)"
-msgstr "тренутна (без анимације)"
+#. i18n: file: historywidget.ui:25
+#. i18n: ectx: property (text), widget (QLabel, notationLabel)
+#: rc.cpp:396
+msgid "&Notation:"
+msgstr "&Нотација:"
 
-#. i18n: file: prefs_base.ui:49
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
-#: rc.cpp:169
-msgid "Fast"
-msgstr "брза"
+# >> @item:inlistbox Notation:
+#. i18n: file: historywidget.ui:36
+#. i18n: ectx: property (text), item, widget (KComboBox, notationComboBox)
+#: rc.cpp:399
+msgid "Short Algebraic"
+msgstr "кратка алгебарска"
 
-#. i18n: file: prefs_base.ui:54
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
-#: rc.cpp:172
-msgid "Normal"
-msgstr "нормална"
+# >> @item:inlistbox Notation:
+#. i18n: file: historywidget.ui:41
+#. i18n: ectx: property (text), item, widget (KComboBox, notationComboBox)
+#: rc.cpp:402
+msgid "Long Algebraic"
+msgstr "дуга алгебарска"
 
-#. i18n: file: prefs_base.ui:59
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
-#: rc.cpp:175
-msgid "Slow"
-msgstr "спора"
+# >> @item:inlistbox Notation:
+#. i18n: file: historywidget.ui:46
+#. i18n: ectx: property (text), item, widget (KComboBox, notationComboBox)
+#: rc.cpp:405
+msgid "Coordinate"
+msgstr "координатна"
 
-#. i18n: file: prefs_base.ui:70
-#. i18n: ectx: property (title), widget (QGroupBox, appearanceGroup)
-#: rc.cpp:178
-msgid "Appearance"
-msgstr "Изглед"
-
-#. i18n: file: prefs_base.ui:76
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_showMarker)
-#: rc.cpp:181
-msgid "Show Legal Moves"
-msgstr "Прикажи дозвољене потезе"
-
-#. i18n: file: prefs_base.ui:92
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_showMotion)
-#: rc.cpp:184
-msgid "Show Opponent's Move"
-msgstr "Прикажи потез противника"
-
-#. i18n: file: prefs_base.ui:102
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_showDanger)
-#: rc.cpp:187
-msgid "Show Check"
-msgstr "Прикажи шах"
-
-#. i18n: file: prefs_base.ui:113
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_borderDisplayType)
-#: rc.cpp:190
-msgid "No Borders"
-msgstr "без ивица"
-
-#. i18n: file: prefs_base.ui:118
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_borderDisplayType)
-#: rc.cpp:193
-msgid "Only Borders"
-msgstr "само ивице"
-
-#. i18n: file: prefs_base.ui:123
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_borderDisplayType)
-#: rc.cpp:196
-msgid "Borders and Notation"
-msgstr "ивице и нотација"
-
-#. i18n: file: prefs_base.ui:131
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: rc.cpp:199
-msgid "Border Display"
-msgstr "Приказ ивица"
-
-#. i18n: file: promotiondialog.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, PromotionWidget)
-#: rc.cpp:202
-msgid "Pawn Promotion"
-msgstr "Промоција пешака"
-
-#. i18n: file: promotiondialog.ui:26
-#. i18n: ectx: property (text), widget (QLabel, labelPawn)
-#: rc.cpp:205
-msgid "Promote pawn to:"
-msgstr "Промовиши пешака у:"
-
-#. i18n: file: proto/ficsdialog.ui:36
-#. i18n: ectx: attribute (title), widget (QWidget, accountTab)
-#: rc.cpp:220
-msgid "Account"
-msgstr "Налог"
-
-#. i18n: file: proto/ficsdialog.ui:39
-#. i18n: ectx: attribute (toolTip), widget (QWidget, accountTab)
-#: rc.cpp:223
-msgid "Log in to the chess server"
-msgstr "Пријави се на шаховски сервер"
-
-#. i18n: file: proto/ficsdialog.ui:58
-#. i18n: ectx: property (text), widget (QLabel, usernameLabel)
-#: rc.cpp:226
-msgid "&Username"
-msgstr "&Корисничко име"
-
-#. i18n: file: proto/ficsdialog.ui:78
-#. i18n: ectx: property (text), widget (QCheckBox, registeredCheckBox)
-#: rc.cpp:229
-msgid "This is a registered account"
-msgstr "Ово је регистрован налог"
-
-#. i18n: file: proto/ficsdialog.ui:88
-#. i18n: ectx: property (text), widget (QLabel, passwordLabel)
-#: rc.cpp:232
-msgid "&Password"
-msgstr "&Лозинка"
-
-# rewrite-msgid: /Log me in/Log in/
-#. i18n: file: proto/ficsdialog.ui:111
-#. i18n: ectx: property (text), widget (QCheckBox, rememberCheckBox)
-#: rc.cpp:235
-msgid "Log me in automatically"
-msgstr "Пријави ме аутоматски"
-
-#. i18n: file: proto/ficsdialog.ui:118
-#. i18n: ectx: property (text), widget (KPushButton, logInButton)
-#: rc.cpp:238
-msgid "Log in"
-msgstr "Пријави ме"
-
-#. i18n: file: proto/ficsdialog.ui:138
-#. i18n: ectx: property (text), widget (KPushButton, registerButton)
-#: rc.cpp:241
-msgid "Create an account"
-msgstr "Направи налог"
-
-#. i18n: file: proto/ficsdialog.ui:162
-#. i18n: ectx: attribute (title), widget (QWidget, joinTab)
-#: rc.cpp:244
-msgid "Seek List"
-msgstr "Листа претраге"
-
-#. i18n: file: proto/ficsdialog.ui:165
-#. i18n: ectx: attribute (toolTip), widget (QWidget, joinTab)
-#: rc.cpp:247
-msgid "Current ads arranged in a list"
-msgstr "Текући изазови поређани у списак"
-
-#. i18n: file: proto/ficsdialog.ui:202
-#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
-#: rc.cpp:250
-msgid "Player"
-msgstr "играч"
-
-#. i18n: file: proto/ficsdialog.ui:207
-#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
-#: rc.cpp:253
-msgid "Rating"
-msgstr "рејтинг"
-
-#. i18n: file: proto/ficsdialog.ui:212
-#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
-#: rc.cpp:256
-msgid "Time"
-msgstr "време"
-
-#. i18n: file: proto/ficsdialog.ui:217
-#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
-#: rc.cpp:259
-msgid "Increment"
-msgstr "увећање"
-
-#. i18n: file: proto/ficsdialog.ui:222
-#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
-#: rc.cpp:262
-msgid "Rated"
-msgstr "за рејтинг"
-
-#. i18n: file: proto/ficsdialog.ui:227
-#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
-#: rc.cpp:265
-msgid "Variant"
-msgstr "варијанта"
-
-#. i18n: file: proto/ficsdialog.ui:232
-#. i18n: ectx: property (text), widget (QTableWidget, offerTable)
-#: rc.cpp:268
-msgid "Your color"
-msgstr "ваша боја"
-
-#. i18n: file: proto/ficsdialog.ui:241
-#. i18n: ectx: attribute (title), widget (QWidget, graphTab)
-#: rc.cpp:271
-msgid "Seek Graph"
-msgstr "Графикон претраге"
-
-#. i18n: file: proto/ficsdialog.ui:244
-#. i18n: ectx: attribute (toolTip), widget (QWidget, graphTab)
-#: rc.cpp:274
-msgid "Current ads arranged by rating and duration"
-msgstr "Текући изазови поређани по рејтингу и трајању"
-
-#. i18n: file: proto/ficsdialog.ui:261
-#. i18n: ectx: attribute (title), widget (QWidget, challengeTab)
-#: rc.cpp:277
-msgid "Challenges"
-msgstr "Изазови"
-
-#. i18n: file: proto/ficsdialog.ui:264
-#. i18n: ectx: attribute (toolTip), widget (QWidget, challengeTab)
-#: rc.cpp:280
-msgid "Post an ad for other players"
-msgstr "Постави изазов за друге играче"
-
-#. i18n: file: proto/ficsdialog.ui:270
-#. i18n: ectx: property (text), widget (QCheckBox, ratedCheckBox)
-#: rc.cpp:283
-msgid "Rated match"
-msgstr "Меч за рејтинг"
-
-#. i18n: file: proto/ficsdialog.ui:277
-#. i18n: ectx: property (text), widget (QCheckBox, autoCheckBox)
-#: rc.cpp:286
-msgid "Automatically start the game"
-msgstr "Аутоматски започни партију"
-
-#. i18n: file: proto/ficsdialog.ui:298
-#. i18n: ectx: attribute (title), widget (QWidget, consoleTab)
-#: rc.cpp:292
-msgid "Console"
-msgstr "Конзола"
-
-#. i18n: file: proto/ficsdialog.ui:301
-#. i18n: ectx: attribute (toolTip), widget (QWidget, consoleTab)
-#: rc.cpp:295
-msgid "Use custom commands"
-msgstr "Унесите посебне наредбе"
-
-#. i18n: file: proto/chatwidget.ui:20
-#. i18n: ectx: property (text), widget (KPushButton, sendButton)
-#: rc.cpp:298
-msgid "Send"
-msgstr "Пошаљи"
+#. i18n: file: historywidget.ui:56
+#. i18n: ectx: property (text), widget (KPushButton, saveButton)
+#: rc.cpp:408
+msgid "&Save History"
+msgstr "&Сачувај историјат"

@@ -64,7 +64,10 @@ class ChatWidget;
                 GameOver = 0x40, /**< The protocol emits gameOver() when the game is over */
                 Draw = 0x80,
                 Adjourn = 0x100,
-                Resign = 0x200
+                Resign = 0x200,
+                Abort = 0x400,
+                SetDifficulty = 0x800, /**< It is possible to set the difficulty level before starting the game */
+                AdjustDifficulty = 0x1000 /**< It is possible to change the difficulty level during the game */
             };
             Q_DECLARE_FLAGS ( Features, Feature )
 
@@ -123,7 +126,6 @@ class ChatWidget;
             ChatWidget* createChatWidget();
             ChatWidget* createConsoleWidget();
             void initComplete();
-            int nextId();
 
         public Q_SLOTS:
             virtual void move ( const Move& m ) = 0;
@@ -142,7 +144,8 @@ class ChatWidget;
             virtual QList<ToolWidgetData> toolWidgets();
             virtual void setTimeControl ( const TimeControl& c );
             virtual bool isReady();
-
+            virtual void setDifficulty ( int depth, int memory );
+            
         Q_SIGNALS:
             void pieceMoved ( const Move& m );
             void illegalMove();

@@ -93,11 +93,13 @@ FicsProtocol::FicsProtocol ( QObject* parent ) : TextProtocol ( parent ),
 {
     // FICS games are always time-limited
     setAttribute ( QLatin1String("TimeLimitEnabled"), true );
-    // This is a bit hackish; we set a valid QTime as baseTime in order to make
-    // Manager::timeControlEnabled() working properly.
-    TimeControl tc;
-    tc.baseTime = QTime(0,0,0,0);
-    Manager::self()->setTimeControl(NoColor, tc);
+    if ( !Manager::self()->timeControlEnabled(color()) )
+    {
+        TimeControl tc;
+        tc.baseTime = QTime().addSecs( 10 * 60 ); // A default time of 10 minutes with no increment
+        tc.increment = 0;
+        Manager::self()->setTimeControl(color(), tc);
+    }
 }
 
 FicsProtocol::~FicsProtocol()
@@ -107,7 +109,7 @@ FicsProtocol::~FicsProtocol()
 
 Protocol::Features FicsProtocol::supportedFeatures()
 {
-    return TimeLimit | SetTimeLimit | UpdateTime | Adjourn | Resign;
+    return TimeLimit | SetTimeLimit | UpdateTime | Pause | Adjourn | Resign | Abort;
 }
 
 void FicsProtocol::startGame()
@@ -125,8 +127,8 @@ void FicsProtocol::init (  )
     m_stage = ConnectStage;
 
     ChatWidget* console = createConsoleWidget();
-    console->addExtraButton ( QLatin1String("seek"), i18n("Seek"), QLatin1String("edit-find") );
-    console->addExtraButton ( QLatin1String("unseek"), i18n("Unseek"), QLatin1String("edit-clear") );
+    console->addExtraButton ( QLatin1String("seek"), i18nc("Start searching for opponents", "Seek"), QLatin1String("edit-find") );
+    console->addExtraButton ( QLatin1String("unseek"), i18nc("Stop searching for opponents", "Unseek"), QLatin1String("edit-clear") );
     console->addExtraButton ( QLatin1String("accept"), i18n("Accept"), QLatin1String("dialog-ok-accept") );
     console->addExtraButton ( QLatin1String("help"), i18n("Help"), QLatin1String("help-contents") );
     connect ( console, SIGNAL(sendText(QString)), SLOT(writeCheckMoves(QString)) );
@@ -216,29 +218,29 @@ void FicsProtocol::openGameDialog()
     m_widget->setConsoleWidget ( console() );
     dialog->setMainWidget ( m_widget );
 
-    connect ( dialog, SIGNAL ( user2Clicked()), m_widget, SLOT(decline()) );
-    connect ( dialog, SIGNAL ( user1Clicked()), m_widget, SLOT(accept()) );
-    connect ( m_widget, SIGNAL ( acceptButtonNeeded ( bool ) ), dialog->button ( KDialog::User1 ), SLOT ( setVisible(bool)) );
-    connect ( m_widget, SIGNAL ( declineButtonNeeded ( bool ) ), dialog->button ( KDialog::User2 ), SLOT ( setVisible(bool)) );
+    connect ( dialog, SIGNAL (user2Clicked()), m_widget, SLOT(decline()) );
+    connect ( dialog, SIGNAL (user1Clicked()), m_widget, SLOT(accept()) );
+    connect ( m_widget, SIGNAL (acceptButtonNeeded(bool)), dialog->button ( KDialog::User1 ), SLOT (setVisible(bool)) );
+    connect ( m_widget, SIGNAL (declineButtonNeeded(bool)), dialog->button ( KDialog::User2 ), SLOT (setVisible(bool)) );
 
     connect ( m_widget, SIGNAL(login(QString,QString)), this, SLOT(login(QString,QString)));
     connect ( m_widget, SIGNAL(acceptSeek(int)), SLOT(acceptSeek(int)) );
     connect ( m_widget, SIGNAL(acceptChallenge(int)), SLOT(acceptChallenge(int)) );
     connect ( m_widget, SIGNAL(declineChallenge(int)), SLOT(declineChallenge(int)) );
     
-    connect ( this, SIGNAL(sessionStarted()), m_widget, SLOT(slotSessionStarted() ) );
-    connect ( this, SIGNAL ( gameOfferReceived ( FicsGameOffer ) ), m_widget, SLOT ( addGameOffer ( FicsGameOffer ) ) );
-    connect ( this, SIGNAL ( gameOfferRemoved(int)), m_widget, SLOT ( removeGameOffer(int)) );
-    connect ( this, SIGNAL ( challengeReceived ( FicsChallenge ) ), m_widget, SLOT ( addChallenge ( FicsChallenge ) ) );
+    connect ( this, SIGNAL(sessionStarted()), m_widget, SLOT(slotSessionStarted()) );
+    connect ( this, SIGNAL (gameOfferReceived(FicsGameOffer)), m_widget, SLOT (addGameOffer(FicsGameOffer)) );
+    connect ( this, SIGNAL (gameOfferRemoved(int)), m_widget, SLOT (removeGameOffer(int)) );
+    connect ( this, SIGNAL (challengeReceived(FicsChallenge)), m_widget, SLOT (addChallenge(FicsChallenge)) );
     connect ( this, SIGNAL(gameOfferRemoved(int)), m_widget, SLOT(removeChallenge(int)) );
-    connect ( m_widget, SIGNAL ( seekingChanged ( bool ) ), SLOT ( setSeeking ( bool ) ) );
+    connect ( m_widget, SIGNAL (seekingChanged(bool)), SLOT (setSeeking(bool)) );
 
     // connect ( dialog, SIGNAL(accepted()), SLOT(dialogAccepted()));
-    connect ( dialog, SIGNAL ( rejected() ), SLOT ( dialogRejected() ) );
+    connect ( dialog, SIGNAL (rejected()), SLOT (dialogRejected()) );
 
-    connect ( this, SIGNAL ( initSuccesful() ), dialog, SLOT ( accept() ) );
+    connect ( this, SIGNAL (initSuccesful()), dialog, SLOT (accept()) );
     connect ( this, SIGNAL(initSuccesful()), m_widget, SLOT(slotDialogAccepted()) );
-    connect ( this, SIGNAL ( error ( Protocol::ErrorCode, QString ) ), dialog, SLOT ( deleteLater() ) );
+    connect ( this, SIGNAL (error(Protocol::ErrorCode,QString)), dialog, SLOT (deleteLater()) );
     if ( Settings::autoLogin() )
     {
         m_widget->slotLogin();
@@ -248,15 +250,15 @@ void FicsProtocol::openGameDialog()
 
 bool FicsProtocol::parseStub(const QString& line)
 {
-    parseLine(line);
-    return true;
+    Q_UNUSED(line);
+    return false;
 }
 
-void FicsProtocol::parseLine(const QString& line)
+bool FicsProtocol::parseLine(const QString& line)
 {
     if ( line.isEmpty() || line.startsWith( QLatin1String("fics%") ) )
     {
-        return;
+        return true;
     }
     bool display = true;
     ChatWidget::MessageType type = ChatWidget::GeneralMessage;
@@ -408,7 +410,6 @@ void FicsProtocol::parseLine(const QString& line)
                 }
                 
                 m_stage = PlayStage;
-                console()->setExtraButtonsShown ( false );
                 initComplete();
             }
             break;
@@ -513,8 +514,10 @@ void FicsProtocol::parseLine(const QString& line)
                     type = ChatWidget::AccountMessage;
                     emit gameOver ( White );
                 }
-                else if ( line.endsWith ( QLatin1String("1/2-1/2") ) )
+                else if ( line.endsWith ( QLatin1String("1/2-1/2") ) || line.endsWith ( QLatin1Char('*') ) )
                 {
+                    // Knights has no way of reporting aborted or unfinished games
+                    // so we report aborted games as draws
                     type = ChatWidget::AccountMessage;
                     emit gameOver ( NoColor );
                 }
@@ -530,6 +533,7 @@ void FicsProtocol::parseLine(const QString& line)
     {
         writeToConsole ( line, type );
     }
+    return true;
 }
 
 Color FicsProtocol::parseColor ( QString str )
@@ -600,6 +604,7 @@ void FicsProtocol::setSeeking ( bool seek )
         }
         */
         seekText += m_widget->autoAcceptChallenge() ? " auto" : " manual";
+        kDebug() << seekText;
         write(QLatin1String(seekText));
     }
     else
@@ -650,6 +655,10 @@ void FicsProtocol::makeOffer(const Offer& offer)
             
         case ActionAdjourn:
             write ( "adjourn" );
+            break;
+            
+        case ActionAbort:
+            write ( "abort" );
             break;
             
         default:

@@ -23,16 +23,19 @@
 #define KNIGHTS_H
 
 #include "ui_prefs_base.h"
+#include "ui_prefs_access.h"
 #include "proto/protocol.h"
 
 #include <KXmlGuiWindow>
 
+class QStringListModel;
 class KToggleAction;
 
 namespace Knights
 {
     class Protocol;
     class KnightsView;
+    class ClockWidget;
 
     /**
     * This class serves as the main window for Knights.  It handles the
@@ -48,38 +51,58 @@ namespace Knights
         public:
             MainWindow();
             virtual ~MainWindow();
+            virtual bool queryClose();
+            bool maybeSave();
 
-        private Q_SLOTS:
+        public Q_SLOTS:
             void fileNew();
+            void fileLoad();
+            void fileSave();
+            void fileSaveAs();
             void pauseGame ( bool pause );
             void undo();
             void redo();
             void optionsPreferences();
+            
+        private Q_SLOTS:
 
             void protocolInitSuccesful();
             void protocolError ( Protocol::ErrorCode errorCode, const QString& errorString );
 
             void setShowClockSetting( bool value );
-            void setShowConsoleSetting( bool value );
+            void setShowHistorySetting( bool value );
+            void setShowConsoleSetting();
             void setShowChatSetting( bool value );
+            void updateCaption();
 
             void exitKnights();
 
         private:
             void setupActions();
-            void showClockWidgets();
+            void setupClockDock();
+            void setupConsoleDocks();
+            void setupHistoryDock();
+            
             void showFicsDialog( Color color = NoColor, bool computer = false);
             void showFicsSpectateDialog();
 
         private:
-            Ui::prefs_base ui_prefs_base ;
+            Ui::prefs_base ui_prefs_base;
+            Ui::prefs_access ui_prefs_access;
             KnightsView *m_view;
             QPointer<QDockWidget> m_clockDock;
+            QPointer<ClockWidget> playerClock;
+            QPointer<QDockWidget> m_wconsoleDock;
+            QPointer<QDockWidget> m_bconsoleDock;
+            QPointer<QDockWidget> m_chatDock;
+            QPointer<QDockWidget> m_historyDock;
 
             KToggleAction *m_toolbarAction;
             KToggleAction *m_statusbarAction;
-            QList<QAction*> m_protocolActions;
-            QList<QDockWidget*> m_dockWidgets;
+            QMap<QByteArray, Protocol::Feature> protocolFeatures;
+            
+            QString m_loadFileName;
+    QString m_fileName;
     };
 }
 
