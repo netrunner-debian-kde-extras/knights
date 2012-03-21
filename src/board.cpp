@@ -73,10 +73,10 @@ Board::Board ( QObject* parent ) : QGraphicsScene ( parent )
     renderer = new Renderer ( Settings::theme() );
     m_background = 0;
     selectedPiece = 0;
+    draggedPiece = 0;
     Manager::self()->rules()->setGrid ( &m_grid );
     m_currentPlayer = White;
     updateTheme();
-    m_paused = false;
     m_dragActive = false;
 }
 
@@ -101,8 +101,9 @@ void Board::addPiece ( PieceType type, Color color, const Pos& pos )
 
 void Board::movePiece ( const Move& move )
 {
+    kDebug() << move;
     Move m = move;
-    if ( m.flag ( Move::Illegal ) ||  m.to() == m.from() || !m_grid.contains ( m.from() ) )
+    if ( ( m.flag ( Move::Illegal ) && !m.flag ( Move::Forced ) ) ||  m.to() == m.from() || !m_grid.contains ( m.from() ) )
     {
         kWarning() << "Invalid move:" << m;
         return;
@@ -172,13 +173,11 @@ void Board::movePiece ( const Move& move )
         }
     }
 
-    if ( m.flags() & Move::Castle )
+    foreach ( const Move& additionalMove, m.additionalMoves() )
     {
-        foreach ( const Move& additionalMove, m.additionalMoves() )
-        {
-            movePiece ( additionalMove );
-        }
+        movePiece ( additionalMove );
     }
+
     updateGraphics();
 }
 
@@ -215,7 +214,7 @@ void Board::addTiles()
 
 void Board::mousePressEvent ( QGraphicsSceneMouseEvent* e )
 {
-    if ( m_paused || !(m_playerColors & m_currentPlayer) )
+    if ( !Manager::self()->canLocalMove() )
     {
         // It is not the human player's turn
         e->ignore();
@@ -346,7 +345,7 @@ void Board::dropEvent ( QGraphicsSceneDragDropEvent* e )
 
 void Board::dragEnterEvent ( QGraphicsSceneDragDropEvent* e )
 {
-    e->accept();
+    e->setAccepted ( Manager::self()->canLocalMove() );
 }
 
 void Board::dragMoveEvent ( QGraphicsSceneDragDropEvent* e )
@@ -441,23 +440,21 @@ void Board::setPlayerColors ( Colors colors )
     populate();
 }
 
-void Board::changeCurrentPlayer()
-{
-    m_currentPlayer = oppositeColor ( m_currentPlayer );
-    if ( ( m_playerColors & m_currentPlayer ) && m_displayedPlayer != m_currentPlayer )
-    {
-        m_displayedPlayer = m_currentPlayer;
-        changeDisplayedPlayer();
-    }
-    emit activePlayerChanged ( m_currentPlayer );
-}
-
 void Board::setCurrentColor ( Color color )
 {
     m_currentPlayer = color;
-    if ( m_playerColors & color )
+    Color nextPlayer = m_displayedPlayer;
+    if ( ( ( m_playerColors & (Black|White) ) == (Black|White) ) && !Settings::flipBoard() )
     {
-        m_displayedPlayer = color;
+        nextPlayer = White;
+    }
+    else if ( m_playerColors & color )
+    {
+        nextPlayer = color;
+    }
+    if ( m_displayedPlayer != nextPlayer )
+    {
+        m_displayedPlayer = nextPlayer;
         changeDisplayedPlayer();
     }
     emit activePlayerChanged ( m_currentPlayer );
@@ -495,12 +492,6 @@ void Board::addMarker ( const Pos& pos, const QString& spriteKey )
     marker->setZValue ( legalMarkerZValue );
     markers.insert ( pos, marker );
 }
-
-void Board::setPaused ( bool paused )
-{
-    m_paused = paused;
-}
-
 
 void Board::updateTheme()
 {

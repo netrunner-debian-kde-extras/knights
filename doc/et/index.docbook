@@ -5,7 +5,7 @@
 >">
   <!ENTITY kappname "&knights;">
   <!ENTITY package "extragear/games">
-  <!ENTITY kappversion "2.3.1"
+  <!ENTITY kappversion "2.4.0"
 ><!--Application version. Use this variable everywhere it's needed.-->
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % Estonian  "INCLUDE">
@@ -57,10 +57,10 @@
 		</legalnotice>
 
 		<date
->2011-02-16</date
+>2011-10-23</date
 ><!-- Date of (re)writing, or update.-->
 		<releaseinfo
->&kappversion; </releaseinfo
+>&kappversion; (&kde; 4.7) </releaseinfo
 ><!-- Application version number. Use the variable definitions within header to change this value.-->
 
 		<abstract>
@@ -89,7 +89,11 @@
 		</keywordset>
 
 	</bookinfo>
-
+<!-- 
+new in
+>2.4.0 history, UCI, Difficulty settings, see
+http://noughmad.com/2011/10/25/upcoming-features-in-knights/ 
+-->
 	<chapter id="introduction">
 		<title
 >Sissejuhatus</title>
@@ -155,15 +159,15 @@
 >Mängija 2</guilabel
 > jaoks. </para>
 			<para
->Kui soovid mängida arvuti vastu, vali <guilabel
->Inimene (sina)</guilabel
-> <guilabel
->Mängija 1</guilabel
-> ja <guilabel
->Arvutimootor</guilabel
-> <guilabel
->Mängija 2</guilabel
-> jaoks. Vali programm, mille vastu soovid mängida, ja kontrolli kindlasti, et määratud programm oleks arvutisse paigaldatud ning toetaks protokolli XBoard. </para>
+>If you wish to play against the computer, select <guilabel
+>Human (You)</guilabel
+> for <guilabel
+>Player 1</guilabel
+> and <guilabel
+>Computer engine</guilabel
+> for <guilabel
+>Player 2</guilabel
+>. Choose the program you would like to play against, and make sure that the program you specify is installed on your computer and that it supports the XBoard protocol. </para>
 			<para
 >Kui soovid mängida kellegagi internetis, vali <guilabel
 >Inimene (sina)</guilabel
@@ -328,7 +332,7 @@
 ><para
 ><ulink url="http://en.wikipedia.org/wiki/Rules_of_chess"
 >Wikipedia</ulink
-></para
+>&nbsp;</para
 ></listitem>
 		</itemizedlist>
 		</para>
@@ -818,17 +822,34 @@
 			<title
 >Üldine</title>
 			<para
->Sektsiooni <guimenu
->Üldine</guimenu
-> valikud puudutavad &knights;i üldist välimust. Siin saab sisse lülitada või muuta malendite ja mängulaua animatsioone. Animatsioonide sektsiooni näidatakse sõltuvalt süsteemi tarkvarast, eelkõige muidugi siis, kui animatsioonid on saadaval. Sisse väi välja lülitada saab kõiki <link linkend="markers"
->markerite</link
-> kolme tüüpi. Soovi korral saab sisse lülitada piirded malelaua ümber ning algebralise tähistuse. </para>
+>The <guimenu
+>General</guimenu
+> section contains options on the general appearance of &knights;. Animations of the pieces and board can be enabled or modified. The animations section is visible based upon system software, and is seen only if animations are available. All three types of <link linkend="markers"
+>markers</link
+> can be enabled or disabled. Borders around the chess board can be activated with or without algebraic chess notation by using a drop down menu. </para>
 			<note>
 				<title
 >Märkus:</title>
 				<para
 >Mõned teemad ei pruugi toetada markereid, piirdeid ja/või tähistust. Sel juhul siinne seadistus mingit mõju ei avalda, kuid see jäetakse meelde ja võetakse kasutusele, kui muudad teemat. </para>
 			</note>
+		</sect1>
+		
+		<sect1 id="configuration-accessibility">
+			<title
+>Hõlbustus</title>
+			<para
+>Sektsioonis <guimenu
+>Hõlbustus</guimenu
+> leiab mõned valikud mängulaua ja väliste programmide kasutamise kohta, mis peaksid muutma mängimise lihtsamaks puuetega inimestele. </para>
+			<para
+>The feature of turning around the board when the local player changes is now optional, making it possible to use &knights; on a tablet as a chess board replacement. </para>
+			<para
+>&kde; teksti ettelugemise teenust &jovie; saab kasutada vastase käikude kuuldavalt esitamiseks. </para>
+			<para
+>&knights;i on võimalik juhtida &DBus;-liidesega. Praegu ei ole sel praktilist kasutust, välja arvatud <ulink url="http://simon-listens.org/"
+>Simoni</ulink
+> veel välja laskmata versioon, mis lubab mängida ka ainult häälsuhtluse abil. </para>
 		</sect1>
 
 		<sect1 id="configuration-themes">

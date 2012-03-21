@@ -23,9 +23,13 @@
 
 #include "ui_gamedialog.h"
 #include "proto/localprotocol.h"
-#include "proto/xboardproto.h"
+#include "proto/xboardprotocol.h"
 #include "proto/ficsprotocol.h"
 #include "gamemanager.h"
+
+#include <Solid/Networking>
+#include "enginesettings.h"
+#include "proto/uciprotocol.h"
 
 using namespace Knights;
 
@@ -77,17 +81,16 @@ GameDialog::GameDialog ( QWidget* parent, Qt::WindowFlags f ) : QWidget ( parent
             break;
     }
 
-    ui->player1Program->setHistoryItems( Settings::programs() );
-    ui->player1Program->setCurrentItem( Settings::player1Program(), true );
+    loadEngines();
+    connect ( ui->player1Engines, SIGNAL(clicked(bool)), SLOT(showEngineConfigDialog()) );
+    connect ( ui->player2Engines, SIGNAL(clicked(bool)), SLOT(showEngineConfigDialog()) );
     
-    ui->player2Program->setHistoryItems( Settings::programs() );
-    ui->player2Program->setCurrentItem( Settings::player2Program(), true );
-    ui->player2Server->setHistoryItems( Settings::servers() );
-    ui->player2Server->setCurrentItem( Settings::currentServer(), true );
-
     connect ( ui->timeLimit, SIGNAL(valueChanged(int)), SLOT(updateTimeEdits()) );
     connect ( ui->timeIncrement, SIGNAL(valueChanged(int)), SLOT(updateTimeEdits()) );
     connect ( ui->numberOfMoves, SIGNAL(valueChanged(int)), SLOT(updateTimeEdits()) );
+    connect ( Solid::Networking::notifier(), SIGNAL(statusChanged(Solid::Networking::Status)), SLOT(changeNetworkStatus(Solid::Networking::Status)) );
+    
+    changeNetworkStatus(Solid::Networking::status());
     updateTimeEdits();
 }
 
@@ -103,6 +106,12 @@ void GameDialog::setupProtocols()
     tc.moves = ui->player2Fics->isChecked() ? 0 : ui->numberOfMoves->value();
     tc.increment = ui->timeIncrement->value();
     Manager::self()->setTimeControl(NoColor, tc);
+    
+    QList<EngineConfiguration> configs;
+    foreach ( const QString& s, Settings::engineConfigurations() )
+    {
+        configs << EngineConfiguration ( s );
+    }
 
     Protocol* p1 = 0;
     Protocol* p2 = 0;
@@ -113,8 +122,17 @@ void GameDialog::setupProtocols()
     }
     else
     {
-        p1 = new XBoardProtocol;
-        p1->setAttribute ( "program", ui->player1Program->currentText() );
+        EngineConfiguration c = configs [ ui->player1Program->currentIndex() ];
+        if ( c.iface == EngineConfiguration::XBoard )
+        {
+            p1 = new XBoardProtocol;
+        }
+        else
+        {
+            p1 = new UciProtocol; 
+        }
+        p1->setAttribute ( "program", c.commandLine );
+        p1->setPlayerName ( c.name );
     }
     
     if ( ui->colorWhite->isChecked() )
@@ -132,8 +150,17 @@ void GameDialog::setupProtocols()
     }
     else if ( ui->player2Comp->isChecked() )
     {
-        p2 = new XBoardProtocol;
-        p2->setAttribute ( "program", ui->player2Program->currentText() );
+        EngineConfiguration c = configs [ ui->player2Program->currentIndex() ];
+        if ( c.iface == EngineConfiguration::XBoard )
+        {
+            p2 = new XBoardProtocol;
+        }
+        else
+        {
+            p2 = new UciProtocol; 
+        }
+        p2->setAttribute ( "program", c.commandLine );
+        p2->setPlayerName ( c.name );
     }
     else
     {
@@ -142,7 +169,8 @@ void GameDialog::setupProtocols()
     }
     if ( c1 == NoColor )
     {
-        c1 = qrand() % 2 ? White : Black;
+        qsrand(QTime::currentTime().msec());
+        c1 = ( qrand() % 2 ) ? White : Black;
     }
     // Color-changing by the FICS protocol happens later, so it doesn't matter what we do here. 
     Protocol::setWhiteProtocol ( c1 == White ? p1 : p2 );
@@ -152,7 +180,6 @@ void GameDialog::setupProtocols()
 
 void GameDialog::writeConfig()
 {
-    QStringList programs;
     Settings::EnumPlayer1Protocol::type p1;
     if ( ui->player1Human->isChecked() )
     {
@@ -161,7 +188,6 @@ void GameDialog::writeConfig()
     else
     {
         p1 = Settings::EnumPlayer1Protocol::XBoard;
-        programs << ui->player1Program->historyItems() << ui->player1Program->currentText();
         Settings::setPlayer1Program ( ui->player1Program->currentText() );
     }
     Settings::setPlayer1Protocol ( p1 );
@@ -174,7 +200,6 @@ void GameDialog::writeConfig()
     else if ( ui->player2Comp->isChecked() )
     {
         p2 = Settings::EnumPlayer2Protocol::XBoard;
-        programs << ui->player2Program->historyItems() << ui->player2Program->currentText() ;
         Settings::setPlayer2Program ( ui->player2Program->currentText() );
     }
     else
@@ -184,8 +209,6 @@ void GameDialog::writeConfig()
         Settings::setCurrentServer ( ui->player2Server->currentText() );
     }   
     Settings::setPlayer2Protocol ( p2 );
-    programs.removeDuplicates();
-    Settings::setPrograms ( programs );
     
     Settings::EnumColor::type selectedColor = Settings::EnumColor::NoColor;
     if ( ui->colorWhite->isChecked() )
@@ -219,5 +242,54 @@ void GameDialog::updateTimeEdits()
     ui->timeIncrement->setSuffix ( i18np ( " second", " seconds", ui->timeIncrement->value() ) );
     ui->numberOfMoves->setSuffix ( i18np ( " move", " moves", ui->numberOfMoves->value() ) );
 }
+
+void GameDialog::changeNetworkStatus(Solid::Networking::Status status)
+{
+    kDebug() << status;
+    bool enableFics = status == Solid::Networking::Connected || status == Solid::Networking::Unknown;
+    if (!enableFics && ui->player2Fics->isChecked())
+    {
+        ui->player2Comp->setChecked ( true );
+    }
+    ui->player2Fics->setEnabled ( enableFics );
+}
+
+void GameDialog::showEngineConfigDialog()
+{
+    KDialog* dlg = new KDialog ( this );
+    EngineSettings* ecd = new EngineSettings ( dlg );
+    dlg->setMainWidget ( ecd );
+    connect ( dlg, SIGNAL(accepted()), ecd, SLOT(writeConfig()) );
+    connect ( dlg, SIGNAL(accepted()), this, SLOT(loadEngines()) );
+    dlg->show();
+}
+
+void GameDialog::loadEngines()
+{
+    QStringList programs;
+    QList<EngineConfiguration> configs;
+    foreach ( const QString& s, Settings::engineConfigurations() )
+    {
+        QStringList l = s.split ( QLatin1Char(':'), QString::SkipEmptyParts );
+        EngineConfiguration e = EngineConfiguration ( s );
+        if ( !e.name.isEmpty() )
+        {
+            programs << e.name;
+            configs << e;
+        }
+    }
+       
+    ui->player1Program->clear();
+    ui->player2Program->clear();
+    
+    ui->player1Program->addItems ( programs );
+    ui->player1Program->setCurrentItem ( Settings::player1Program(), false );
+    
+    ui->player2Program->addItems ( programs );
+    ui->player2Program->setCurrentItem ( Settings::player2Program(), false );
+}
+
+
+
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on;  replace-tabs on;  replace-tabs on;  replace-tabs on;

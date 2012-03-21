@@ -61,7 +61,6 @@ struct Offer;
              * Destructor
              */
             virtual ~KnightsView();
-            void setPaused ( bool paused );
 
         private:
             Ui::KnightsView* ui;
@@ -69,9 +68,6 @@ struct Offer;
             bool m_showAllOffers;
             bool m_allOffers;
             QList<OfferWidget*> m_offerWidgets;
-
-            static QString pieceTypeName ( PieceType );
-            static QString colorName ( Color );
 
         signals:
             /**

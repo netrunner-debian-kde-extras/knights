@@ -30,6 +30,10 @@
 
 #include <KGlobal>
 #include "offerwidget.h"
+#include <KGameDifficulty>
+#include <QStack>
+
+class QAbstractListModel;
 
 namespace Knights {
 
@@ -102,14 +106,16 @@ public:
 	    bool isRunning();
 	    
 	    bool canRedo() const;
-
+            bool isGameActive() const;
+            bool canLocalMove() const;
+            
     Rules* rules() const;
     void setRules ( Rules* rules );
         void reset();
 	
 	void startGame();
-
-    
+        QStack<Move> moveHistory() const;
+            
 private:
     void addMoveToHistory ( const Move& move );
     Move nextUndoMove();
@@ -121,6 +127,7 @@ private:
     void processMove(const Move& move);
     
     Protocol* local();
+    bool getCustomDifficulty(int* depth, int* size);
     
 private slots:
     void sendPendingMove();
@@ -137,14 +144,19 @@ signals:
   void initComplete();
   void notification ( const Offer& offer );
   void winnerNotify ( Color winner );
+  
+  void historyChanged();
+  void playerNameChanged();
 
 public slots:
   void moveByProtocol ( const Move& move );
   void moveByBoard ( const Move& move );
+  void moveByExternalControl ( const Move& move );
   void protocolInitSuccesful();
   void gameOver ( Color winner );
   void resign();
 
+  void sendOffer ( GameAction action, Color player = NoColor, int id = 0 );
   void sendOffer ( const Offer& offer );
   void setOfferResult ( int id, OfferAction result );
   
@@ -153,8 +165,15 @@ public slots:
     void redo();
     void offerDraw();
     void adjourn();
+    void abort();
     
     void setTimeRunning(bool running); 
+    
+    void levelChanged ( KGameDifficulty::standardLevel level );
+    void setDifficulty ( int searchDepth, int memorySize );
+
+    void saveGameHistoryAs(const QString& filename);
+    void loadGameHistoryFrom(const QString& filename);
 
 private:
   GameManagerPrivate* d_ptr;

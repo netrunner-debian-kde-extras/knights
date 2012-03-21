@@ -51,6 +51,8 @@ namespace Knights
             
             QTime time;
             PieceData pieceData;
+            
+            QMap<Move::Notation, QString> notationStrings;
     };
 
     MovePrivate::MovePrivate()
@@ -82,7 +84,13 @@ namespace Knights
         Move rookMove;
         rookMove.setFrom ( rookFile, rank );
         rookMove.setTo ( rookDestinationFile, rank );
+        rookMove.setFlag ( Forced, true );
         m.setAdditionalMoves ( QList<Move>() << rookMove );
+        
+        QLatin1String str((side == QueenSide) ? "O-O-O" : "O-O");
+        m.setStringForNotation ( Coordinate, str );
+        m.setStringForNotation ( Algebraic, str );
+        m.setStringForNotation ( LongAlgebraic, str );
 
         return m;
     }
@@ -161,7 +169,7 @@ namespace Knights
     {
         d->flags = None;
         d->extraMoves.clear();
-
+        
         if ( string.contains(QLatin1Char('x')) )
         {
             setFlag ( Take, true );
@@ -173,18 +181,19 @@ namespace Knights
             setFlag ( Check, true );
             string.remove(QLatin1Char('+'));
         }
-
+        
         string.remove(QLatin1Char('-'));
         string.remove(QLatin1Char(' '));
+        string.remove(QLatin1Char('='));
         
-        QRegExp longMoveTest = QRegExp(QLatin1String("[a-h][1-8][a-h][1-8]"));
-        if (longMoveTest.indexIn(string) > -1)
+        QRegExp longMoveTest = QRegExp(QLatin1String("^[a-h][1-8][a-h][1-8]"));
+        if (longMoveTest.indexIn(string) > -1 )
         {
             // Long move notation, can be directly converted to From and To
             d->notationType = Coordinate;
             setFrom ( string.left ( 2 ) );
             setTo ( string.mid ( 2, 2 ) );
-            if ( string.size() > 5 )
+            if ( string.size() > 4 )
             {
                 setFlag ( Promote, true );
                 setPromotedType ( Piece::typeFromChar ( string[5] ) );
@@ -321,6 +330,8 @@ namespace Knights
     Move Move::reverse() const
     {
         Move rev;
+        rev.setFlags(d->flags);
+        
         if ( notation() == Algebraic )
         {
             // We can't reverse the move from the algebraic notation alone
@@ -379,13 +390,27 @@ void Move::setPieceData(const PieceData& data)
     d->pieceData = data;
 }
 
-PieceData Move::pieceData()
+PieceData Move::pieceData() const
 {
     return d->pieceData;
 }
 
+void Move::setStringForNotation(Move::Notation notation, const QString& string)
+{
+    d->notationStrings [ notation ] = string;
+}
 
-
+QString Move::stringForNotation(Move::Notation notation) const
+{
+    if ( d->notationStrings.contains ( notation ) )
+    {
+        return d->notationStrings [ notation ];
+    }
+    else
+    {
+        return QString();
+    }
+}
 
 }
 

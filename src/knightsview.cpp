@@ -38,6 +38,8 @@
 #include "offerwidget.h"
 #include "ui_knightsview_base.h"
 #include <KActionCollection>
+#include <KAction>
+#include <KStandardGameAction>
 
 using namespace Knights;
 
@@ -70,6 +72,7 @@ void KnightsView::setupBoard()
     m_board = new Board ( this );
     ui->canvas->setScene ( m_board );
     resizeScene();
+    kDebug() << Manager::self();
     connect ( Manager::self(), SIGNAL(pieceMoved(Move)), m_board, SLOT(movePiece(Move)) );
     connect ( Manager::self(), SIGNAL(activePlayerChanged(Color)), m_board, SLOT(setCurrentColor(Color)) );
     connect ( m_board, SIGNAL(displayedPlayerChanged(Color)), SIGNAL(displayedPlayerChanged(Color)) );
@@ -96,31 +99,80 @@ void KnightsView::clearBoard()
 
 void KnightsView::gameOver ( Color winner )
 {
-    kDebug() << sender();
-    QString text;
-    QString caption;
+    kDebug() << sender() << colorName ( winner );
+    
+    QPointer<KDialog> dlg = new KDialog ( this );
+    dlg->setButtons ( KDialog::Yes | KDialog::User2 | KDialog::Cancel );
+    
+    KActionCollection* c = qobject_cast<KXmlGuiWindow*>( parentWidget() )->actionCollection();
+    Q_ASSERT(c);
+    
+    QMap<KDialog::ButtonCode, QByteArray> buttonsMap;
+    
+    buttonsMap[KDialog::Yes] = KStandardGameAction::name ( KStandardGameAction::New );
+    buttonsMap[KDialog::User2] = KStandardGameAction::name ( KStandardGameAction::Save );
+    
+    for ( QMap<KDialog::ButtonCode, QByteArray>::ConstIterator it = buttonsMap.constBegin(); it != buttonsMap.constEnd(); ++it )
+    {
+        QAction* a = c->action ( QLatin1String ( it.value() ) );
+        Q_ASSERT(a);
+
+        dlg->button ( it.key() )->setText ( a->text() );
+        dlg->button ( it.key() )->setIcon ( KIcon ( a->icon() ) );
+        dlg->button ( it.key() )->setToolTip ( a->toolTip() );
+    }
+        
+    connect ( dlg->button ( KDialog::User2 ), SIGNAL(clicked(bool)), window(), SLOT(fileSave()) );
+    
+    QLabel* label = new QLabel ( this );
+    dlg->setMainWidget ( label );
+    dlg->setCaption ( i18n("Game over") );
+    
+
     if ( winner == NoColor )
     {
-        text = i18n ( "The game ended in a draw" );
-        KMessageBox::information ( this, text );
+        label->setText ( i18n ( "The game ended in a draw" ) );
     }
     else
     {
-        text = i18n ( "The %1 player won.", colorName ( winner ) );
-        if ( m_board->playerColors() & winner )
+        QString winnerName = Protocol::byColor ( winner )->playerName();
+        if ( winnerName == colorName(winner) )
         {
-            KMessageBox::information ( this, text, i18n ( "Congratulations!" ) );
-        }
-        else if ( m_board->playerColors() )
-        {
-            KMessageBox::sorry ( this, text );
+            if ( winner == White )
+            {
+                label->setText ( i18nc("White as in the player with white pieces", 
+                                       "The game ended with a victory for <emphasis>White</emphasis>") );
+            }
+            else
+            {                
+                label->setText ( i18nc("Black as in the player with black pieces", 
+                                       "The game ended with a victory for <emphasis>Black</emphasis>") );
+            }
         }
         else
         {
-            KMessageBox::information ( this, text );
+            if ( winner == White )
+            {
+                label->setText ( i18nc("Player name, then <White as in the player with white pieces", 
+                                       "The game ended with a victory for <emphasis>%1</emphasis>, playing White", winnerName) );
+            }
+            else
+            {                
+                label->setText ( i18nc("Player name, then Black as in the player with black pieces", 
+                                       "The game ended with a victory for <emphasis>%1</emphasis>, playing Black", winnerName) );
+            }
         }
     }
-    emit gameNew();
+    
+    if ( dlg->exec() == KDialog::Yes )
+    {
+        Manager::self()->reset();
+        emit gameNew();
+    }
+    
+    kDebug() << Protocol::white();
+    kDebug() << Protocol::black();
+    delete dlg;
 }
 
 void KnightsView::settingsChanged()
@@ -145,45 +197,6 @@ void KnightsView::resizeScene()
         m_board->setSceneRect ( ui->canvas->contentsRect() );
         m_board->updateGraphics();
         ui->canvas->setTransform ( QTransform() );
-    }
-}
-
-void KnightsView::setPaused ( bool paused )
-{
-    m_board->setPaused ( paused );
-}
-
-QString KnightsView::colorName ( Color color )
-{
-    switch ( color )
-    {
-        case White:
-            return i18n ( "White" );
-        case Black:
-            return i18n ( "Black" );
-        default:
-            return QString();
-    }
-}
-
-QString KnightsView::pieceTypeName ( PieceType type )
-{
-    switch ( type )
-    {
-        case Pawn:
-            return i18n ( "Pawn" );
-        case Rook:
-            return i18n ( "Rook" );
-        case Knight:
-            return i18n ( "Knight" );
-        case Bishop:
-            return i18n ( "Bishop" );
-        case Queen:
-            return i18n ( "Queen" );
-        case King:
-            return i18n ( "King" );
-        default:
-            return QString();
     }
 }
 
@@ -212,6 +225,7 @@ void KnightsView::showAllOffersToggled()
 
 void KnightsView::popupHidden(int id)
 {
+    kDebug() << m_offerWidgets << id << m_showAllOffers;
     foreach ( OfferWidget* widget, m_offerWidgets )
     {
         if ( widget->id() == id )

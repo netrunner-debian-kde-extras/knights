@@ -27,6 +27,7 @@
 #include "settings.h"
 
 #include <QtGui/QWidget>
+#include <Solid/Networking>
 
 namespace Ui
 {
@@ -59,6 +60,9 @@ namespace Knights
     
         private slots:
             void updateTimeEdits();
+            void changeNetworkStatus(Solid::Networking::Status status);
+            void loadEngines();
+            void showEngineConfigDialog();
     };
 
 }

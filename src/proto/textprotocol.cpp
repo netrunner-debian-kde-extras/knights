@@ -40,14 +40,22 @@ void TextProtocol::readFromDevice()
     {
 	if ( stream.device()->canReadLine() )
 	{
-	    parseLine(stream.readLine().trimmed());
+            const QString text = line + stream.readLine().trimmed();
+	    if (!parseLine(text))
+            {
+                line = text;
+            }
 	}
 	else
 	{
-	    foreach ( const QString& line, stream.readAll().split( QLatin1Char('\n') ) )
+	    foreach ( const QString& newLine, stream.readAll().split( QLatin1Char('\n') ) )
 	    {
-		parseStub(line.trimmed());
-	    }
+                const QString text = line + newLine;
+                if ( !parseStub(text) && !parseLine(text) )
+                {
+                    line = text;
+                }
+            }
 	}
     }
 }
@@ -75,11 +83,13 @@ void TextProtocol::writeCheckMoves(const QString& text)
 
 void TextProtocol::write(const QString& text)
 {
+    kDebug() << text;
     stream << text << endl;
 }
 
 void TextProtocol::write(const char* text)
 {
+    kDebug() << text;
     stream << text << endl;
 }
 
