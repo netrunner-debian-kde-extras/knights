@@ -13,7 +13,7 @@ Vcs-Git: git://git.debian.org/pkg-kde/kde-extras/knights.git
 Package: knights
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Recommends: gnuchess, sjeng
+Recommends: gnuchess, stockfish, sjeng
 Suggests: crafty
 Description: chess interface for the KDE Platform
  Knights aims to be the ultimate chess resource on your computer. 
