@@ -1,6 +1,7 @@
 knights (2.4.1-1) UNRELEASED; urgency=low
 
   * New upstream release.
+  * Move sjeng from Suggests to Recommends.
 
  -- José Manuel Santamaría Lema <panfaust@gmail.com>  Wed, 21 Mar 2012 14:45:23 +0100
 
