@@ -706,11 +706,11 @@
 			<title
 >Geral</title>
 			<para
->A secção <guimenu
->Geral</guimenu
-> contém opções na aparência geral do &knights;. As animações das peças e do tabuleiro poderão ser activadas ou modificadas. A secção de animações fica visível com base nas aplicações do sistema, e só no caso de estas estarem disponíveis. Todos os três tipos de <link linkend="markers"
->marcadores</link
-> poderão ser activados ou desactivados. Os contornos em torno do tabuleiro poderão ser activados com ou sem a notação algébrica do xadrez, usando para tal uma lista. </para>
+>The <guimenu
+>General</guimenu
+> section contains options on the general appearance of &knights;. Animations of the pieces and board can be enabled or modified. The animations section is visible based upon system software, and is seen only if animations are available. All three types of <link linkend="markers"
+>markers</link
+> can be enabled or disabled. Borders around the chess board can be activated with or without algebraic chess notation by using a drop down menu. </para>
 			<note>
 				<title
 >Nota:</title>

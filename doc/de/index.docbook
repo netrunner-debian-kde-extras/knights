@@ -5,7 +5,7 @@
 >">
   <!ENTITY kappname "&knights;">
   <!ENTITY package "extragear/games">
-  <!ENTITY kappversion "2.4.1"
+  <!ENTITY kappversion "2.4.2"
 ><!--Application version. Use this variable everywhere it's needed.-->
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % German "INCLUDE">
@@ -323,7 +323,7 @@ http://noughmad.com/2011/10/25/upcoming-features-in-knights/
 		<para
 >Die Hauptregeln für Schach werden vom Weltschachverband (World Chess Federation ) FIDE festgelegt. Andere nationale oder lokale Gruppen können geringfügig veränderte Regeln benutzten. Normalerweise besteht der wesentliche Unterschied zwischen den Regeln in der benutzten Zeitbegrenzung oder den erlaubten Spielzügen - die grundsätzlichen Spielregeln und Spielzüge stimmen überein. &knights; benutzt die Standardregeln des Schachspiels mit mehreren möglichen Zeitbegrenzungsregeln.</para>
 		<para
->Es gibt viele Varianten des Standardschach. angeblich existieren mehr als 2000 Varianten. Die wichtigsten Varianten sind Schach-960 („Fischer-Random-Chess“), Tandemschach (Bughouse/Konferenz/Berliner Vierer), Crazyhouse oder Einsetzschach und Räuberschach (Suicide). In diesen Varianten gibt es abweichende Regeln für das Schlagen und Ziehen der Spielfiguren, das Spielende und für die Rückkehr von Figuren ins Spiel. Schachvarianten könne mit &knights; nicht gespielt werden.</para>
+>Es gibt viele Varianten des Standardschach. angeblich existieren mehr als 2000 Varianten. Die wichtigsten Varianten sind Schach-960 („Fischer-Random-Chess“), Tandemschach (Bughouse/Konferenz/Berliner Vierer), Crazyhouse oder Einsetzschach und Räuberschach (Suicide). In diesen Varianten gibt es abweichende Regeln für das Schlagen und Ziehen der Spielfiguren, das Spielende und für die Rückkehr von Figuren ins Spiel. Schachvarianten können mit &knights; nicht gespielt werden.</para>
 		<para
 >Vollständige Standardregeln für Schach finden Sie auf:</para>
 		<itemizedlist>

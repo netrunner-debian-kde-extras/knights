@@ -5,7 +5,7 @@
 >">
   <!ENTITY kappname "&knights;">
   <!ENTITY package "extragear/games">
-  <!ENTITY kappversion "2.4.0"
+  <!ENTITY kappversion "2.4.1"
 ><!--Application version. Use this variable everywhere it's needed.-->
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % Brazilian-Portuguese "INCLUDE">
@@ -57,7 +57,7 @@
 		</legalnotice>
 
 		<date
->2011-10-23</date
+>18/12/2011</date
 ><!-- Date of (re)writing, or update.-->
 		<releaseinfo
 >&kappversion; (&kde; 4.7) </releaseinfo
@@ -159,15 +159,29 @@ http://noughmad.com/2011/10/25/upcoming-features-in-knights/
 >Jogador 2</guilabel
 >. </para>
 			<para
->If you wish to play against the computer, select <guilabel
->Human (You)</guilabel
-> for <guilabel
->Player 1</guilabel
-> and <guilabel
->Computer engine</guilabel
-> for <guilabel
->Player 2</guilabel
->. Choose the program you would like to play against, and make sure that the program you specify is installed on your computer and that it supports the XBoard protocol. </para>
+>Se você quiser jogar contra o computador, selecione a opção <guilabel
+>Humano (Você)</guilabel
+> para o <guilabel
+>Jogador 1</guilabel
+> e <guilabel
+>Mecanismo do computador</guilabel
+> para o <guilabel
+>Jogador 2</guilabel
+>. Escolha o programa contra o qual deseja jogar e certifique-se de que o programa indicado está instalado no seu computador e suporta os protocolos do XBoard e do UCI. </para>
+			<para
+>Se você tiver instalado um mecanismo de xadrez, mas este não aparecer na lista, clique no botão <guilabel
+>Configurar mecanismos</guilabel
+> e adicione o mecanismo. Para mais informações sobre esta janela verifique em <link linkend="configuration-engines"
+>Mecanismos do computador</link
+>. </para>
+			<note
+><title
+>Nota</title>
+			<para
+>Ainda que um programa apareça na janela, não significa que esteja instalado. Certifique-se de que instalou os mecanismos de xadrez contra os quais deseja jogar. Você pode verificar possui ou não um mecanismo instalado no seu sistema na janela <guilabel
+>Configurar mecanismos</guilabel
+>. </para>
+			</note>
 			<para
 >Se você quiser jogar contra outra pessoa na Internet, selecione a opção <guilabel
 >Humano (Você)</guilabel
@@ -824,17 +838,34 @@ http://noughmad.com/2011/10/25/upcoming-features-in-knights/
 			<title
 >Geral</title>
 			<para
->The <guimenu
->General</guimenu
-> section contains options on the general appearance of &knights;. Animations of the pieces and board can be enabled or modified. The animations section is visible based upon system software, and is seen only if animations are available. All three types of <link linkend="markers"
->markers</link
-> can be enabled or disabled. Borders around the chess board can be activated with or without algebraic chess notation by using a drop down menu. </para>
+>A seção <guimenu
+>Geral</guimenu
+> contém opções na aparência geral do &knights;. As animações das peças e do tabuleiro podem ser ativadas ou modificadas. A seção de animações fica visível com base nos aplicativos do sistema, e somente no caso das animações estarem disponíveis. Existe a possibilidade de girar o tabuleiro de xadrez do &knights;, permitindo usá-lo em uma tela de computador ou em um tablet, em substituição a um tabuleiro de xadrez. Todos os três tipos de <link linkend="markers"
+>marcadores</link
+> podem ser ativados ou desativados. Os contornos do tabuleiro poderão ser ativados com ou sem a notação algébrica do xadrez, usando um menu de opções. </para>
 			<note>
 				<title
 >Nota:</title>
 				<para
 >Alguns temas podem não suportar marcadores, contornos e/ou notações. Nesse caso, a configuração não fará efeito sobre eles, mas será lembrada no caso de nova alteração do tema. </para>
 			</note>
+		</sect1>
+
+		<sect1 id="configuration-engines">
+			<title
+>Mecanismos do computador</title>
+			<mediaobject
+><imageobject
+><imagedata fileref="Knights-engines.png"/></imageobject
+></mediaobject>
+			<para
+>A seção de <guimenu
+>Mecanismos do computador</guimenu
+> permite-lhe configurar os seus adversários por computador. Para cada mecanismo, indique o nome do programa, o comando usado para executá-lo e o protocolo usado. O &knights; suporta dois protocolos para os mecanismos de xadrez: XBoard e UCI. </para>
+			<para
+>Uma nova configuração de mecanismo pode ser adicionada clicando em <guibutton
+>Adicionar</guibutton
+> e inserindo as três opções indicadas acima. Um símbolo nas últimas colunas indica-lhe se o programa indicado está instalado ou não no seu computador. </para>
 		</sect1>
 		
 		<sect1 id="configuration-accessibility">
@@ -844,8 +875,6 @@ http://noughmad.com/2011/10/25/upcoming-features-in-knights/
 >A seção <guimenu
 >Acessibilidade</guimenu
 > tem algumas opções que dizem respeito à apresentação do tabuleiro e da utilização de programas externos que facilitam a capacidade de pessoas com necessidades especiais poderem jogar. </para>
-			<para
->The feature of turning around the board when the local player changes is now optional, making it possible to use &knights; on a tablet as a chess board replacement. </para>
 			<para
 >O &jovie; - o serviço de texto-para-fala do &kde; - pode ser usado para sintetizar as jogadas dos adversários. </para>
 			<para

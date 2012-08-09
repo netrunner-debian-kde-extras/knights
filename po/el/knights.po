@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: knights\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2012-01-15 02:28+0100\n"
+"POT-Creation-Date: 2012-03-28 02:38+0200\n"
 "PO-Revision-Date: 2012-01-13 11:49+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -44,21 +44,21 @@ msgstr "Κονσόλα για %1 (%2)"
 msgid "Session started"
 msgstr "Η συνεδρία ξεκίνησε"
 
-#: proto/ficsdialog.cpp:92
+#: proto/ficsdialog.cpp:93
 msgid "Logging in..."
 msgstr "Είσοδος..."
 
-#: proto/ficsdialog.cpp:123 proto/ficsdialog.cpp:132
+#: proto/ficsdialog.cpp:124 proto/ficsdialog.cpp:133
 msgid "H:mm:ss"
 msgstr "H:mm:ss"
 
-#: proto/ficsdialog.cpp:150
+#: proto/ficsdialog.cpp:151
 #, kde-format
 msgctxt "PlayerName (rating)"
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
-#: proto/ficsdialog.cpp:229
+#: proto/ficsdialog.cpp:230
 #, kde-format
 msgid "<font color='red'>Error: %1</font>"
 msgstr "<font color='red'>Σφάλμα: %1</font>"
@@ -163,194 +163,194 @@ msgctxt "Protocol name"
 msgid "UCI"
 msgstr "UCI"
 
-#: gamedialog.cpp:241
+#: gamedialog.cpp:271
 msgid " minute"
 msgid_plural " minutes"
 msgstr[0] "λεπτό"
 msgstr[1] "λεπτά"
 
-#: gamedialog.cpp:242
+#: gamedialog.cpp:272
 msgid " second"
 msgid_plural " seconds"
 msgstr[0] "δευτερόλεπτο"
 msgstr[1] "δευτερόλεπτα"
 
-#: gamedialog.cpp:243 gamemanager.cpp:912
+#: gamedialog.cpp:273 gamemanager.cpp:914
 msgid " move"
 msgid_plural " moves"
 msgstr[0] "κίνηση"
 msgstr[1] "κινήσεις"
 
-#: gamemanager.cpp:462
+#: gamemanager.cpp:463
 msgctxt "The player of this color"
 msgid "White"
 msgstr "Λευκά"
 
-#: gamemanager.cpp:463
+#: gamemanager.cpp:464
 msgctxt "The player of this color"
 msgid "Black"
 msgstr "Μαύρα"
 
-#: gamemanager.cpp:577
+#: gamemanager.cpp:579
 #, kde-format
 msgid "%1 offers you a draw"
 msgstr "Ο %1 προσφέρει ισοπαλία"
 
-#: gamemanager.cpp:580
+#: gamemanager.cpp:582
 #, kde-format
 msgid "%2 would like to take back a half move"
 msgid_plural "%2 would like to take back %1 half moves"
 msgstr[0] "Ο %2 επιθυμεί να πάρει πίσω την τελευταία κίνηση"
 msgstr[1] "Ο %2 επιθυμεί να πάρει πίσω τις %1 τελευταίες κινήσεις"
 
-#: gamemanager.cpp:583
+#: gamemanager.cpp:585
 #, kde-format
 msgid "%1 would like to adjourn the game"
 msgstr "Ο %1 επιθυμεί τη διακοπή του παιχνιδιού"
 
-#: gamemanager.cpp:586
+#: gamemanager.cpp:588
 #, kde-format
 msgid "%1 would like to abort the game"
 msgstr "Ο %1 επιθυμεί να εγκαταλείψει το παιχνίδι"
 
-#: gamemanager.cpp:700
+#: gamemanager.cpp:702
 #, kde-format
 msgctxt "string to be spoken when the opponent castles queenside"
 msgid "%1 castles queenside"
 msgstr "O %1 κάνει ροκέ με τη βασίλισσα"
 
-#: gamemanager.cpp:705
+#: gamemanager.cpp:707
 #, kde-format
 msgctxt "string to be spoken when the opponent castles queenside"
 msgid "%1 castles kingside"
 msgstr "Ο %1 κάνει ροκέ με το βασιλιά"
 
-#: gamemanager.cpp:711
+#: gamemanager.cpp:713
 #, kde-format
 msgctxt "string to be spoken when the opponent makes a normal  move"
 msgid "%1 to %2"
 msgstr "%1 to %2"
 
-#: gamemanager.cpp:723
+#: gamemanager.cpp:725
 msgctxt "Your king is under attack"
 msgid "Check"
 msgstr "Σαχ"
 
-#: gamemanager.cpp:727
+#: gamemanager.cpp:729
 msgctxt "Your king is dead"
 msgid "Checkmate"
 msgstr "Ματ"
 
-#: knights.cpp:135
+#: knights.cpp:136
 msgid "Resign"
 msgstr "Παραίτηση"
 
-#: knights.cpp:136
+#: knights.cpp:137
 msgid "Admit your inevitable defeat"
 msgstr "Αποδέχεσαι την αναπόφευκτη ήττα"
 
-#: knights.cpp:140
+#: knights.cpp:142
 msgid "Undo"
 msgstr "Αναίρεση"
 
-#: knights.cpp:141
+#: knights.cpp:143
 msgid "Take back your last move"
 msgstr "Αναίρεση της τελευταίας σου κίνησης"
 
-#: knights.cpp:147
+#: knights.cpp:149
 msgid "Redo"
 msgstr "Επανάληψη"
 
-#: knights.cpp:148
+#: knights.cpp:150
 msgid "Repeat your last move"
 msgstr "Επανάληψη της τελευταίας σου κίνησης"
 
-#: knights.cpp:154
+#: knights.cpp:156
 msgid "Offer &Draw"
 msgstr "Προσφορά &ισοπαλίας"
 
-#: knights.cpp:155
+#: knights.cpp:157
 msgid "Offer a draw to your opponent"
 msgstr "Προσφορά ισοπαλίας στον αντίπαλο"
 
-#: knights.cpp:159
+#: knights.cpp:162
 msgid "Adjourn"
 msgstr "Διακοπή"
 
-#: knights.cpp:160
+#: knights.cpp:163
 msgid "Continue this game at a later time"
 msgstr "Συνέχεια του παιχνιδιού αργότερα"
 
-#: knights.cpp:164
+#: knights.cpp:168
 msgid "Abort"
 msgstr "Εγκατάλειψη"
 
-#: knights.cpp:165
+#: knights.cpp:169
 msgid "End the game immediately"
 msgstr "Άμεσος τερματισμός του παιχνιδιού"
 
-#: knights.cpp:168
+#: knights.cpp:173
 msgid "Show Clock"
 msgstr "Εμφάνιση ρολογιού"
 
-#: knights.cpp:174
+#: knights.cpp:179
 msgid "Show History"
 msgstr "Εμφάνιση ιστορικού"
 
-#: knights.cpp:181
+#: knights.cpp:186
 msgid "Show White Console"
 msgstr "Εμφάνιση κονσόλας λευκών"
 
-#: knights.cpp:187
+#: knights.cpp:192
 msgid "Show Black Console"
 msgstr "Εμφάνιση κονσόλας μαύρων"
 
-#: knights.cpp:193
+#: knights.cpp:198
 msgid "Show Chat"
 msgstr "Εμφάνιση συνομιλίας"
 
-#: knights.cpp:214
+#: knights.cpp:220
 msgid "New Game"
 msgstr "Νέο παιχνίδι"
 
-#: knights.cpp:235 knights.cpp:640 knights.cpp:655
+#: knights.cpp:241 knights.cpp:652 knights.cpp:667
 msgid "*.pgn | Portable game notation"
 msgstr "*.pgn | Portable game notation"
 
-#: knights.cpp:259 knights.cpp:271
+#: knights.cpp:265 knights.cpp:277
 msgid "This feature is not yet implemented in Knights"
 msgstr "Αυτό το χαρακτηριστικό δεν έχει ακόμη υλοποιηθεί στο Knights"
 
-#: knights.cpp:429
+#: knights.cpp:442
 msgid "Clock"
 msgstr "Ρολόι"
 
-#: knights.cpp:463
+#: knights.cpp:476
 msgid "Move History"
 msgstr "Ιστορικό κινήσεων"
 
-#: knights.cpp:493
+#: knights.cpp:506
 msgid "General"
 msgstr "Γενικά"
 
-#: knights.cpp:497
+#: knights.cpp:510
 msgid "Computer Engines"
 msgstr "Υπολογιστικές μηχανές"
 
-#: knights.cpp:502
+#: knights.cpp:515
 msgid "Accessibility"
 msgstr "Προσβασιμότητα"
 
-#: knights.cpp:505
+#: knights.cpp:518
 msgid "Theme"
 msgstr "Θέμα"
 
-#: knights.cpp:592
+#: knights.cpp:604
 #, kde-format
 msgid "%1 vs. %2"
 msgstr "%1 vs. %2"
 
-#: knights.cpp:617
+#: knights.cpp:629
 msgid ""
 "This will end your game.\n"
 "Would you like to save the move history?"
@@ -922,51 +922,15 @@ msgstr "Προσαρτήσιμη γραμμή εργαλείων παραθύρ�
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#. i18n: file: enginesettings.ui:19
-#. i18n: ectx: property (text), widget (KPushButton, addButton)
-#: rc.cpp:257
-msgid "Add"
-msgstr "Προσθήκη"
-
-#. i18n: file: enginesettings.ui:26
-#. i18n: ectx: property (text), widget (KPushButton, removeButton)
-#: rc.cpp:260
-msgid "Remove"
-msgstr "Αφαίρεση"
-
-#. i18n: file: enginesettings.ui:61
-#. i18n: ectx: property (text), widget (QTableWidget, tableWidget)
-#: rc.cpp:263
-msgid "Name"
-msgstr "Όνομα"
-
-#. i18n: file: enginesettings.ui:66
-#. i18n: ectx: property (text), widget (QTableWidget, tableWidget)
-#: rc.cpp:266
-msgid "Command"
-msgstr "Εντολή"
-
-#. i18n: file: enginesettings.ui:71
-#. i18n: ectx: property (text), widget (QTableWidget, tableWidget)
-#: rc.cpp:269
-msgid "Protocol"
-msgstr "Πρωτόκολλο"
-
-#. i18n: file: enginesettings.ui:76
-#. i18n: ectx: property (text), widget (QTableWidget, tableWidget)
-#: rc.cpp:272
-msgid "Installed"
-msgstr "Εγκαταστάθηκε"
-
 #. i18n: file: knights.kcfg:10
 #. i18n: ectx: label, entry (Theme), group (KGameTheme)
-#: rc.cpp:275
+#: rc.cpp:257
 msgid "Theme file for the board"
 msgstr "Θέμα αρχείου για τη σκακιέρα"
 
 #. i18n: file: knights.kcfg:16
 #. i18n: ectx: label, entry (askDiscard), group (Notification Messages)
-#: rc.cpp:278
+#: rc.cpp:260
 msgid "whether to show a confirmation dialog before discarding game history"
 msgstr ""
 "αν θα εμφανίζεται διάλογος επιβεβαίωσης πριν την απόρριψη του ιστορικού του "
@@ -974,19 +938,19 @@ msgstr ""
 
 #. i18n: file: knights.kcfg:20
 #. i18n: ectx: label, entry (dontAskInternal), group (Notification Messages)
-#: rc.cpp:281
+#: rc.cpp:263
 msgid "internal variable controlling the confirm dialog"
 msgstr "εσωτερική μεταβλητή που ελέγχει τον διάλογο επιβεβαίωσης"
 
 #. i18n: file: knights.kcfg:32
 #. i18n: ectx: label, entry (animationSpeed), group (Preferences)
-#: rc.cpp:284
+#: rc.cpp:266
 msgid "Moves animation speed"
 msgstr "Ταχύτητα απόδοσης κίνησης"
 
 #. i18n: file: knights.kcfg:36
 #. i18n: ectx: label, entry (animateBoard), group (Preferences)
-#: rc.cpp:287
+#: rc.cpp:269
 msgid "whether the Board is animated during rotating and resizing"
 msgstr ""
 "αν η σκακιέρα είναι με απόδοση κίνησης κατά την περιστροφή και αλλαγή "
@@ -994,73 +958,73 @@ msgstr ""
 
 #. i18n: file: knights.kcfg:40
 #. i18n: ectx: label, entry (flipBoard), group (Preferences)
-#: rc.cpp:290
+#: rc.cpp:272
 msgid "whether to rotate the board when in local two-player mode"
 msgstr "αν θα περιστραφεί η σκακιέρα σε τοπική λειτουργία με δύο παίκτες"
 
 #. i18n: file: knights.kcfg:49
 #. i18n: ectx: label, entry (borderDisplayType), group (Preferences)
-#: rc.cpp:293
+#: rc.cpp:275
 msgid "chessboard border type"
 msgstr "Τύπος άκρου σκακιέρας"
 
 #. i18n: file: knights.kcfg:53
 #. i18n: ectx: label, entry (showDanger), group (Preferences)
-#: rc.cpp:296
+#: rc.cpp:278
 msgid "show check marker"
 msgstr "εμφάνιση δείκτη σαχ"
 
 #. i18n: file: knights.kcfg:57
 #. i18n: ectx: label, entry (showMarker), group (Preferences)
-#: rc.cpp:299
+#: rc.cpp:281
 msgid "show legal moves marker"
 msgstr "εμφάνιση δείκτη νόμιμων κινήσεων"
 
 #. i18n: file: knights.kcfg:61
 #. i18n: ectx: label, entry (showMotion), group (Preferences)
-#: rc.cpp:302
+#: rc.cpp:284
 msgid "show opponents move marker"
 msgstr "εμφάνιση δείκτη κινήσεων αντιπάλου"
 
 #. i18n: file: knights.kcfg:65
 #. i18n: ectx: label, entry (showClock), group (Preferences)
-#: rc.cpp:305
+#: rc.cpp:287
 msgid "show clocks when time control is in use"
 msgstr "εμφάνιση ρολογιών όταν χρησιμοποιείται ο έλεγχος χρονικής περιόδου"
 
 #. i18n: file: knights.kcfg:69
 #. i18n: ectx: label, entry (showChat), group (Preferences)
-#: rc.cpp:308
+#: rc.cpp:290
 msgid "show chat window, if supported by the protocol"
 msgstr "εμφάνιση παραθύρου συνομιλίας, αν υποστηρίζεται από το πρωτόκολλο"
 
 #. i18n: file: knights.kcfg:73
 #. i18n: ectx: label, entry (showConsole), group (Preferences)
-#: rc.cpp:311
+#: rc.cpp:293
 msgid "show the text console, if supported by the protocol"
 msgstr "εμφάνιση κονσόλας κειμένου, αν υποστηρίζεται από το πρωτόκολλο"
 
 #. i18n: file: knights.kcfg:77
 #. i18n: ectx: label, entry (showHistory), group (Preferences)
-#: rc.cpp:314
+#: rc.cpp:296
 msgid "show move history"
 msgstr "εμφάνιση ιστορικού κινήσεων"
 
 #. i18n: file: knights.kcfg:83
 #. i18n: ectx: label, entry (timeLimit), group (Time Control)
-#: rc.cpp:317
+#: rc.cpp:299
 msgid "initial time limit for both players"
 msgstr "αρχικό χρονικό περιθώριο και για τους δύο παίκτες"
 
 #. i18n: file: knights.kcfg:87
 #. i18n: ectx: label, entry (timeIncrement), group (Time Control)
-#: rc.cpp:320
+#: rc.cpp:302
 msgid "time increment per move (for Incremental time control)"
 msgstr "χρονική πρόοδος ανά κίνηση (για προοδευτικό έλεγχο χρονικής περιόδου)"
 
 #. i18n: file: knights.kcfg:91
 #. i18n: ectx: label, entry (numberOfMoves), group (Time Control)
-#: rc.cpp:323
+#: rc.cpp:305
 msgid ""
 "the number of moves the player has to make in the specified time (for "
 "Conventional time control)"
@@ -1070,7 +1034,7 @@ msgstr ""
 
 #. i18n: file: knights.kcfg:95
 #. i18n: ectx: label, entry (timeEnabled), group (Time Control)
-#: rc.cpp:326
+#: rc.cpp:308
 msgid "whether time limits are enabled and displayed"
 msgstr "αν τα χρονικά περιθώρια είναι ενεργοποιημένα και εμφανίζονται"
 
@@ -1078,13 +1042,13 @@ msgstr "αν τα χρονικά περιθώρια είναι ενεργοπο�
 #. i18n: ectx: label, entry (player1Protocol), group (Protocols)
 #. i18n: file: knights.kcfg:114
 #. i18n: ectx: label, entry (player2Protocol), group (Protocols)
-#: rc.cpp:329 rc.cpp:332
+#: rc.cpp:311 rc.cpp:314
 msgid "protocol to be used for player 1"
 msgstr "πρωτόκολλο για τον παίκτη 1"
 
 #. i18n: file: knights.kcfg:123
 #. i18n: ectx: label, entry (color), group (Protocols)
-#: rc.cpp:335
+#: rc.cpp:317
 msgid ""
 "the local human player's color in a game against a computer or over the "
 "Internet."
@@ -1094,31 +1058,31 @@ msgstr ""
 
 #. i18n: file: knights.kcfg:127
 #. i18n: ectx: label, entry (programs), group (Protocols)
-#: rc.cpp:338
+#: rc.cpp:320
 msgid "list of programs to run for playing against the computer"
 msgstr "λίστα προγραμμάτων προς εκτέλεση για παιχνίδι εναντίον του υπολογιστή"
 
 #. i18n: file: knights.kcfg:131
 #. i18n: ectx: label, entry (player1Program), group (Protocols)
-#: rc.cpp:341
+#: rc.cpp:323
 msgid "the last selected program for player 1"
 msgstr "η τελευταία επιλογή προγράμματος για τον παίκτη 1"
 
 #. i18n: file: knights.kcfg:135
 #. i18n: ectx: label, entry (player2Program), group (Protocols)
-#: rc.cpp:344
+#: rc.cpp:326
 msgid "the last selected program for player 2"
 msgstr "η τελευταία επιλογή προγράμματος για τον παίκτη 2"
 
 #. i18n: file: knights.kcfg:139
 #. i18n: ectx: label, entry (computerDifficulty), group (Protocols)
-#: rc.cpp:347
+#: rc.cpp:329
 msgid "the skill of computer players"
 msgstr "η ικανότητα των ηλεκτρονικών παικτών"
 
 #. i18n: file: knights.kcfg:143
 #. i18n: ectx: label, entry (computerSearchDepth), group (Protocols)
-#: rc.cpp:350
+#: rc.cpp:332
 msgid ""
 "the search depth of computer engines, when the difficulty is set to "
 "Configurable"
@@ -1128,7 +1092,7 @@ msgstr ""
 
 #. i18n: file: knights.kcfg:147
 #. i18n: ectx: label, entry (computerMemorySize), group (Protocols)
-#: rc.cpp:353
+#: rc.cpp:335
 msgid ""
 "the memory size used by computer engines, when the difficulty is set to "
 "Configurable"
@@ -1138,37 +1102,37 @@ msgstr ""
 
 #. i18n: file: knights.kcfg:151
 #. i18n: ectx: label, entry (servers), group (Protocols)
-#: rc.cpp:356
+#: rc.cpp:338
 msgid "list of servers for playing over the Internet"
 msgstr "λίστα εξυπηρετητών για παιχνίδι μέσω Διαδικτύου"
 
 #. i18n: file: knights.kcfg:155
 #. i18n: ectx: label, entry (currentServer), group (Protocols)
-#: rc.cpp:359
+#: rc.cpp:341
 msgid "the last selected server"
 msgstr "η τελευταία επιλογή εξυπηρετητή"
 
 #. i18n: file: knights.kcfg:159
 #. i18n: ectx: label, entry (ficsUsername), group (Protocols)
-#: rc.cpp:362
+#: rc.cpp:344
 msgid "username for the Free Internet Chess Server"
 msgstr "όνομα χρήστη για τον Free Internet Chess Server"
 
 #. i18n: file: knights.kcfg:163
 #. i18n: ectx: label, entry (guest), group (Protocols)
-#: rc.cpp:365
+#: rc.cpp:347
 msgid "whether to log in as guest"
 msgstr "αν θα γίνει είσοδος ως guest"
 
 #. i18n: file: knights.kcfg:167
 #. i18n: ectx: label, entry (autoLogin), group (Protocols)
-#: rc.cpp:368
+#: rc.cpp:350
 msgid "whether to log in to chess server automatically"
 msgstr "αν θα γίνει αυτόματη είσοδος στον εξυπηρετητή σκακιού"
 
 #. i18n: file: knights.kcfg:171
 #. i18n: ectx: label, entry (computerDelay), group (Protocols)
-#: rc.cpp:371
+#: rc.cpp:353
 msgid "delay before a computer's move is reported, in milliseconds"
 msgstr ""
 "καθυστέρηση πριν την αναφορά μιας κίνησης του υπολογιστή, σε χιλιοστά "
@@ -1176,21 +1140,57 @@ msgstr ""
 
 #. i18n: file: knights.kcfg:175
 #. i18n: ectx: label, entry (engineConfigurations), group (Protocols)
-#: rc.cpp:374
+#: rc.cpp:356
 msgid "stored configurations of engine-specific settings"
 msgstr "αποθηκευμένες επιλογές διαμόρφωσης ρυθμίσεων ειδικά για τις μηχανές"
 
 #. i18n: file: knights.kcfg:181
 #. i18n: ectx: label, entry (speakOpponentsMoves), group (Accessibility)
-#: rc.cpp:377
+#: rc.cpp:359
 msgid "whether opponents' moves are spoken by Jovie"
 msgstr "αν οι κινήσεις του αντιπάλου εκφωνούνται από το Jovie"
 
 #. i18n: file: knights.kcfg:185
 #. i18n: ectx: label, entry (allowExternalControl), group (Accessibility)
-#: rc.cpp:380
+#: rc.cpp:362
 msgid "whether commands over D-Bus are accepted"
 msgstr "αν οι εντολές μέσω D-Bus είναι δεκτές"
+
+#. i18n: file: enginesettings.ui:19
+#. i18n: ectx: property (text), widget (KPushButton, addButton)
+#: rc.cpp:366
+msgid "Add"
+msgstr "Προσθήκη"
+
+#. i18n: file: enginesettings.ui:26
+#. i18n: ectx: property (text), widget (KPushButton, removeButton)
+#: rc.cpp:369
+msgid "Remove"
+msgstr "Αφαίρεση"
+
+#. i18n: file: enginesettings.ui:61
+#. i18n: ectx: property (text), widget (QTableWidget, tableWidget)
+#: rc.cpp:372
+msgid "Name"
+msgstr "Όνομα"
+
+#. i18n: file: enginesettings.ui:66
+#. i18n: ectx: property (text), widget (QTableWidget, tableWidget)
+#: rc.cpp:375
+msgid "Command"
+msgstr "Εντολή"
+
+#. i18n: file: enginesettings.ui:71
+#. i18n: ectx: property (text), widget (QTableWidget, tableWidget)
+#: rc.cpp:378
+msgid "Protocol"
+msgstr "Πρωτόκολλο"
+
+#. i18n: file: enginesettings.ui:76
+#. i18n: ectx: property (text), widget (QTableWidget, tableWidget)
+#: rc.cpp:381
+msgid "Installed"
+msgstr "Εγκαταστάθηκε"
 
 #. i18n: file: customdifficultydialog.ui:20
 #. i18n: ectx: property (text), widget (QLabel, searchDepthLabel)

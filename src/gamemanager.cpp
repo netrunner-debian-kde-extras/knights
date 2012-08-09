@@ -30,7 +30,6 @@
 #include "ui_customdifficultydialog.h"
 
 #include <KDebug>
-#include <KLocale>
 #include <KSpeech>
 #include "kspeechinterface.h"
 #include <KFileDialog>
@@ -455,14 +454,17 @@ void Manager::moveByProtocol(const Move& move)
 void Manager::protocolInitSuccesful()
 {
   Q_D(GameManager);
-  if ( !d->gameStarted && Protocol::white()->isReady() && Protocol::black()->isReady() )
+  if ( Protocol::white() && Protocol::black() )
   {
-    if ( Protocol::white()->isLocal() && Protocol::black()->isLocal() )
+    if ( !d->gameStarted && Protocol::white()->isReady() && Protocol::black()->isReady() )
     {
-      Protocol::white()->setPlayerName ( i18nc ( "The player of this color", "White" ) );
-      Protocol::black()->setPlayerName ( i18nc ( "The player of this color", "Black" ) );
+      if ( Protocol::white()->isLocal() && Protocol::black()->isLocal() )
+      {
+        Protocol::white()->setPlayerName ( i18nc ( "The player of this color", "White" ) );
+        Protocol::black()->setPlayerName ( i18nc ( "The player of this color", "Black" ) );
+      }
+      emit initComplete();
     }
-    emit initComplete();
   }
 }
 
@@ -1015,7 +1017,7 @@ void Manager::saveGameHistoryAs(const QString& filename)
   QByteArray result;
   if ( d->running )
   {
-    result = "*";
+    result += '*';
   }
   else
   {
