@@ -1,4 +1,4 @@
-knights (2.4.1-1) UNRELEASED; urgency=low
+knights (2.4.2-1) UNRELEASED; urgency=low
 
   * New upstream release.
   * Move sjeng from Suggests to Recommends.
