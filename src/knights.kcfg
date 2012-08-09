@@ -165,7 +165,7 @@
     </entry>
     <entry name="autoLogin" type="Bool">
       <label>whether to log in to chess server automatically</label>
-      <default>true</default>
+      <default>false</default>
     </entry>
     <entry name="computerDelay" type="Int">
       <label>delay before a computer's move is reported, in milliseconds</label>
@@ -173,7 +173,7 @@
     </entry>
     <entry name="engineConfigurations" type="StringList">
       <label>stored configurations of engine-specific settings</label>
-      <default>GNU Chess:gnuchess:xboard,Crafty:crafty:xboard,Stockfish:stockfish:uci</default>
+      <default>GNU Chess:gnuchess:xboard,Crafty:crafty:xboard,Stockfish:stockfish:uci,Sjeng:sjeng:xboard</default>
     </entry>
   </group>
   <group name="Accessibility">

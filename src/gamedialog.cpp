@@ -82,6 +82,10 @@ GameDialog::GameDialog ( QWidget* parent, Qt::WindowFlags f ) : QWidget ( parent
     }
 
     loadEngines();
+
+    ui->player2Server->setHistoryItems ( Settings::servers() );
+    ui->player2Server->setEditText ( Settings::currentServer() ); 
+
     connect ( ui->player1Engines, SIGNAL(clicked(bool)), SLOT(showEngineConfigDialog()) );
     connect ( ui->player2Engines, SIGNAL(clicked(bool)), SLOT(showEngineConfigDialog()) );
     
@@ -122,17 +126,30 @@ void GameDialog::setupProtocols()
     }
     else
     {
-        EngineConfiguration c = configs [ ui->player1Program->currentIndex() ];
-        if ( c.iface == EngineConfiguration::XBoard )
+        if ( ui->player2Program->currentIndex() != -1 )
         {
-            p1 = new XBoardProtocol;
+            EngineConfiguration c = configs [ ui->player1Program->currentIndex() ];
+            if ( c.iface == EngineConfiguration::XBoard )
+            {
+                p1 = new XBoardProtocol;
+            }
+            else
+            {
+                p1 = new UciProtocol; 
+            }
+            p1->setAttribute ( "program", c.commandLine );
+            p1->setPlayerName ( c.name );
         }
         else
         {
-            p1 = new UciProtocol; 
-        }
-        p1->setAttribute ( "program", c.commandLine );
-        p1->setPlayerName ( c.name );
+            //This happens when the user didn't select any game engine, so we are
+            //creating below a dummy XBoardProtocol object with an invalid command
+            //path (i.e. an empty QString), thus this object will send a signal
+            //error which will end up in a notificaction of the error to the user,
+            //raising a KMessageBox error or so.
+            p1 = new XBoardProtocol;
+            p1->setAttribute( "program", QString());
+        }  
     }
     
     if ( ui->colorWhite->isChecked() )
@@ -150,17 +167,30 @@ void GameDialog::setupProtocols()
     }
     else if ( ui->player2Comp->isChecked() )
     {
-        EngineConfiguration c = configs [ ui->player2Program->currentIndex() ];
-        if ( c.iface == EngineConfiguration::XBoard )
+        if ( ui->player2Program->currentIndex() != -1 )
         {
-            p2 = new XBoardProtocol;
+            EngineConfiguration c = configs [ ui->player2Program->currentIndex() ];
+            if ( c.iface == EngineConfiguration::XBoard )
+            {
+                p2 = new XBoardProtocol;
+            }
+            else
+            {
+                p2 = new UciProtocol; 
+            }
+            p2->setAttribute ( "program", c.commandLine );
+            p2->setPlayerName ( c.name );
         }
         else
         {
-            p2 = new UciProtocol; 
+            //This happens when the user didn't select any game engine, so we are
+            //creating below a dummy XBoardProtocol object with an invalid command
+            //path (i.e. an empty QString), thus this object will send a signal
+            //error which will end up in a notificaction of the error to the user,
+            //raising a KMessageBox error or so.
+            p2 = new XBoardProtocol;
+            p2->setAttribute( "program", QString());
         }
-        p2->setAttribute ( "program", c.commandLine );
-        p2->setPlayerName ( c.name );
     }
     else
     {
@@ -246,7 +276,7 @@ void GameDialog::updateTimeEdits()
 void GameDialog::changeNetworkStatus(Solid::Networking::Status status)
 {
     kDebug() << status;
-    bool enableFics = status == Solid::Networking::Connected || status == Solid::Networking::Unknown;
+    bool enableFics = ( status == Solid::Networking::Connected || status == Solid::Networking::Unknown );
     if (!enableFics && ui->player2Fics->isChecked())
     {
         ui->player2Comp->setChecked ( true );

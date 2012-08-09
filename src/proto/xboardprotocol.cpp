@@ -42,7 +42,14 @@ XBoardProtocol::XBoardProtocol ( QObject* parent ) : ComputerProtocol ( parent )
 
 Protocol::Features XBoardProtocol::supportedFeatures()
 {
-    return GameOver | Pause | Draw | Adjourn | Resign | Undo | SetDifficulty | AdjustDifficulty;
+    // FIXME: This shouldn't be hardcoded. For instance, a chess engine which
+    // supports the XBoard protocol may or may not support the pause action; we
+    // should find this out using the 'protover' command which will reply with
+    // the 'feature' command. See the XBoard protocol specification:
+    // http://home.hccnet.nl/h.g.muller/engine-intf.html
+
+    //return GameOver | Pause | Draw | Adjourn | Resign | Undo | SetDifficulty | AdjustDifficulty;
+    return GameOver | Pause | Draw | Resign | Undo | SetDifficulty | AdjustDifficulty;
 }
 
 XBoardProtocol::~XBoardProtocol()
@@ -212,7 +219,7 @@ void XBoardProtocol::acceptOffer(const Offer& offer)
             break;
             
         case ActionAdjourn:
-            write( QLatin1String("save") + KFileDialog::getSaveFileName() );
+            write( QLatin1String("save ") + KFileDialog::getSaveFileName() );
             break;
             
         case ActionUndo:
@@ -290,7 +297,7 @@ void XBoardProtocol::makeOffer(const Offer& offer)
             break;
             
         case ActionAdjourn:
-            write( QLatin1String("save") + KFileDialog::getSaveFileName() );
+            write( QLatin1String("save ") + KFileDialog::getSaveFileName() );
             offer.accept();
             break;
             
