@@ -6,6 +6,7 @@ knights (2.4.2-1) UNRELEASED; urgency=low
   * Add stockfish to Recommends.
   * Add knights-dbg package.
   * Bump Standards-Version to 3.9.3; no changes needed.
+  * Update copyright file.
 
  -- José Manuel Santamaría Lema <panfaust@gmail.com>  Wed, 21 Mar 2012 14:45:23 +0100
 
