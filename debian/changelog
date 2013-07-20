@@ -6,6 +6,7 @@ knights (2.5.0-0r1) UNRELEASED; urgency=low
   * Bump the kdelibs5-dev and libkdegames-dev build dependencies to 4.9,
     as required upstream.
   * Update Vcs-* headers.
+  * Bump Standards-Version to 3.9.4, no changes required.
 
  -- Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>  Sat, 20 Jul 2013 16:13:38 +0200
 

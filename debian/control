@@ -6,7 +6,7 @@ Uploaders: José Manuel Santamaría Lema <panfaust@gmail.com>
 Build-Depends: debhelper (>= 9.0.0~), cdbs, pkg-kde-tools, cmake,
  kdelibs5-dev (>> 4:4.9),
  libkdegames-dev (>> 4:4.9)
-Standards-Version: 3.9.3
+Standards-Version: 3.9.4
 Homepage: http://kde-apps.org/content/show.php/Knights?content=122046
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-kde/kde-extras/knights.git
 Vcs-Git: git://anonscm.debian.org/pkg-kde/kde-extras/knights.git
