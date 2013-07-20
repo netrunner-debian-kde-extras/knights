@@ -1,4 +1,4 @@
-knights (2.4.2-1) UNRELEASED; urgency=low
+knights (2.4.2-1) experimental; urgency=low
 
   * New upstream release.
   * Delete load_right_default_theme.diff, applied upstream.
@@ -9,7 +9,7 @@ knights (2.4.2-1) UNRELEASED; urgency=low
   * Bump Standards-Version to 3.9.3; no changes needed.
   * Update copyright file.
 
- -- José Manuel Santamaría Lema <panfaust@gmail.com>  Wed, 21 Mar 2012 14:45:23 +0100
+ -- José Manuel Santamaría Lema <panfaust@gmail.com>  Wed, 12 Sep 2012 23:49:48 +0200
 
 knights (2.3.2-1) unstable; urgency=low
 
