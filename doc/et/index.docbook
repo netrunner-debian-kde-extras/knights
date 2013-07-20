@@ -5,7 +5,7 @@
 >">
   <!ENTITY kappname "&knights;">
   <!ENTITY package "extragear/games">
-  <!ENTITY kappversion "2.4.0"
+  <!ENTITY kappversion "2.4.90 (2.5 Beta 1)"
 ><!--Application version. Use this variable everywhere it's needed.-->
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % Estonian  "INCLUDE">
@@ -57,7 +57,7 @@
 		</legalnotice>
 
 		<date
->2011-10-23</date
+>2011-12-18</date
 ><!-- Date of (re)writing, or update.-->
 		<releaseinfo
 >&kappversion; (&kde; 4.7) </releaseinfo
@@ -159,15 +159,29 @@ http://noughmad.com/2011/10/25/upcoming-features-in-knights/
 >Mängija 2</guilabel
 > jaoks. </para>
 			<para
->If you wish to play against the computer, select <guilabel
->Human (You)</guilabel
-> for <guilabel
->Player 1</guilabel
-> and <guilabel
->Computer engine</guilabel
-> for <guilabel
->Player 2</guilabel
->. Choose the program you would like to play against, and make sure that the program you specify is installed on your computer and that it supports the XBoard protocol. </para>
+>Kui soovid mängida arvuti vastu, vali <guilabel
+>Inimene (sina)</guilabel
+> <guilabel
+>Mängija 1</guilabel
+> ja <guilabel
+>Arvutimootor</guilabel
+> <guilabel
+>Mängija 2</guilabel
+> jaoks. Vali programm, mille vastu soovid mängida, ja kontrolli kindlasti, et määratud programm oleks arvutisse paigaldatud ning toetaks protokolli XBoard või UCI. </para>
+			<para
+>Kui oled paigaldanud malemootori, aga seda pole nimekirjas näha, klõpsa nupule <guilabel
+>Seadista mootoreid</guilabel
+> ja lisa see selle kaudu. Dialoogist kõneleb lähemalt osa <link linkend="configuration-engines"
+>Arvutimootorid</link
+>. </para>
+			<note
+><title
+>Märkus</title>
+			<para
+>Isegi kui programm on dialoogis kirjas, ei tähenda see, et see oleks paigaldatud. Kontrolli, et oleksid paigaldanud kõik malemootorid, mida soovid mängimisel kasutada. Seda, kas mootor on sisu süsteemi paigaldatud, saab kontrollida dialoogis <guilabel
+>Mootorite seadistamine</guilabel
+>. </para>
+			</note>
 			<para
 >Kui soovid mängida kellegagi internetis, vali <guilabel
 >Inimene (sina)</guilabel
@@ -822,17 +836,34 @@ http://noughmad.com/2011/10/25/upcoming-features-in-knights/
 			<title
 >Üldine</title>
 			<para
->The <guimenu
->General</guimenu
-> section contains options on the general appearance of &knights;. Animations of the pieces and board can be enabled or modified. The animations section is visible based upon system software, and is seen only if animations are available. All three types of <link linkend="markers"
->markers</link
-> can be enabled or disabled. Borders around the chess board can be activated with or without algebraic chess notation by using a drop down menu. </para>
+>Sektsiooni <guimenu
+>Üldine</guimenu
+> valikud puudutavad &knights;i üldist välimust. Siin saab sisse lülitada või muuta malendite ja mängulaua animatsioone. Animatsioonide sektsiooni näidatakse sõltuvalt süsteemi tarkvarast, eelkõige muidugi siis, kui animatsioonid on saadaval.Mängulauda on võimalik pöörata, mis lubab &knights;i malelauda ümber pöörata, kui kasutad seda arvutiekraanil või tahvelarvutil ehtsa malelaua asendusena. Sisse või välja lülitada saab kõiki <link linkend="markers"
+>markerite</link
+> kolme tüüpi. Soovi korral saab sisse lülitada piirded malelaua ümber ning algebralise tähistuse. </para>
 			<note>
 				<title
 >Märkus:</title>
 				<para
 >Mõned teemad ei pruugi toetada markereid, piirdeid ja/või tähistust. Sel juhul siinne seadistus mingit mõju ei avalda, kuid see jäetakse meelde ja võetakse kasutusele, kui muudad teemat. </para>
 			</note>
+		</sect1>
+
+		<sect1 id="configuration-engines">
+			<title
+>Arvutimootorid</title>
+			<mediaobject
+><imageobject
+><imagedata fileref="Knights-engines.png"/></imageobject
+></mediaobject>
+			<para
+><guimenu
+>Arvutimootorite</guimenu
+> sektsioon võimaldab seadistada enda arvutivastaseid. Iga mootori korral peab olema kirjas programmi nimi, käsk selle käivitamiseks ja protokoll, mida mootor kasutab. &knights; toetab kaht malemootorite protokolli: XBoard ja UCI. </para>
+			<para
+>Uus mootori seadistuse saab lisada klõpsuga nupule <guibutton
+>Lisa</guibutton
+> ja mainitud kolme parameetrit sisestades. Sümbol viimases veerus näitab, kas programm on sinu arvutisse paigaldatud või mitte. </para>
 		</sect1>
 		
 		<sect1 id="configuration-accessibility">
@@ -842,8 +873,6 @@ http://noughmad.com/2011/10/25/upcoming-features-in-knights/
 >Sektsioonis <guimenu
 >Hõlbustus</guimenu
 > leiab mõned valikud mängulaua ja väliste programmide kasutamise kohta, mis peaksid muutma mängimise lihtsamaks puuetega inimestele. </para>
-			<para
->The feature of turning around the board when the local player changes is now optional, making it possible to use &knights; on a tablet as a chess board replacement. </para>
 			<para
 >&kde; teksti ettelugemise teenust &jovie; saab kasutada vastase käikude kuuldavalt esitamiseks. </para>
 			<para

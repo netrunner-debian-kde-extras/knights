@@ -5,7 +5,7 @@
 >">
   <!ENTITY kappname "&knights;">
   <!ENTITY package "extragear/games">
-  <!ENTITY kappversion "2.4.1"
+  <!ENTITY kappversion "2.5.0"
 ><!--Application version. Use this variable everywhere it's needed.-->
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % Brazilian-Portuguese "INCLUDE">
@@ -57,10 +57,10 @@
 		</legalnotice>
 
 		<date
->18/12/2011</date
+>08/08/2012</date
 ><!-- Date of (re)writing, or update.-->
 		<releaseinfo
->&kappversion; (&kde; 4.7) </releaseinfo
+>&kappversion; (&kde; 4.9) </releaseinfo
 ><!-- Application version number. Use the variable definitions within header to change this value.-->
 
 		<abstract>
@@ -922,7 +922,7 @@ http://noughmad.com/2011/10/25/upcoming-features-in-knights/
 > </para>
 		
 		<para
->Tradução de Marcus Gama<email
+>Tradução de Marcus Gama <email
 >marcus.gama@gmail.com</email
 ></para
 > 

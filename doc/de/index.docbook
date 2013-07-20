@@ -5,7 +5,7 @@
 >">
   <!ENTITY kappname "&knights;">
   <!ENTITY package "extragear/games">
-  <!ENTITY kappversion "2.4.2"
+  <!ENTITY kappversion "2.5.0"
 ><!--Application version. Use this variable everywhere it's needed.-->
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % German "INCLUDE">
@@ -57,10 +57,10 @@
 		</legalnotice>
 
 		<date
->2011-12-18</date
+>2012-08-08</date
 ><!-- Date of (re)writing, or update.-->
 		<releaseinfo
->&kappversion; (&kde; 4.7) </releaseinfo
+>&kappversion; (&kde; 4.9) </releaseinfo
 ><!-- Application version number. Use the variable definitions within header to change this value.-->
 
 		<abstract>
@@ -293,7 +293,7 @@ http://noughmad.com/2011/10/25/upcoming-features-in-knights/
 ><imagedata fileref="Knights-server-graph.png"/></imageobject
 ></mediaobject>
 			<para
->In der Suchgrafik werden alle zur Zeit gesendeten Anfragen mit der Bewertung des Gegners und der Zeitbegrenzung angezeigt, Klicken Sie auf einen Punkt in der Grafik, um die Anfrage anzunehmen. </para>
+>In der Suchgrafik werden alle zurzeit gesendeten Anfragen mit der Bewertung des Gegners und der Zeitbegrenzung angezeigt. Klicken Sie auf einen Punkt in der Grafik, um die Anfrage anzunehmen. </para>
 			<note>
 				<para
 >Für die Fehlersuche bei Problemen können Sie direkt auf die Serverkonsole zugreifen. Wählen Sie dazu die Karteikarte <guilabel

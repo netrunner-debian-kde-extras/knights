@@ -22,13 +22,12 @@
 #include "item.h"
 #include "board.h"
 #include "settings.h"
+
 #include <KDebug>
 
-#ifdef WITH_ANIMATIONS
-#  include <QtCore/QPropertyAnimation>
-#  include <QtCore/QParallelAnimationGroup>
-#  include <qmath.h>
-#endif
+#include <QtCore/QPropertyAnimation>
+#include <QtCore/QParallelAnimationGroup>
+#include <qmath.h>
 
 using namespace Knights;
 
@@ -36,8 +35,7 @@ static const int fastAnimationDuration = 150;
 static const int normalAnimationDuration = 250;
 static const int slowAnimationDuration = 400;
 
-#if defined WITH_KGR
-Item::Item ( Renderer* renderer, const QString &key, QGraphicsScene* scene, Pos boardPos, QGraphicsItem* parentItem ) : KGameRenderedObjectItem ( renderer, key, parentItem )
+Item::Item ( KGameRenderer* renderer, const QString &key, QGraphicsScene* scene, Pos boardPos, QGraphicsItem* parentItem ) : KGameRenderedObjectItem ( renderer, key, parentItem )
 {
     setBoardPos ( boardPos );
     if ( scene )
@@ -45,55 +43,6 @@ Item::Item ( Renderer* renderer, const QString &key, QGraphicsScene* scene, Pos 
         scene->addItem ( this );
     }
 }
-
-#else // WITH_KGR
-
-#include <QtSvg/QSvgRenderer>
-
-Item::Item ( Renderer* renderer, const QString &key, QGraphicsScene* scene, Pos boardPos, QGraphicsItem* parentItem )
-        : QGraphicsSvgItem ( parentItem )
-#if not defined WITH_QT_46 
-        , m_rotation(0.0)
-#endif
-{
-    setSharedRenderer ( renderer );
-    setSpriteKey ( key );
-    setBoardPos ( boardPos );
-    setCacheMode ( DeviceCoordinateCache );
-    if ( scene )
-    {
-        scene->addItem ( this );
-    }
-}
-
-void Item::setRenderSize ( const QSize& size )
-{
-    resetTransform();
-    QRectF normalSize = renderer()->boundsOnElement ( spriteKey() );
-    qreal xScale = size.width() / normalSize.width();
-    qreal yScale = size.height() / normalSize.height();
-    prepareGeometryChange();
-    setTransform ( QTransform().scale ( xScale, yScale ) );
-#if not defined WITH_QT_46
-    rotate(m_rotation);
-#endif
-}
-
-QSize Item::renderSize() const
-{
-    return transform().mapRect ( boundingRect() ).size().toSize();
-}
-
-void Item::setSpriteKey ( const QString& key )
-{
-    setElementId ( key );
-}
-
-QString Item::spriteKey() const
-{
-    return elementId();
-}
-#endif // WITH_KGR
 
 Item::~Item()
 {
@@ -115,7 +64,6 @@ void Item::setBoardPos ( const Pos& pos )
 
 void Item::move ( const QPointF& pos, qreal tileSize, bool animated )
 {
-#if defined WITH_ANIMATIONS
     if ( !animated || Settings::animationSpeed() == Settings::EnumAnimationSpeed::Instant )
     {
         setPos ( pos );
@@ -144,16 +92,10 @@ void Item::move ( const QPointF& pos, qreal tileSize, bool animated )
         anim->setEndValue ( pos );
         anim->start ( QAbstractAnimation::DeleteWhenStopped );
     }
-#else
-    Q_UNUSED ( animated );
-    Q_UNUSED ( tileSize );
-    setPos ( pos );
-#endif
 }
 
 void Item::resize ( const QSize& size, bool animated )
 {
-#if defined WITH_ANIMATIONS
     if ( !animated || Settings::animationSpeed() == Settings::EnumAnimationSpeed::Instant )
     {
         setRenderSize ( size );
@@ -181,15 +123,10 @@ void Item::resize ( const QSize& size, bool animated )
         anim->setEndValue ( size );
         anim->start ( QAbstractAnimation::DeleteWhenStopped );
     }
-#else
-    Q_UNUSED ( animated );
-    setRenderSize ( size );
-#endif
 }
 
 void Item::moveAndResize ( const QPointF& pos, qreal tileSize, const QSize& size, bool animated )
 {
-#if defined WITH_ANIMATIONS
     if ( !animated || Settings::animationSpeed() == Settings::EnumAnimationSpeed::Instant )
     {
         setPos ( pos );
@@ -226,29 +163,6 @@ void Item::moveAndResize ( const QPointF& pos, qreal tileSize, const QSize& size
         group->addAnimation ( sizeAnimation );
         group->start ( QAbstractAnimation::DeleteWhenStopped );
     }
-#else
-    Q_UNUSED ( animated );
-    Q_UNUSED ( tileSize );
-    setPos ( pos );
-    setRenderSize ( size );
-#endif
 }
-
-#if not defined WITH_QT_46
-
-void Item::setRotation ( qreal angle )
-{
-    kDebug() << angle;
-    m_rotation = angle;
-}
-
-qreal Item::rotation()
-{
-    return m_rotation;
-}
-
-#endif
-
-
 
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on;  replace-tabs on;

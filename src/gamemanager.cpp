@@ -38,6 +38,7 @@
 #include <KMessageBox>
 #include <KStandardGuiItem>
 #include <KApplication>
+#include <KgDifficulty>
 
 #include <QStack>
 #include <QTimer>
@@ -85,6 +86,7 @@ public:
   QString filename;
    Color winner;
    bool winnerNotified;
+   bool initComplete;
   
   int nextOfferId();
 };
@@ -308,6 +310,7 @@ void Manager::initialize()
 {
   Q_D(GameManager);
   d->gameStarted = false;
+  d->initComplete = false;
   d->winnerNotified = false;
   d->running = false;
   d->activePlayer = White;
@@ -463,7 +466,11 @@ void Manager::protocolInitSuccesful()
         Protocol::white()->setPlayerName ( i18nc ( "The player of this color", "White" ) );
         Protocol::black()->setPlayerName ( i18nc ( "The player of this color", "Black" ) );
       }
-      emit initComplete();
+      if (!d->initComplete)
+      {
+        d->initComplete = true;
+        emit initComplete();
+      }
     }
   }
 }
@@ -471,7 +478,8 @@ void Manager::protocolInitSuccesful()
 void Manager::startGame()
 {
     Q_D(GameManager);
-    levelChanged ( KGameDifficulty::level() );
+    Q_ASSERT(!d->gameStarted);
+    levelChanged ( Kg::difficulty()->currentLevel() );
     Protocol::white()->startGame();
     Protocol::black()->startGame();
     d->gameStarted = true;
@@ -852,33 +860,34 @@ bool Manager::canLocalMove() const
   return false;
 }
 
-void Manager::levelChanged ( KGameDifficulty::standardLevel level )
+void Manager::levelChanged ( const KgDifficultyLevel* level )
 {
+  kDebug();
   int depth = 0;
   int size = 32;
-  switch ( level )
+  switch ( level->standardLevel() )
   {
-    case KGameDifficulty::VeryEasy:
+    case KgDifficultyLevel::VeryEasy:
       depth = 1;
       break;
       
-    case KGameDifficulty::Easy:
+    case KgDifficultyLevel::Easy:
       depth = 3;
       break;
       
-    case KGameDifficulty::Medium:
+    case KgDifficultyLevel::Medium:
       depth = 8;
       break;
       
-    case KGameDifficulty::Hard:
+    case KgDifficultyLevel::Hard:
       depth = 16;
       break;
       
-    case KGameDifficulty::VeryHard:
+    case KgDifficultyLevel::VeryHard:
       depth = 32;
       break;
       
-    case KGameDifficulty::Configurable:
+    case KgDifficultyLevel::Custom:
       // Open the dialog for the user to specify custom difficulty parameters
       if ( !getCustomDifficulty(&depth, &size) )
       {
