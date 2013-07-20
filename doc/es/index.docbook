@@ -5,7 +5,7 @@
 >">
   <!ENTITY kappname "&knights;">
   <!ENTITY package "extragear/games">
-  <!ENTITY kappversion "2.3 beta 1"
+  <!ENTITY kappversion "2.4.90 (2.5 Beta 1)"
 ><!--Application version. Use this variable everywhere it's needed.-->
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % Spanish "INCLUDE">
@@ -71,10 +71,10 @@
 		</legalnotice>
 
 		<date
->2010-12-16</date
+>2011-12-18</date
 ><!-- Date of (re)writing, or update.-->
 		<releaseinfo
->&kappversion; </releaseinfo
+>&kappversion; (&kde; 4.7) </releaseinfo
 ><!-- Application version number. Use the variable definitions within header to change this value.-->
 
 		<abstract>
@@ -103,7 +103,11 @@
 		</keywordset>
 
 	</bookinfo>
-
+<!-- 
+new in
+>2.4.0 history, UCI, Difficulty settings, see
+http://noughmad.com/2011/10/25/upcoming-features-in-knights/ 
+-->
 	<chapter id="introduction">
 		<title
 >Introducción</title>
@@ -177,7 +181,21 @@
 >Motor de la máquina</guilabel
 > para el <guilabel
 >jugador 2</guilabel
->. Seleccione el programa contra el que le gustaría jugar y asegúrese de que está instalado en su equipo y de que admite el protocolo XBoard. </para>
+>. Seleccione el programa contra el que le gustaría jugar y asegúrese de que está instalado en su equipo y de que admite los protocolos XBoard o UCI. </para>
+			<para
+>Si usted tiene instalado un motor de ajedrez pero no aparece en la lista, pulse el botón <guilabel
+>Configurar motores</guilabel
+> y añada allí el motor. Para más información sobre este diálogo, consulte <link linkend="configuration-engines"
+>Motores de máquina</link
+>. </para>
+			<note
+><title
+>Nota</title>
+			<para
+>Incluso si un programa está listado en el diálogo, no significa que esté instalado. Asegúrese de instalar cualquier motor de ajedrez contra el que desee jugar. Usted puede comprobar si un motor está instalado en su sistema o no en el diálogo <guilabel
+>Configurar motores</guilabel
+>. </para>
+			</note>
 			<para
 >Si desea jugar contra alguien a través de Internet, seleccione <guilabel
 >Humano (usted)</guilabel
@@ -221,7 +239,7 @@
 				  <para
 >El <guilabel
 >Límite de tiempo inicial</guilabel
-> es la cantidad de tiempo con la que empieza el jugador. </para>
+> es la cantidad de tiempo con la que empiezan los jugadores. </para>
 				</listitem>
 				<listitem>
 				  <para
@@ -234,7 +252,7 @@
 			<para
 >Después de pulsar el botón <guibutton
 >Aceptar</guibutton
->, el diálogo se cerrará. Si seleccionó un jugador en un servidor de ajedrez, tendrá que iniciar la sesión y encontrar a su oponente. De otro modo, la partida empezará inmediatamente. </para>
+>, el diálogo se cerrará. Si seleccionó un jugador en un servidor de ajedrez, tendrá que iniciar la sesión y encontrar a su oponente. En caso contrario, la partida empezará inmediatamente. </para>
 			<note
 ><title
 >Nota</title>
@@ -257,7 +275,7 @@
 >Iniciar sesión</guibutton
 >. </para>
 			<para
->Hay dos formas de elegir un oponente. Publicar un anuncio para su partida (lo que se llama una "búsqueda") o responder a la búsqueda de otra persona. </para>
+>Hay dos formas de elegir un oponente. Publicar un anuncio para su partida (lo que se llama una «búsqueda») o responder a la búsqueda de otra persona. </para>
 			<mediaobject
 ><imageobject
 ><imagedata fileref="Knights-server-challenges.png"/></imageobject
@@ -269,7 +287,7 @@
 >Buscar</guibutton
 >. Si había marcado <guilabel
 > Empezar la partida automáticamente</guilabel
->, una vez que un jugador haya aceptado su búsqueda, la partida empezará inmediatamente. Si no, tiene que aceptar el desafío manualmente, seleccionando uno de la la lista y pulsando <guibutton
+>, una vez que un jugador haya aceptado su búsqueda, la partida empezará inmediatamente. Si no, tiene que aceptar el desafío manualmente, seleccionando uno de la lista y pulsando <guibutton
 >Aceptar</guibutton
 >. </para>
 			<mediaobject
@@ -342,7 +360,7 @@
 ><para
 ><ulink url="http://en.wikipedia.org/wiki/Rules_of_chess"
 >Wikipedia</ulink
-></para
+>&nbsp;</para
 ></listitem>
 		</itemizedlist>
 		</para>
@@ -379,7 +397,7 @@
 			<para
 >Cada una de las casillas tiene un nombre, así que se puede mantener un registro de la partida. Existen varios sistemas de nomenclatura, pero la <quote
 >notación algebraica</quote
-> es la más popular y el sistema oficial. En dicho sistema, cada casilla se nombra por la fila y la columna en la que se encuentra. Las filas se numeran del 1 al 8 empezando por el lado blanco del tablero hacia el lado negro del tablero. Las columnas se etiquetan en minúsculas de la a a la h de izquierda a derecha según el punto de vista del jugador blanco. La casilla se nombra por la letra seguida por el número. Así, la casilla de la esquina inferior izquierda se llama a1. La estructura de la nomenclatura se pude ver en el siguiente diagrama:</para>
+> es la más popular y el sistema oficial. En dicho sistema, cada casilla se nombra por la fila y la columna en la que se encuentra. Las filas se numeran del 1 al 8 empezando por el lado blanco del tablero hacia el lado negro del tablero. Las columnas se etiquetan en minúsculas de la «a» a la «h» de izquierda a derecha según el punto de vista del jugador blanco. La casilla se nombra por la letra seguida por el número. Así, la casilla de la esquina inferior izquierda se llama «a1». La estructura de la nomenclatura se puede ver en el siguiente diagrama:</para>
 			<mediaobject
 ><imageobject
 ><imagedata fileref="Knights-board.png"/></imageobject
@@ -389,7 +407,7 @@
 			<title
 >Configuración inicial</title>
 			<para
->El tablero se gira de manera que haya una casilla blanca en la primera fila, al lado derecho del jugador.</para>
+>El tablero se gira, de manera que haya una casilla blanca en la primera fila, al lado derecho del jugador.</para>
 			<para
 >Las piezas se sitúan en los lados blanco y negro del tablero de la misma manera. En la primera fila empezando en ambos extremos y hacia dentro, se colocan las torres, los caballos y el alfil. En las dos casillas que faltan, se coloca la reina en la casilla de su color y el rey en la otra. Cuando se han colocado todas, las mismas piezas quedan cara a cara al otro lado del tablero. En la segunda fila se colocan los peones. La disposición final queda como se indica en el siguiente diagrama.</para>
 			<mediaobject
@@ -411,7 +429,7 @@
 			<para
 >Si la casilla en la que acaba su movimiento una pieza contiene una pieza del oponente, la pieza del oponente es <quote
 >capturada</quote
-> y se retira del juego. Todas las piezas pueden ser capturadas excepto el rey. El juego termina en el movimiento anterior a la captura del rey: <quote
+> y se retira del juego. Todas las piezas pueden ser capturadas, excepto el rey. El juego termina en el movimiento anterior a la captura del rey: <quote
 > <link linkend="checkmate"
 >jaque mate</link
 ></quote
@@ -454,7 +472,11 @@
 			<title
 >Alfil</title>
 			<para
->El alfil se mueve sobre el tablero en una línea recta diagonal. Se puede mover tantas casillas como se quiera, hasta que se encuentre con el final del tablero o con otra pieza. El alfil no puede saltar sobre otras piezas. Captura del mismo modo que se desplaza, colocándose en la casilla de la pieza oponente. Debido a la manera en la que se mueve el alfil, la pieza siempre permanece en las casillas del mismo color que su casilla original. Cada jugador empieza con dos alfiles, uno en la casilla blanca y otro en la casilla negra. Con frecuencia se le llaman alfil de las casillas negras y alfil de las casillas blancas. Los alfiles también se pueden llamar según el lado en el que empiezan, alfil del rey o alfil de la reina.</para
+>El alfil se mueve sobre el tablero en una línea recta diagonal. Se puede mover tantas casillas como se quiera, hasta que se encuentre con el final del tablero o con otra pieza. El alfil no puede saltar sobre otras piezas. Captura del mismo modo que se desplaza, colocándose en la casilla de la pieza oponente. Debido a la manera en la que se mueve el alfil, la pieza siempre permanece en las casillas del mismo color que su casilla original. Cada jugador empieza con dos alfiles, uno en la casilla blanca y otro en la casilla negra. Con frecuencia se le llaman alfil de las casillas <quote
+>negras</quote
+> y alfil de las casillas <quote
+>blancas</quote
+>. Los alfiles también se pueden llamar según el lado en el que empiezan, alfil del rey o alfil de la reina.</para
 >  
 			<mediaobject
 ><imageobject
@@ -520,7 +542,9 @@
 			<title
 >Al paso</title>
 			<para
->Cuando se añadió la regla de permitir que el peón se mueva dos casillas en su primer movimiento, un peón podía evitar la captura de un peón oponente sobrepasando la casilla que estaba siendo atacada. La captura al paso se añadió para evitar esto. La captura se realiza exactamente igual que si el peón se hubiese movido una sola casilla hacia delante. Existen condiciones especiales para la captura al paso: <itemizedlist>
+>Cuando se añadió la regla de permitir que el peón se mueva dos casillas en su primer movimiento, un peón podía evitar la captura de un peón oponente sobrepasando la casilla que estaba siendo atacada. La captura <quote
+>al paso</quote
+> se añadió para evitar esto. La captura se realiza exactamente igual que si el peón se hubiese movido una sola casilla hacia delante. Existen condiciones especiales para la captura al paso: <itemizedlist>
 				<listitem
 ><para
 >Un peón debe moverse dos casillas desde su posición inicial en un solo movimiento.</para
@@ -729,7 +753,7 @@
 >El juego queda en tablas si el oponente no tiene suficientes piezas para hacer jaque mate.</para
 ></listitem
 > </itemizedlist
-> </para>
+>El material para dar mate puede ser cualquier grupo de piezas, excepto solo el rey, el rey y un alfil o el rey y un caballo.</para>
 		</sect2>
 	</sect1>
 	
@@ -806,14 +830,14 @@
 >Aplicar</guibutton
 > o en el botón <guibutton
 >Aceptar</guibutton
-> situado en la parte inferior de este diálogo. Al hacer clic en el botón <guibutton
+>, situados en la parte inferior de este diálogo. Si pulsa el botón <guibutton
 >Aceptar</guibutton
 > también se cerrará el diálogo de configuración. </para>
 		<para
->Sin embargo, si no está contento con sus cambios, simplemente pulse el botón <guibutton
+>Sin embargo, si no está contento con sus cambios, pulse el botón <guibutton
 >Cancelar</guibutton
 > para descartar los cambios y cerrar el diálogo de configuración. Debe pulsar el botón <guibutton
-> Cancelar</guibutton
+>Cancelar</guibutton
 > antes de pulsar <guibutton
 >Aplicar</guibutton
 > o <guibutton
@@ -826,15 +850,47 @@
 			<para
 >La sección <guimenu
 >General</guimenu
-> contiene opciones sobre la apariencia general de &knights;. Se pueden activar o modificar el tablero y las animaciones de las piezas. La sección de animaciones se basa en el software del sistema, por lo que es visible solo si las animaciones están disponibles. Los tres tipos de <link linkend="markers"
+> contiene opciones sobre la apariencia general de &knights;. Se pueden activar o modificar el tablero y las animaciones de las piezas. La sección de animaciones se basa en el software del sistema, por lo que es visible solo si las animaciones están disponibles. Está disponible girar el tablero, permitiendo que el tablero de ajedrez de &knights; se de la vuelta cuando se usa en una pantalla o estacionario cuando se usa en una tableta como remplazo de un tablero de ajedrez. Los tres tipos de <link linkend="markers"
 >marcadores</link
-> se pueden activar o desactivar. Los bordes al rededor del tablero se pueden activar con o sin notación algebraica mediante un menú desplegable. </para>
+> se pueden activar o desactivar. Los bordes alrededor del tablero se pueden activar con o sin notación algebraica mediante un menú desplegable. </para>
 			<note>
 				<title
 >Nota:</title>
 				<para
 >Puede que algunos temas no admitan marcadores, bordes o notaciones. En ese caso, la configuración no tendrá efecto sobre dichos elementos, pero se le recordarán por si vuelve a cambiar de tema. </para>
 			</note>
+		</sect1>
+
+		<sect1 id="configuration-engines">
+			<title
+>Motores de la máquina</title>
+			<mediaobject
+><imageobject
+><imagedata fileref="Knights-engines.png"/></imageobject
+></mediaobject>
+			<para
+>La sección <guimenu
+>Motores de la máquina</guimenu
+> le permite configurar sus oponentes de la máquina. Para cada motor debe especificar un nombre de programa, la orden a usar para lanzarlo y el protocolo que usa. &knights; permite el uso de dos protocolos para motores de ajedrez: XBoard y UCI. </para>
+			<para
+>Puede añadir un nuevo motor de configuración pulsando <guibutton
+>Añadir</guibutton
+> e introduciendo las tres opciones mencionadas con anterioridad. Un símbolo en las últimas columnas le indicará si el programa especificado está instalado en su equipo o no. </para>
+		</sect1>
+		
+		<sect1 id="configuration-accessibility">
+			<title
+>Accesibilidad</title>
+			<para
+>La sección de <guimenu
+>Accesibilidad</guimenu
+> contiene varias opciones que tienen que ver con cómo se muestra el tablero y con el uso de programas externos para facilitar el juego a personas con impedimentos. </para>
+			<para
+>&jovie;, el servicio de texto hablado de &kde;, se puede usar para leer los movimientos del oponente. </para>
+			<para
+>Es posible controlar &knights; usando la interfaz &DBus;. En la actualidad no tiene ningún uso, excepto con una versión aún no liberada de <ulink url="http://simon-listens.org/"
+>Simon</ulink
+>, que activa la interacción mediante el uso de la voz. </para>
 		</sect1>
 
 		<sect1 id="configuration-themes">

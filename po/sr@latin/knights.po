@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: knights\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2012-03-28 02:38+0200\n"
-"PO-Revision-Date: 2012-03-25 18:40+0200\n"
+"POT-Creation-Date: 2012-08-10 04:11+0200\n"
+"PO-Revision-Date: 2012-06-30 18:59+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
 "Language: sr@latin\n"
@@ -81,8 +81,8 @@ msgstr "Povuci"
 
 #. i18n: file: popup.ui:37
 #. i18n: ectx: property (text), widget (KPushButton, acceptButton)
-#: proto/ficsprotocol.cpp:132 proto/ficsprotocol.cpp:212 offerwidget.cpp:38
-#: rc.cpp:248
+#: proto/ficsprotocol.cpp:132 proto/ficsprotocol.cpp:212 offerwidget.cpp:35
+#: rc.cpp:296
 msgid "Accept"
 msgstr "Prihvati"
 
@@ -109,7 +109,7 @@ msgstr "Šahovski server"
 
 #. i18n: file: popup.ui:44
 #. i18n: ectx: property (text), widget (KPushButton, declineButton)
-#: proto/ficsprotocol.cpp:208 offerwidget.cpp:41 rc.cpp:251
+#: proto/ficsprotocol.cpp:208 offerwidget.cpp:38 rc.cpp:299
 msgid "Decline"
 msgstr "Odbij"
 
@@ -145,11 +145,11 @@ msgstr "Vremensko ograničenje [minuti]"
 msgid "Opponent's rating"
 msgstr "Protivnikov rejting"
 
-#: board.cpp:706
+#: board.cpp:694
 msgid "Promote"
 msgstr "Promoviši"
 
-#: board.cpp:707
+#: board.cpp:695
 msgid "Promotion"
 msgstr "Promocija"
 
@@ -184,7 +184,7 @@ msgstr[1] " sekundi"
 msgstr[2] " sekundi"
 msgstr[3] " sekund"
 
-#: gamedialog.cpp:273 gamemanager.cpp:914
+#: gamedialog.cpp:273 gamemanager.cpp:923
 msgid " move"
 msgid_plural " moves"
 msgstr[0] " poteza"
@@ -192,22 +192,22 @@ msgstr[1] " poteza"
 msgstr[2] " poteza"
 msgstr[3] " potez"
 
-#: gamemanager.cpp:463
+#: gamemanager.cpp:466
 msgctxt "The player of this color"
 msgid "White"
 msgstr "Beli"
 
-#: gamemanager.cpp:464
+#: gamemanager.cpp:467
 msgctxt "The player of this color"
 msgid "Black"
 msgstr "Crni"
 
-#: gamemanager.cpp:579
+#: gamemanager.cpp:587
 #, kde-format
 msgid "%1 offers you a draw"
 msgstr "%1 vam nudi remi"
 
-#: gamemanager.cpp:582
+#: gamemanager.cpp:590
 #, kde-format
 msgid "%2 would like to take back a half move"
 msgid_plural "%2 would like to take back %1 half moves"
@@ -216,154 +216,159 @@ msgstr[1] "%2 želi da povuče %1 polupoteza"
 msgstr[2] "%2 želi da povuče %1 polupoteza"
 msgstr[3] "%2 želi da povuče polupotez"
 
-#: gamemanager.cpp:585
+#: gamemanager.cpp:593
 #, kde-format
 msgid "%1 would like to adjourn the game"
 msgstr "%1 želi da odgodi partiju"
 
-#: gamemanager.cpp:588
+#: gamemanager.cpp:596
 #, kde-format
 msgid "%1 would like to abort the game"
 msgstr "%1 želi da prekine partiju"
 
-#: gamemanager.cpp:702
+#: gamemanager.cpp:710
 #, kde-format
 msgctxt "string to be spoken when the opponent castles queenside"
 msgid "%1 castles queenside"
 msgstr "%1 izvodi veliku rokadu"
 
-#: gamemanager.cpp:707
+#: gamemanager.cpp:715
 #, kde-format
 msgctxt "string to be spoken when the opponent castles queenside"
 msgid "%1 castles kingside"
 msgstr "%1 izvodi malu rokadu"
 
-#: gamemanager.cpp:713
+#: gamemanager.cpp:721
 #, kde-format
 msgctxt "string to be spoken when the opponent makes a normal  move"
 msgid "%1 to %2"
 msgstr "%1 na %2"
 
-#: gamemanager.cpp:725
+#: gamemanager.cpp:733
 msgctxt "Your king is under attack"
 msgid "Check"
 msgstr "Šah"
 
-#: gamemanager.cpp:729
+#: gamemanager.cpp:737
 msgctxt "Your king is dead"
 msgid "Checkmate"
 msgstr "Šah‑mat"
 
-#: knights.cpp:136
+# >> @item difficulty level
+#: knights.cpp:87
+msgid "Custom"
+msgstr "posebno"
+
+#: knights.cpp:130
 msgid "Resign"
 msgstr "Predaj"
 
-#: knights.cpp:137
+#: knights.cpp:131
 msgid "Admit your inevitable defeat"
 msgstr "Priznaj neizbežan poraz"
 
-#: knights.cpp:142
+#: knights.cpp:136
 msgid "Undo"
 msgstr "Opozovi"
 
-#: knights.cpp:143
+#: knights.cpp:137
 msgid "Take back your last move"
 msgstr "Povuci moj poslednji potez"
 
-#: knights.cpp:149
+#: knights.cpp:143
 msgid "Redo"
 msgstr "Ponovi"
 
-#: knights.cpp:150
+#: knights.cpp:144
 msgid "Repeat your last move"
 msgstr "Ponovi moj poslednji potez"
 
-#: knights.cpp:156
+#: knights.cpp:150
 msgid "Offer &Draw"
 msgstr "Ponudi &remi"
 
-#: knights.cpp:157
+#: knights.cpp:151
 msgid "Offer a draw to your opponent"
 msgstr "Predloži protivniku remi"
 
-#: knights.cpp:162
+#: knights.cpp:156
 msgid "Adjourn"
 msgstr "Odgodi"
 
-#: knights.cpp:163
+#: knights.cpp:157
 msgid "Continue this game at a later time"
 msgstr "Nastavi ovu igru kasnije"
 
-#: knights.cpp:168
+#: knights.cpp:162
 msgid "Abort"
 msgstr "Obustavi"
 
-#: knights.cpp:169
+#: knights.cpp:163
 msgid "End the game immediately"
 msgstr "Odmah prekini partiju"
 
-#: knights.cpp:173
+#: knights.cpp:167
 msgid "Show Clock"
 msgstr "Prikaži sat"
 
-#: knights.cpp:179
+#: knights.cpp:173
 msgid "Show History"
 msgstr "Prikaži istorijat"
 
-#: knights.cpp:186
+#: knights.cpp:180
 msgid "Show White Console"
 msgstr "Prikaži konzolu belog"
 
-#: knights.cpp:192
+#: knights.cpp:186
 msgid "Show Black Console"
 msgstr "Prikaži konzolu crnog"
 
-#: knights.cpp:198
+#: knights.cpp:192
 msgid "Show Chat"
 msgstr "Prikaži ćaskanje"
 
-#: knights.cpp:220
+#: knights.cpp:214
 msgid "New Game"
 msgstr "Nova partija"
 
-#: knights.cpp:241 knights.cpp:652 knights.cpp:667
+#: knights.cpp:235 knights.cpp:646 knights.cpp:661
 msgid "*.pgn | Portable game notation"
 msgstr "*.pgn|prenosiva notacija partije"
 
-#: knights.cpp:265 knights.cpp:277
+#: knights.cpp:259 knights.cpp:271
 msgid "This feature is not yet implemented in Knights"
 msgstr "Ova mogućnost još nije izvedena u Konjima"
 
-#: knights.cpp:442
+#: knights.cpp:438
 msgid "Clock"
 msgstr "Sat"
 
-#: knights.cpp:476
+#: knights.cpp:472
 msgid "Move History"
 msgstr "Istorijat poteza"
 
-#: knights.cpp:506
+#: knights.cpp:500
 msgid "General"
 msgstr "Opšte"
 
-#: knights.cpp:510
+#: knights.cpp:504
 msgid "Computer Engines"
 msgstr "Računarski motori"
 
-#: knights.cpp:515
+#: knights.cpp:509
 msgid "Accessibility"
 msgstr "Pristupačnost"
 
-#: knights.cpp:518
+#: knights.cpp:512
 msgid "Theme"
 msgstr "Tema"
 
-#: knights.cpp:604
+#: knights.cpp:598
 #, kde-format
 msgid "%1 vs. %2"
 msgstr "%1 — %2"
 
-#: knights.cpp:629
+#: knights.cpp:623
 msgid ""
 "This will end your game.\n"
 "Would you like to save the move history?"
@@ -421,35 +426,35 @@ msgstr "Konji"
 msgid "(C) 2009-2011 Miha Čančula"
 msgstr "© 2009–2011, Miha Čančula"
 
-#: main.cpp:39 main.cpp:41
+#: main.cpp:38
 msgid "Miha Čančula"
 msgstr "Miha Čančula"
 
-#: main.cpp:43
+#: main.cpp:39
 msgid "Troy Corbin"
 msgstr "Troj Korbin"
 
-#: main.cpp:43
+#: main.cpp:39
 msgid "Original Knights for KDE3 and theme author"
 msgstr "Prvobitni Konji za KDE 3, autor teme"
 
-#: main.cpp:44
+#: main.cpp:40
 msgid "Dave Kaye"
 msgstr "Dejv Kej"
 
-#: main.cpp:44
+#: main.cpp:40
 msgid "Help with new theme features and rendering without KGameRenderer"
 msgstr "Pomoć oko novih mogućnosti za teme, renderovanje bez KGameRenderer"
 
-#: main.cpp:46 main.cpp:48
+#: main.cpp:41
 msgid "Thomas Kamps"
 msgstr "Tomas Kamps"
 
-#: main.cpp:46 main.cpp:48
+#: main.cpp:41
 msgid "Clock displaying the remaining time"
 msgstr "Sat za prikaz preostalog vremena"
 
-#: main.cpp:53
+#: main.cpp:45
 msgid "Document to open"
 msgstr "Dokument za otvaranje"
 
@@ -775,270 +780,123 @@ msgstr "Konzola"
 msgid "Use custom commands"
 msgstr "Unesite posebne naredbe"
 
-#. i18n: file: prefs_base.ui:17
-#. i18n: ectx: property (title), widget (QGroupBox, animationGroup)
-#: rc.cpp:170
-msgid "Animations"
-msgstr "Animacije"
-
-#. i18n: file: prefs_base.ui:23
-#. i18n: ectx: property (text), widget (QLabel, animationSpeedLabel)
-#: rc.cpp:173
-msgid "Animation &speed:"
-msgstr "&Brzina animacije"
-
-#. i18n: file: prefs_base.ui:34
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
-#: rc.cpp:176
-msgid "Instant (no animation)"
-msgstr "trenutna (bez animacije)"
-
-#. i18n: file: prefs_base.ui:39
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
-#: rc.cpp:179
-msgid "Fast"
-msgstr "brza"
-
-#. i18n: file: prefs_base.ui:44
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
-#: rc.cpp:182
-msgid "Normal"
-msgstr "normalna"
-
-#. i18n: file: prefs_base.ui:49
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
-#: rc.cpp:185
-msgid "Slow"
-msgstr "spora"
-
-#. i18n: file: prefs_base.ui:57
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_animateBoard)
-#: rc.cpp:188
-msgid "Animate the board as well"
-msgstr "Animiraj i tablu"
-
-#. i18n: file: prefs_base.ui:67
-#. i18n: ectx: property (title), widget (QGroupBox, appearanceGroup)
-#: rc.cpp:191
-msgid "Appearance"
-msgstr "Izgled"
-
-#. i18n: file: prefs_base.ui:76
-#. i18n: ectx: property (text), widget (QLabel, showMarkersForLabel)
-#: rc.cpp:194
-msgid "Show &markers for:"
-msgstr "Prikaži &markere za:"
-
-#. i18n: file: prefs_base.ui:86
-#. i18n: ectx: property (text), widget (QCheckBox, showMarkersForCheckBox)
-#: rc.cpp:197
-msgctxt "Option to show markers for"
-msgid "Legal moves"
-msgstr "dozvoljene poteze"
-
-#. i18n: file: prefs_base.ui:99
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_showMotion)
-#: rc.cpp:200
-msgctxt "Option to show markers for"
-msgid "Opponent's move"
-msgstr "protivnikov potez"
-
-#. i18n: file: prefs_base.ui:109
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_showDanger)
-#: rc.cpp:203
-msgctxt "Option to show markers for"
-msgid "Check"
-msgstr "šah"
-
-#. i18n: file: prefs_base.ui:119
-#. i18n: ectx: property (text), widget (QLabel, label)
-#: rc.cpp:206
-msgid "Border display:"
-msgstr "Prikaz ivica:"
-
-#. i18n: file: prefs_base.ui:127
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_borderDisplayType)
-#: rc.cpp:209
-msgid "No borders"
-msgstr "bez ivica"
-
-#. i18n: file: prefs_base.ui:132
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_borderDisplayType)
-#: rc.cpp:212
-msgid "Only borders"
-msgstr "samo ivice"
-
-#. i18n: file: prefs_base.ui:137
-#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_borderDisplayType)
-#: rc.cpp:215
-msgid "Borders and notation"
-msgstr "ivice i notacija"
-
-#. i18n: file: prefs_base.ui:148
-#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
-#: rc.cpp:218
-msgid "Behavior"
-msgstr "Ponašanje"
-
-#. i18n: file: prefs_base.ui:154
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_flipBoard)
-#: rc.cpp:221
-msgid "Flip the board in local matches between humans"
-msgstr "Prevrći tablu u lokalnim partijama između ljudi"
-
-#. i18n: file: prefs_base.ui:161
-#. i18n: ectx: property (text), widget (QCheckBox, kcfg_askDiscard)
-#: rc.cpp:224
-msgid "Show confirmation dialog before closing"
-msgstr "Dijalog za potvrdu pre zatvaranja"
-
 #. i18n: file: prefs_access.ui:17
 #. i18n: ectx: property (title), widget (QGroupBox, external_box)
-#: rc.cpp:227
+#: rc.cpp:170
 msgid "External Programs"
 msgstr "Spoljašnji programi"
 
 #. i18n: file: prefs_access.ui:23
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_speakOpponentsMoves)
-#: rc.cpp:230
+#: rc.cpp:173
 msgid "Speak opponent's moves"
 msgstr "Izgovaraj poteze protivnika"
 
 #. i18n: file: prefs_access.ui:30
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_allowExternalControl)
-#: rc.cpp:233
+#: rc.cpp:176
 msgid "Allow other programs to control Knights"
 msgstr "Dozvoli drugim programima da upravljaju Konjima"
 
-#. i18n: file: knightsui.rc:21
-#. i18n: ectx: Menu (move)
-#: rc.cpp:236
-msgid "Move"
-msgstr "Potez"
-
-#. i18n: file: knightsui.rc:37
-#. i18n: ectx: ToolBar (mainToolBar)
-#: rc.cpp:239
-msgid "Main Toolbar"
-msgstr "Glavna traka"
-
-#. i18n: file: knightsui.rc:44
-#. i18n: ectx: ToolBar (actionsToolbar)
-#: rc.cpp:242
-msgid "Game Actions Toolbar"
-msgstr "Traka radnji u igri"
-
-#. i18n: file: knightsui.rc:55
-#. i18n: ectx: ToolBar (dockToolBar)
-#: rc.cpp:245
-msgid "Dockable Windows Toolbar"
-msgstr "Traka usidrivih prozora"
-
-#. i18n: file: popup.ui:51
-#. i18n: ectx: property (text), widget (KPushButton, closeButton)
-#: rc.cpp:254
-msgid "Close"
-msgstr "Zatvori"
-
-#. i18n: file: knights.kcfg:10
+#. i18n: file: knights.kcfg:9
 #. i18n: ectx: label, entry (Theme), group (KGameTheme)
-#: rc.cpp:257
+#: rc.cpp:179
 msgid "Theme file for the board"
 msgstr "Fajl teme table"
 
-#. i18n: file: knights.kcfg:16
+#. i18n: file: knights.kcfg:15
 #. i18n: ectx: label, entry (askDiscard), group (Notification Messages)
-#: rc.cpp:260
+#: rc.cpp:182
 msgid "whether to show a confirmation dialog before discarding game history"
 msgstr "Da li prikazati dijalog za potvrdu pre odbacivanja istorijata partije"
 
-#. i18n: file: knights.kcfg:20
+#. i18n: file: knights.kcfg:19
 #. i18n: ectx: label, entry (dontAskInternal), group (Notification Messages)
-#: rc.cpp:263
+#: rc.cpp:185
 msgid "internal variable controlling the confirm dialog"
 msgstr "Unutrašnja promenljiva za upravljanje dijalogom potvrde"
 
-#. i18n: file: knights.kcfg:32
+#. i18n: file: knights.kcfg:31
 #. i18n: ectx: label, entry (animationSpeed), group (Preferences)
-#: rc.cpp:266
+#: rc.cpp:188
 msgid "Moves animation speed"
 msgstr "Brzina animacije poteza"
 
-#. i18n: file: knights.kcfg:36
+#. i18n: file: knights.kcfg:35
 #. i18n: ectx: label, entry (animateBoard), group (Preferences)
-#: rc.cpp:269
+#: rc.cpp:191
 msgid "whether the Board is animated during rotating and resizing"
 msgstr "Da li se tabla animira pri rotaciji i promeni veličine"
 
-#. i18n: file: knights.kcfg:40
+#. i18n: file: knights.kcfg:39
 #. i18n: ectx: label, entry (flipBoard), group (Preferences)
-#: rc.cpp:272
+#: rc.cpp:194
 msgid "whether to rotate the board when in local two-player mode"
 msgstr "Da li se tabla rotira u lokalnom režimu dva igrača"
 
-#. i18n: file: knights.kcfg:49
+#. i18n: file: knights.kcfg:48
 #. i18n: ectx: label, entry (borderDisplayType), group (Preferences)
-#: rc.cpp:275
+#: rc.cpp:197
 msgid "chessboard border type"
 msgstr "Vrsta ivica šahovske table"
 
-#. i18n: file: knights.kcfg:53
+#. i18n: file: knights.kcfg:52
 #. i18n: ectx: label, entry (showDanger), group (Preferences)
-#: rc.cpp:278
+#: rc.cpp:200
 msgid "show check marker"
 msgstr "Marker šaha"
 
-#. i18n: file: knights.kcfg:57
+#. i18n: file: knights.kcfg:56
 #. i18n: ectx: label, entry (showMarker), group (Preferences)
-#: rc.cpp:281
+#: rc.cpp:203
 msgid "show legal moves marker"
 msgstr "Marker dozvoljenih poteza"
 
-#. i18n: file: knights.kcfg:61
+#. i18n: file: knights.kcfg:60
 #. i18n: ectx: label, entry (showMotion), group (Preferences)
-#: rc.cpp:284
+#: rc.cpp:206
 msgid "show opponents move marker"
 msgstr "Marker protivničkog poteza"
 
-#. i18n: file: knights.kcfg:65
+#. i18n: file: knights.kcfg:64
 #. i18n: ectx: label, entry (showClock), group (Preferences)
-#: rc.cpp:287
+#: rc.cpp:209
 msgid "show clocks when time control is in use"
 msgstr "Prikaži satove pri vremenskoj kontroli"
 
-#. i18n: file: knights.kcfg:69
+#. i18n: file: knights.kcfg:68
 #. i18n: ectx: label, entry (showChat), group (Preferences)
-#: rc.cpp:290
+#: rc.cpp:212
 msgid "show chat window, if supported by the protocol"
 msgstr "Prikaži prozor ćaskanja, ako ga podržava protokol"
 
-#. i18n: file: knights.kcfg:73
+#. i18n: file: knights.kcfg:72
 #. i18n: ectx: label, entry (showConsole), group (Preferences)
-#: rc.cpp:293
+#: rc.cpp:215
 msgid "show the text console, if supported by the protocol"
 msgstr "Prikaži tekstualnu konzolu, ako je podržava protokol"
 
-#. i18n: file: knights.kcfg:77
+#. i18n: file: knights.kcfg:76
 #. i18n: ectx: label, entry (showHistory), group (Preferences)
-#: rc.cpp:296
+#: rc.cpp:218
 msgid "show move history"
 msgstr "Prikaži istorijat poteza"
 
-#. i18n: file: knights.kcfg:83
+#. i18n: file: knights.kcfg:82
 #. i18n: ectx: label, entry (timeLimit), group (Time Control)
-#: rc.cpp:299
+#: rc.cpp:221
 msgid "initial time limit for both players"
 msgstr "Početno vremensko ograničenje za oba igrača"
 
-#. i18n: file: knights.kcfg:87
+#. i18n: file: knights.kcfg:86
 #. i18n: ectx: label, entry (timeIncrement), group (Time Control)
-#: rc.cpp:302
+#: rc.cpp:224
 msgid "time increment per move (for Incremental time control)"
 msgstr "Uvećanje vremena po potezu (za vremensku kontrolu sa uvećanjem)"
 
-#. i18n: file: knights.kcfg:91
+#. i18n: file: knights.kcfg:90
 #. i18n: ectx: label, entry (numberOfMoves), group (Time Control)
-#: rc.cpp:305
+#: rc.cpp:227
 msgid ""
 "the number of moves the player has to make in the specified time (for "
 "Conventional time control)"
@@ -1046,217 +904,358 @@ msgstr ""
 "Broj poteza koji igrač mora da načini u zadatom vremenu (za običnu kontrolu "
 "vremena)"
 
-#. i18n: file: knights.kcfg:95
+#. i18n: file: knights.kcfg:94
 #. i18n: ectx: label, entry (timeEnabled), group (Time Control)
-#: rc.cpp:308
+#: rc.cpp:230
 msgid "whether time limits are enabled and displayed"
 msgstr "Da li su vremenska ograničenja uključena i vidljiva"
 
-#. i18n: file: knights.kcfg:105
+#. i18n: file: knights.kcfg:104
 #. i18n: ectx: label, entry (player1Protocol), group (Protocols)
-#. i18n: file: knights.kcfg:114
+#. i18n: file: knights.kcfg:113
 #. i18n: ectx: label, entry (player2Protocol), group (Protocols)
-#: rc.cpp:311 rc.cpp:314
+#: rc.cpp:233 rc.cpp:236
 msgid "protocol to be used for player 1"
 msgstr "Željeni protokol za igrača 1"
 
-#. i18n: file: knights.kcfg:123
+#. i18n: file: knights.kcfg:122
 #. i18n: ectx: label, entry (color), group (Protocols)
-#: rc.cpp:317
+#: rc.cpp:239
 msgid ""
 "the local human player's color in a game against a computer or over the "
 "Internet."
 msgstr ""
 "Boja lokalnog ljudskog igrača u igri protiv računara ili preko Interneta."
 
-#. i18n: file: knights.kcfg:127
+#. i18n: file: knights.kcfg:126
 #. i18n: ectx: label, entry (programs), group (Protocols)
-#: rc.cpp:320
+#: rc.cpp:242
 msgid "list of programs to run for playing against the computer"
 msgstr "Spisak programa koji se pokreću za igranje protiv računara"
 
-#. i18n: file: knights.kcfg:131
+#. i18n: file: knights.kcfg:130
 #. i18n: ectx: label, entry (player1Program), group (Protocols)
-#: rc.cpp:323
+#: rc.cpp:245
 msgid "the last selected program for player 1"
 msgstr "Poslednje izabrani program za igrača 1"
 
-#. i18n: file: knights.kcfg:135
+#. i18n: file: knights.kcfg:134
 #. i18n: ectx: label, entry (player2Program), group (Protocols)
-#: rc.cpp:326
+#: rc.cpp:248
 msgid "the last selected program for player 2"
 msgstr "Poslednje izabrani program za igrača 2"
 
-#. i18n: file: knights.kcfg:139
-#. i18n: ectx: label, entry (computerDifficulty), group (Protocols)
-#: rc.cpp:329
-msgid "the skill of computer players"
-msgstr "Veština računarskih igrača"
-
-#. i18n: file: knights.kcfg:143
+#. i18n: file: knights.kcfg:138
 #. i18n: ectx: label, entry (computerSearchDepth), group (Protocols)
-#: rc.cpp:332
+#: rc.cpp:251
 msgid ""
 "the search depth of computer engines, when the difficulty is set to "
 "Configurable"
 msgstr "Dubina pretrage računarskih motora, kada se težina postavi na podesivu"
 
-#. i18n: file: knights.kcfg:147
+#. i18n: file: knights.kcfg:142
 #. i18n: ectx: label, entry (computerMemorySize), group (Protocols)
-#: rc.cpp:335
+#: rc.cpp:254
 msgid ""
 "the memory size used by computer engines, when the difficulty is set to "
 "Configurable"
 msgstr ""
 "Veličina memorije računarskih motora, kada se težina postavi na podesivu"
 
-#. i18n: file: knights.kcfg:151
+#. i18n: file: knights.kcfg:146
 #. i18n: ectx: label, entry (servers), group (Protocols)
-#: rc.cpp:338
+#: rc.cpp:257
 msgid "list of servers for playing over the Internet"
 msgstr "Spisak servera za igranje preko Interneta"
 
-#. i18n: file: knights.kcfg:155
+#. i18n: file: knights.kcfg:150
 #. i18n: ectx: label, entry (currentServer), group (Protocols)
-#: rc.cpp:341
+#: rc.cpp:260
 msgid "the last selected server"
 msgstr "Poslednje izabrani server"
 
-#. i18n: file: knights.kcfg:159
+#. i18n: file: knights.kcfg:154
 #. i18n: ectx: label, entry (ficsUsername), group (Protocols)
-#: rc.cpp:344
+#: rc.cpp:263
 msgid "username for the Free Internet Chess Server"
 msgstr "Korisničko ime na Slobodnom šahovskom serveru na Internetu"
 
-#. i18n: file: knights.kcfg:163
+#. i18n: file: knights.kcfg:158
 #. i18n: ectx: label, entry (guest), group (Protocols)
-#: rc.cpp:347
+#: rc.cpp:266
 msgid "whether to log in as guest"
 msgstr "Da li se prijaviti kao gost"
 
-#. i18n: file: knights.kcfg:167
+#. i18n: file: knights.kcfg:162
 #. i18n: ectx: label, entry (autoLogin), group (Protocols)
-#: rc.cpp:350
+#: rc.cpp:269
 msgid "whether to log in to chess server automatically"
 msgstr "Da li se automatski prijaviti na šahovski server"
 
-#. i18n: file: knights.kcfg:171
+#. i18n: file: knights.kcfg:166
 #. i18n: ectx: label, entry (computerDelay), group (Protocols)
-#: rc.cpp:353
+#: rc.cpp:272
 msgid "delay before a computer's move is reported, in milliseconds"
 msgstr "Zastoj pre prijavljivanja poteza računara, u milisekundama"
 
 # rewrite-msgid: /settings//
-#. i18n: file: knights.kcfg:175
+#. i18n: file: knights.kcfg:170
 #. i18n: ectx: label, entry (engineConfigurations), group (Protocols)
-#: rc.cpp:356
+#: rc.cpp:275
 msgid "stored configurations of engine-specific settings"
 msgstr "Sačuvane postave posebne po motoru"
 
-#. i18n: file: knights.kcfg:181
+#. i18n: file: knights.kcfg:176
 #. i18n: ectx: label, entry (speakOpponentsMoves), group (Accessibility)
-#: rc.cpp:359
+#: rc.cpp:278
 msgid "whether opponents' moves are spoken by Jovie"
 msgstr "Da li se protivnički potezi izgovaraju preko Džovi"
 
-#. i18n: file: knights.kcfg:185
+#. i18n: file: knights.kcfg:180
 #. i18n: ectx: label, entry (allowExternalControl), group (Accessibility)
-#: rc.cpp:362
+#: rc.cpp:281
 msgid "whether commands over D-Bus are accepted"
 msgstr "Da li se prihvataju naredbe preko D‑Busa"
 
+#. i18n: file: knightsui.rc:21
+#. i18n: ectx: Menu (move)
+#: rc.cpp:284
+msgid "Move"
+msgstr "Potez"
+
+#. i18n: file: knightsui.rc:37
+#. i18n: ectx: ToolBar (mainToolBar)
+#: rc.cpp:287
+msgid "Main Toolbar"
+msgstr "Glavna traka"
+
+#. i18n: file: knightsui.rc:44
+#. i18n: ectx: ToolBar (actionsToolbar)
+#: rc.cpp:290
+msgid "Game Actions Toolbar"
+msgstr "Traka radnji u igri"
+
+#. i18n: file: knightsui.rc:55
+#. i18n: ectx: ToolBar (dockToolBar)
+#: rc.cpp:293
+msgid "Dockable Windows Toolbar"
+msgstr "Traka usidrivih prozora"
+
+#. i18n: file: popup.ui:51
+#. i18n: ectx: property (text), widget (KPushButton, closeButton)
+#: rc.cpp:302
+msgid "Close"
+msgstr "Zatvori"
+
 #. i18n: file: enginesettings.ui:19
 #. i18n: ectx: property (text), widget (KPushButton, addButton)
-#: rc.cpp:366
+#: rc.cpp:305
 msgid "Add"
 msgstr "Dodaj"
 
 #. i18n: file: enginesettings.ui:26
 #. i18n: ectx: property (text), widget (KPushButton, removeButton)
-#: rc.cpp:369
+#: rc.cpp:308
 msgid "Remove"
 msgstr "Ukloni"
 
 # >! Contexts.
 #. i18n: file: enginesettings.ui:61
 #. i18n: ectx: property (text), widget (QTableWidget, tableWidget)
-#: rc.cpp:372
+#: rc.cpp:311
 msgid "Name"
 msgstr "Ime"
 
 #. i18n: file: enginesettings.ui:66
 #. i18n: ectx: property (text), widget (QTableWidget, tableWidget)
-#: rc.cpp:375
+#: rc.cpp:314
 msgid "Command"
 msgstr "naredba"
 
 #. i18n: file: enginesettings.ui:71
 #. i18n: ectx: property (text), widget (QTableWidget, tableWidget)
-#: rc.cpp:378
+#: rc.cpp:317
 msgid "Protocol"
 msgstr "protokol"
 
 #. i18n: file: enginesettings.ui:76
 #. i18n: ectx: property (text), widget (QTableWidget, tableWidget)
-#: rc.cpp:381
+#: rc.cpp:320
 msgid "Installed"
 msgstr "instalirana"
 
+#. i18n: file: prefs_base.ui:17
+#. i18n: ectx: property (title), widget (QGroupBox, animationGroup)
+#: rc.cpp:323
+msgid "Animations"
+msgstr "Animacije"
+
+#. i18n: file: prefs_base.ui:23
+#. i18n: ectx: property (text), widget (QLabel, animationSpeedLabel)
+#: rc.cpp:326
+msgid "Animation &speed:"
+msgstr "&Brzina animacije"
+
+#. i18n: file: prefs_base.ui:34
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
+#: rc.cpp:329
+msgid "Instant (no animation)"
+msgstr "trenutna (bez animacije)"
+
+#. i18n: file: prefs_base.ui:39
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
+#: rc.cpp:332
+msgid "Fast"
+msgstr "brza"
+
+#. i18n: file: prefs_base.ui:44
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
+#: rc.cpp:335
+msgid "Normal"
+msgstr "normalna"
+
+#. i18n: file: prefs_base.ui:49
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_animationSpeed)
+#: rc.cpp:338
+msgid "Slow"
+msgstr "spora"
+
+#. i18n: file: prefs_base.ui:57
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_animateBoard)
+#: rc.cpp:341
+msgid "Animate the board as well"
+msgstr "Animiraj i tablu"
+
+#. i18n: file: prefs_base.ui:67
+#. i18n: ectx: property (title), widget (QGroupBox, appearanceGroup)
+#: rc.cpp:344
+msgid "Appearance"
+msgstr "Izgled"
+
+#. i18n: file: prefs_base.ui:76
+#. i18n: ectx: property (text), widget (QLabel, showMarkersForLabel)
+#: rc.cpp:347
+msgid "Show &markers for:"
+msgstr "Prikaži &markere za:"
+
+#. i18n: file: prefs_base.ui:86
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_showMarker)
+#: rc.cpp:350
+msgctxt "Option to show markers for"
+msgid "Legal moves"
+msgstr "dozvoljene poteze"
+
+#. i18n: file: prefs_base.ui:99
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_showMotion)
+#: rc.cpp:353
+msgctxt "Option to show markers for"
+msgid "Opponent's move"
+msgstr "protivnikov potez"
+
+#. i18n: file: prefs_base.ui:109
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_showDanger)
+#: rc.cpp:356
+msgctxt "Option to show markers for"
+msgid "Check"
+msgstr "šah"
+
+#. i18n: file: prefs_base.ui:119
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: rc.cpp:359
+msgid "Border display:"
+msgstr "Prikaz ivica:"
+
+#. i18n: file: prefs_base.ui:127
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_borderDisplayType)
+#: rc.cpp:362
+msgid "No borders"
+msgstr "bez ivica"
+
+#. i18n: file: prefs_base.ui:132
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_borderDisplayType)
+#: rc.cpp:365
+msgid "Only borders"
+msgstr "samo ivice"
+
+#. i18n: file: prefs_base.ui:137
+#. i18n: ectx: property (text), item, widget (KComboBox, kcfg_borderDisplayType)
+#: rc.cpp:368
+msgid "Borders and notation"
+msgstr "ivice i notacija"
+
+#. i18n: file: prefs_base.ui:148
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: rc.cpp:371
+msgid "Behavior"
+msgstr "Ponašanje"
+
+#. i18n: file: prefs_base.ui:154
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_flipBoard)
+#: rc.cpp:374
+msgid "Flip the board in local matches between humans"
+msgstr "Prevrći tablu u lokalnim partijama između ljudi"
+
+#. i18n: file: prefs_base.ui:161
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_askDiscard)
+#: rc.cpp:377
+msgid "Show confirmation dialog before closing"
+msgstr "Dijalog za potvrdu pre zatvaranja"
+
 #. i18n: file: customdifficultydialog.ui:20
 #. i18n: ectx: property (text), widget (QLabel, searchDepthLabel)
-#: rc.cpp:384
+#: rc.cpp:380
 msgid "Search &depth:"
 msgstr "&Dubina pretrage:"
 
 #. i18n: file: customdifficultydialog.ui:30
 #. i18n: ectx: property (specialValueText), widget (KIntSpinBox, searchDepthIntSpinBox)
-#: rc.cpp:387
+#: rc.cpp:383
 msgctxt "Let the engine determine the search depth"
 msgid "Engine default"
 msgstr "podrazumevano za motor"
 
 #. i18n: file: customdifficultydialog.ui:37
 #. i18n: ectx: property (text), widget (QLabel, memorySizeLabel)
-#: rc.cpp:390
+#: rc.cpp:386
 msgid "Memory &size:"
 msgstr "Veličina &memorije:"
 
 #. i18n: file: customdifficultydialog.ui:47
 #. i18n: ectx: property (suffix), widget (KIntSpinBox, memorySizeIntSpinBox)
-#: rc.cpp:393
+#: rc.cpp:389
 msgctxt "Megabytes"
 msgid " MB"
 msgstr " MB"
 
 #. i18n: file: historywidget.ui:25
 #. i18n: ectx: property (text), widget (QLabel, notationLabel)
-#: rc.cpp:396
+#: rc.cpp:392
 msgid "&Notation:"
 msgstr "&Notacija:"
 
 # >> @item:inlistbox Notation:
 #. i18n: file: historywidget.ui:36
 #. i18n: ectx: property (text), item, widget (KComboBox, notationComboBox)
-#: rc.cpp:399
+#: rc.cpp:395
 msgid "Short Algebraic"
 msgstr "kratka algebarska"
 
 # >> @item:inlistbox Notation:
 #. i18n: file: historywidget.ui:41
 #. i18n: ectx: property (text), item, widget (KComboBox, notationComboBox)
-#: rc.cpp:402
+#: rc.cpp:398
 msgid "Long Algebraic"
 msgstr "duga algebarska"
 
 # >> @item:inlistbox Notation:
 #. i18n: file: historywidget.ui:46
 #. i18n: ectx: property (text), item, widget (KComboBox, notationComboBox)
-#: rc.cpp:405
+#: rc.cpp:401
 msgid "Coordinate"
 msgstr "koordinatna"
 
 #. i18n: file: historywidget.ui:56
 #. i18n: ectx: property (text), widget (KPushButton, saveButton)
-#: rc.cpp:408
+#: rc.cpp:404
 msgid "&Save History"
 msgstr "&Sačuvaj istorijat"

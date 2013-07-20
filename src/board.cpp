@@ -24,11 +24,14 @@
 
 #include "core/pos.h"
 #include "core/move.h"
+#include "core/item.h"
 #include "rules/rules.h"
+
 #include "ui_promotiondialog.h"
 #include "gamemanager.h"
 
-#include <KGameTheme>
+#include <KgTheme>
+#include <KGameRenderer>
 #include <KDebug>
 #include <KDialog>
 
@@ -40,8 +43,6 @@
 #include <QtGui/QGraphicsView>
 #include <QtCore/qmath.h>
 
-#include "core/item.h"
-#include "core/renderer.h"
 
 using namespace Knights;
 
@@ -68,9 +69,10 @@ const QString blackLettersKey = QLatin1String ( "BlackLetters" );
 const QString whiteNumbersKey = QLatin1String ( "WhiteNumbers" );
 const QString blackNumbersKey = QLatin1String ( "BlackNumbers" );
 
-Board::Board ( QObject* parent ) : QGraphicsScene ( parent )
+Board::Board ( KgThemeProvider* provider, QObject* parent ) : QGraphicsScene ( parent ), 
+m_themeProvider(provider)
 {
-    renderer = new Renderer ( Settings::theme() );
+    renderer = new KGameRenderer ( m_themeProvider );
     m_background = 0;
     selectedPiece = 0;
     draggedPiece = 0;
@@ -78,6 +80,8 @@ Board::Board ( QObject* parent ) : QGraphicsScene ( parent )
     m_currentPlayer = White;
     updateTheme();
     m_dragActive = false;
+    
+    connect (provider, SIGNAL(currentThemeChanged(const KgTheme*)), SLOT(updateTheme()));
 }
 
 Board::~Board()
@@ -495,22 +499,6 @@ void Board::addMarker ( const Pos& pos, const QString& spriteKey )
 
 void Board::updateTheme()
 {
-    renderer->setTheme ( Settings::theme() );
-#if not defined WITH_KGR
-    // Using QGraphicsSvgItems, loading a new file and then resizing does not work
-    // instead, we have to delete every item and re-create it
-    foreach ( Piece* p, m_grid )
-    {
-        addPiece ( p->pieceType(), p->color(), m_grid.key ( p ) );
-        delete p;
-    }
-    // If the user is changing the theme, he/she probably already saw any current markers
-    qDeleteAll ( markers );
-    markers.clear();
-
-    qDeleteAll ( m_tiles );
-    m_tiles.clear();
-#endif
     delete m_background;
     if ( renderer->spriteExists ( backgroundKey ) )
     {
@@ -730,5 +718,6 @@ PieceType Board::getPromotedType()
     }
     return Queen;
 }
+
 #include "board.moc"
 // kate: indent-mode cstyle; space-indent on; indent-width 4; replace-tabs on;  replace-tabs on;  replace-tabs on;
