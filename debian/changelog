@@ -1,6 +1,6 @@
-knights (2.5.0-0r1) UNRELEASED; urgency=low
+knights (2.5.0-1) unstable; urgency=low
 
-  [ Pino Toscano ]
+  * Team upload.
   * New upstream release.
   * Update knights.xpm.
   * Bump the kdelibs5-dev and libkdegames-dev build dependencies to 4.9,
@@ -8,7 +8,7 @@ knights (2.5.0-0r1) UNRELEASED; urgency=low
   * Update Vcs-* headers.
   * Bump Standards-Version to 3.9.4, no changes required.
 
- -- Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>  Sat, 20 Jul 2013 16:13:38 +0200
+ -- Pino Toscano <pino@debian.org>  Sat, 20 Jul 2013 16:35:21 +0200
 
 knights (2.4.2-1) experimental; urgency=low
 
