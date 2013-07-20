@@ -1,3 +1,10 @@
+knights (2.5.0-0r1) UNRELEASED; urgency=low
+
+  [ Pino Toscano ]
+  * New upstream release.
+
+ -- Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>  Sat, 20 Jul 2013 16:13:38 +0200
+
 knights (2.4.2-1) experimental; urgency=low
 
   * New upstream release.
