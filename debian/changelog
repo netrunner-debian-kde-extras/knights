@@ -3,6 +3,8 @@ knights (2.5.0-0r1) UNRELEASED; urgency=low
   [ Pino Toscano ]
   * New upstream release.
   * Update knights.xpm.
+  * Bump the kdelibs5-dev and libkdegames-dev build dependencies to 4.9,
+    as required upstream.
 
  -- Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>  Sat, 20 Jul 2013 16:13:38 +0200
 
