@@ -33,4 +33,4 @@ Description: chess interface for the KDE Platform - debugging symbols
  Grand Masters. At the moment you can play either against other human or
  against the machine using an engine like gnuchess.
  .
- This package provides debugging symbols for krecipes.
+ This package provides debugging symbols for knights.
