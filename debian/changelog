@@ -9,6 +9,8 @@ knights (2.5.0-2) UNRELEASED; urgency=medium
       and in as-needed mode
     - drop the cdbs build dependency
   * Bump Standards-Version to 3.9.6, no changes required.
+  * Explicitly install to debian/knights, instead of the default debian/tmp
+    followed by moves by dh_install.
 
  -- Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>  Sun, 29 Nov 2015 12:11:57 +0100
 
