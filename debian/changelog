@@ -2,6 +2,8 @@ knights (2.5.0-2) UNRELEASED; urgency=medium
 
   [ Pino Toscano ]
   * Fix typo in the description of knights-dbg. (Closes: #724819)
+  * Remove menu file and its pixmap, as knights already provides a desktop
+    file.
 
  -- Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>  Sun, 29 Nov 2015 12:11:57 +0100
 
