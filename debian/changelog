@@ -1,3 +1,8 @@
+knights (2.5.0-2) UNRELEASED; urgency=medium
+
+
+ -- Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>  Sun, 29 Nov 2015 12:11:57 +0100
+
 knights (2.5.0-1) unstable; urgency=low
 
   * Team upload.
